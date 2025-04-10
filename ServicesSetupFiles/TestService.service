@@ -1,0 +1,12 @@
+[Unit]
+Description=Starting the Credential Server
+
+[Service]
+ExecStart=/home/Avatar/Avatar_Env/bin/python3.12  service_AvatarService/avatarService.py
+WorkingDirectory=/home/Avatar/MainServer/
+# StandardOutput=file:/home/Neuralperk/mongoServerError.log
+# StandardError=file:/home/Neuralperk/mongoServerError.log
+
+[Install]
+WantedBy=multi-user.target
+
