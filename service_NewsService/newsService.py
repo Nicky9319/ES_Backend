@@ -47,7 +47,7 @@ class Service():
 
         
 async def start_service():
-    service = Service('127.0.0.1', 8080)
+    service = Service('0.0.0.0', 8000)
     await service.startService()
 
 if __name__ == "__main__":
