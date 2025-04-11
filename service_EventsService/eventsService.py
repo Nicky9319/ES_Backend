@@ -34,6 +34,11 @@ class Service():
         async def read_root():
             print("Running Through Someone Else")
             return {"message": "Hello World"}
+        
+        @self.httpServer.app.get("/Events/AllEvents")
+        async def getAllEvents():
+            print("Running Through Someone Else")
+            return {"message": "Hello World"}
     
 
     async def startService(self):

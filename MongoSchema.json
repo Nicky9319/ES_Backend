@@ -303,7 +303,85 @@
             },
             "validationLevel": "strict",
             "validationAction": "error"
-        }
+        },
 
+        {
+            "name": "CHAT_INFO",
+            "validator": {
+                "$jsonSchema": {
+                    "bsonType": "object",
+                    "required": [
+                        "CHAT_ID",
+                        "Participants"
+                    ],
+                    "properties": {
+                        "CHAT_ID": {
+                            "bsonType": "string",
+                            "description": "Unique identifier for the chat"
+                        },
+                        "Participants": {
+                            "bsonType": "array",
+                            "description": "List of participant IDs",
+                            "items": {
+                                "bsonType": "string",
+                                "description": "Each participant is represented by a string ID"
+                            },
+                            "minItems": 1
+                        }
+                    }
+                }
+            },
+            "validationLevel": "strict",
+            "validationAction": "error"
+        },
+
+        {
+            "name": "CHAT_MESSAGES",
+            "validator": {
+                "$jsonSchema": {
+                    "bsonType": "object",
+                    "required": [
+                        "LAST_MESSAGE",
+                        "MESSAGES"
+                    ],
+                    "properties": {
+                        "LAST_MESSAGE": {
+                            "bsonType": "string",
+                            "description": "The most recent message text"
+                        },
+                        "MESSAGES": {
+                            "bsonType": "array",
+                            "description": "List of all messages in the chat",
+                            "items": {
+                                "bsonType": "object",
+                                "required": [
+                                    "SENDER_ID",
+                                    "MESSAGE",
+                                    "TIMESTAMP"
+                                ],
+                                "properties": {
+                                    "SENDER_ID": {
+                                        "bsonType": "string",
+                                        "description": "User ID of the sender"
+                                    },
+                                    "MESSAGE": {
+                                        "bsonType": "string",
+                                        "description": "The message content"
+                                    },
+                                    "TIMESTAMP": {
+                                        "bsonType": "date",
+                                        "description": "Date and time the message was sent"
+                                    }
+                                }
+                            },
+                            "minItems": 1
+                        }
+                    }
+                }
+            },
+            "validationLevel": "strict",
+            "validationAction": "error"
+        }
+        
     ]
 }
