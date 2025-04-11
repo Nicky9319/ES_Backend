@@ -1,0 +1,387 @@
+{
+    "database": "ES",
+    "collections": [
+
+        {
+            "name": "EVENTS",
+            "validator": {
+                "$jsonSchema": {
+                    "bsonType": "object",
+                    "required": [
+                        "CONTACT_INFO",
+                        "DESCRIPTION",
+                        "EVENT_DATE",
+                        "EVENT_ID",
+                        "EVENT_NAME",
+                        "QUESTIONNAIRE",
+                        "REGISTRATION_DEADLINE",
+                        "VENUE",
+                        "ELIGIBILITY"
+                    ],
+                    "properties": {
+                        "CONTACT_INFO": {
+                            "bsonType": "object",
+                            "required": [
+                                "EMAIL",
+                                "MOBILE_NUMBER"
+                            ],
+                            "properties": {
+                                "EMAIL": {
+                                    "bsonType": "string",
+                                    "description": "User's email address"
+                                },
+                                "MOBILE_NUMBER": {
+                                    "bsonType": "long",
+                                    "description": "User's mobile number"
+                                }
+                            }
+                        },
+                        "DESCRIPTION": {
+                            "bsonType": "string"
+                        },
+                        "EVENT_DATE": {
+                            "bsonType": "date"
+                        },
+                        "EVENT_ID": {
+                            "bsonType": "string"
+                        },
+                        "EVENT_NAME": {
+                            "bsonType": "string"
+                        },
+                        "QUESTIONNAIRE": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "object",
+                                "required": [
+                                    "NAME",
+                                    "AGE",
+                                    "CONTACT_INFO",
+                                    "OWN_SETUP"
+                                ],
+                                "properties": {
+                                    "NAME": {
+                                        "bsonType": "string"
+                                    },
+                                    "AGE": {
+                                        "bsonType": "int"
+                                    },
+                                    "CONTACT_INFO": {
+                                        "bsonType": "string"
+                                    },
+                                    "OWN_SETUP": {
+                                        "bsonType": "bool"
+                                    }
+                                }
+                            }
+                        },
+                        "REGISTRATION_DEADLINE": {
+                            "bsonType": "date"
+                        },
+                        "VENUE": {
+                            "bsonType": "string"
+                        },
+                        "ELIGIBILITY": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "string"
+                            }
+                        },
+                        "CREATED_AT": {
+                            "bsonType": "date"
+                        }
+                    }
+                }
+            },
+            "validationLevel": "strict",
+            "validationAction": "error"
+        },
+
+        {
+            "name": "USER_PROFILE",
+            "validator": {
+                "$jsonSchema": {
+                    "bsonType": "object",
+                    "required": [
+                        "GAMES_PLAYED",
+                        "GAME_RELATED_INFO",
+                        "HISTORY",
+                        "PLATFORM_ID",
+                        "PLATFORM_STATUS",
+                        "PROFILE_BANNER",
+                        "PROFILE_PIC",
+                        "LOCATION",
+                        "TEAM_STATUS",
+                        "SOCIAL_LINKS",
+                        "CREATED_AT"
+                    ],
+                    "properties": {
+                        "GAMES_PLAYED": {
+                            "bsonType": "string"
+                        },
+                        "GAME_RELATED_INFO": {
+                            "bsonType": "object"
+                        },
+                        "HISTORY": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "object",
+                                "required": [
+                                    "ROLES_PLAYED",
+                                    "DURATION",
+                                    "TEAM_NAME",
+                                    "TEAM_ID",
+                                    "GAME_NAME"
+                                ],
+                                "properties": {
+                                    "ROLES_PLAYED": {
+                                        "bsonType": "array",
+                                        "items": {
+                                            "bsonType": "string"
+                                        }
+                                    },
+                                    "DURATION": {
+                                        "bsonType": "string"
+                                    },
+                                    "TEAM_NAME": {
+                                        "bsonType": "string"
+                                    },
+                                    "TEAM_ID": {
+                                        "bsonType": "string"
+                                    },
+                                    "GAME_NAME": {
+                                        "bsonType": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "PLATFORM_ID": {
+                            "bsonType": "string"
+                        },
+                        "PLATFORM_STATUS": {
+                            "bsonType": "string"
+                        },
+                        "PROFILE_BANNER": {
+                            "bsonType": "string"
+                        },
+                        "PROFILE_PIC": {
+                            "bsonType": "string"
+                        },
+                        "LOCATION": {
+                            "bsonType": "string"
+                        },
+                        "TEAM_STATUS": {
+                            "bsonType": "string"
+                        },
+                        "SOCIAL_LINKS": {
+                            "bsonType": "object",
+                            "required": [
+                                "INSTAGRAM",
+                                "DISCORD",
+                                "TWITTER",
+                                "LINKEDIN",
+                                "WEBSITE",
+                                "YOUTUBE"
+                            ],
+                            "properties": {
+                                "INSTAGRAM": {
+                                    "bsonType": "string"
+                                },
+                                "DISCORD": {
+                                    "bsonType": "string"
+                                },
+                                "TWITTER": {
+                                    "bsonType": "string"
+                                },
+                                "LINKEDIN": {
+                                    "bsonType": "string"
+                                },
+                                "WEBSITE": {
+                                    "bsonType": "string"
+                                },
+                                "YOUTUBE": {
+                                    "bsonType": "string"
+                                }
+                            }
+                        },
+                        "CREATED_AT": {
+                            "bsonType": "date"
+                        }
+                    }
+                }
+            },
+            "validationLevel": "strict",
+            "validationAction": "error"
+        },
+
+        {
+            "name": "MENTOR_PROFILE",
+            "validator": {
+                "$jsonSchema": {
+                    "bsonType": "object",
+                    "required": [
+                        "PLATFORM_ID",
+                        "GAMES_MENTORED"
+                    ],
+                    "properties": {
+                        "PROFILE_PICTURE": {
+                            "bsonType": "string",
+                            "description": "Must be a URI"
+                        },
+                        "COVER_BANNER": {
+                            "bsonType": "string",
+                            "description": "Must be a URI"
+                        },
+                        "PLATFORM_ID": {
+                            "bsonType": "string"
+                        },
+                        "TAGLINE": {
+                            "bsonType": "string"
+                        },
+                        "BIO": {
+                            "bsonType": "string"
+                        },
+                        "LOCATION": {
+                            "bsonType": "string"
+                        },
+                        "AVAILABILITY": {
+                            "bsonType": "string",
+                            "enum": [
+                                "Available",
+                                "Booked",
+                                "Away"
+                            ]
+                        },
+                        "GAMES_MENTORED": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "string"
+                            }
+                        },
+                        "SPECIALTIES": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "string"
+                            }
+                        },
+                        "SKILL_TAGS": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "string"
+                            }
+                        },
+                        "EXPERIENCE_YEARS": {
+                            "bsonType": "number"
+                        },
+                        "ESPORTS_BACKGROUND": {
+                            "bsonType": "string"
+                        },
+                        "SOCIAL_LINKS": {
+                            "bsonType": "object",
+                            "properties": {
+                                "DISCORD": {
+                                    "bsonType": "string"
+                                },
+                                "INSTAGRAM": {
+                                    "bsonType": "string"
+                                },
+                                "TWITTER": {
+                                    "bsonType": "string"
+                                },
+                                "YOUTUBE": {
+                                    "bsonType": "string"
+                                },
+                                "WEBSITE": {
+                                    "bsonType": "string"
+                                }
+                            }
+                        },
+                        "CREATED_AT": {
+                            "bsonType": "date"
+                        }
+                    }
+                }
+            },
+            "validationLevel": "strict",
+            "validationAction": "error"
+        },
+
+        {
+            "name": "CHAT_INFO",
+            "validator": {
+                "$jsonSchema": {
+                    "bsonType": "object",
+                    "required": [
+                        "CHAT_ID",
+                        "Participants"
+                    ],
+                    "properties": {
+                        "CHAT_ID": {
+                            "bsonType": "string",
+                            "description": "Unique identifier for the chat"
+                        },
+                        "Participants": {
+                            "bsonType": "array",
+                            "description": "List of participant IDs",
+                            "items": {
+                                "bsonType": "string",
+                                "description": "Each participant is represented by a string ID"
+                            },
+                            "minItems": 1
+                        }
+                    }
+                }
+            },
+            "validationLevel": "strict",
+            "validationAction": "error"
+        },
+
+        {
+            "name": "CHAT_MESSAGES",
+            "validator": {
+                "$jsonSchema": {
+                    "bsonType": "object",
+                    "required": [
+                        "LAST_MESSAGE",
+                        "MESSAGES"
+                    ],
+                    "properties": {
+                        "LAST_MESSAGE": {
+                            "bsonType": "string",
+                            "description": "The most recent message text"
+                        },
+                        "MESSAGES": {
+                            "bsonType": "array",
+                            "description": "List of all messages in the chat",
+                            "items": {
+                                "bsonType": "object",
+                                "required": [
+                                    "SENDER_ID",
+                                    "MESSAGE",
+                                    "TIMESTAMP"
+                                ],
+                                "properties": {
+                                    "SENDER_ID": {
+                                        "bsonType": "string",
+                                        "description": "User ID of the sender"
+                                    },
+                                    "MESSAGE": {
+                                        "bsonType": "string",
+                                        "description": "The message content"
+                                    },
+                                    "TIMESTAMP": {
+                                        "bsonType": "date",
+                                        "description": "Date and time the message was sent"
+                                    }
+                                }
+                            },
+                            "minItems": 1
+                        }
+                    }
+                }
+            },
+            "validationLevel": "strict",
+            "validationAction": "error"
+        }
+        
+    ]
+}
