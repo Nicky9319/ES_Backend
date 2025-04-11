@@ -1,7 +1,7 @@
 {
     "database": "ES",
     "collections": [
-        
+
         {
             "name": "EVENTS",
             "validator": {
@@ -109,7 +109,7 @@
                         "PLATFORM_STATUS",
                         "PROFILE_BANNER",
                         "PROFILE_PIC",
-                        "STATE",
+                        "LOCATION",
                         "TEAM_STATUS",
                         "SOCIAL_LINKS",
                         "CREATED_AT"
@@ -166,7 +166,7 @@
                         "PROFILE_PIC": {
                             "bsonType": "string"
                         },
-                        "STATE": {
+                        "LOCATION": {
                             "bsonType": "string"
                         },
                         "TEAM_STATUS": {
@@ -219,7 +219,7 @@
                 "$jsonSchema": {
                     "bsonType": "object",
                     "required": [
-                        "HANDLE",
+                        "PLATFORM_ID",
                         "GAMES_MENTORED"
                     ],
                     "properties": {
@@ -231,7 +231,7 @@
                             "bsonType": "string",
                             "description": "Must be a URI"
                         },
-                        "HANDLE": {
+                        "PLATFORM_ID": {
                             "bsonType": "string"
                         },
                         "TAGLINE": {
