@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "81b7a0e1-4413-4b09-b382-9dcb8da219d4",
+		"name": "Elosphere",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28377345"
+	},
+	"item": [
+		{
+			"name": "MongoDB Tests",
+			"item": [
+				{
+					"name": "Get All Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:14000/Events/AllEvents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "14000",
+							"path": [
+								"Events",
+								"AllEvents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert Event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"CONTACT_INFO\": {\n    \"EMAIL\": \"event.organizer@example.com\",\n    \"MOBILE_NUMBER\": 9876543210\n  },\n  \"DESCRIPTION\": \"A national-level hackathon focusing on solving real-world problems with innovative solutions.\",\n  \"EVENT_DATE\": { \"$date\": \"2025-06-20T10:00:00Z\" },\n  \"EVENT_ID\": \"EVT123456\",\n  \"EVENT_NAME\": \"Hack the Future 2025\",\n  \"REGISTRATION_DEADLINE\": { \"$date\": \"2025-06-10T23:59:59Z\" },\n  \"VENUE\": \"Innovation Hall, TechCity Campus\",\n  \"ELIGIBILITY\": [\n    \"College Students\",\n    \"Startup Founders\",\n    \"Freelancers\"\n  ],\n  \"CREATED_AT\": { \"$date\": \"2025-04-11T12:00:00Z\" }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:14000/Events/InsertEvent",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "14000",
+							"path": [
+								"Events",
+								"InsertEvent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"EVENT_ID\": \"6e623e10-6f31-4071-b8b5-d7ddcfcde096\",\n  \"EVENT_NAME\": \"Updated Tournament\",\n  \"DESCRIPTION\": \"An updated gaming tournament\",\n  \"EVENT_DATE\": \"2024-06-20T10:00:00.000Z\",\n  \"REGISTRATION_DEADLINE\": \"2024-06-10T23:59:59.000Z\",\n  \"VENUE\": \"Updated Virtual Arena\",\n  \"CONTACT_INFO\": {\n    \"EMAIL\": \"organizer@test.com\",\n    \"MOBILE_NUMBER\": 9876543210\n  },\n  \"QUESTIONNAIRE\": [\n    {\n      \"NAME\": \"Player Experience 3.0\",\n      \"AGE\": 18,\n      \"CONTACT_INFO\": \"player@test.com\",\n      \"OWN_SETUP\": true\n    }\n  ],\n  \"ELIGIBILITY\": [\"Ages 16+\", \"Intermediate Skill Level\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:14000/Events/Update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "14000",
+							"path": [
+								"Events",
+								"Update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
