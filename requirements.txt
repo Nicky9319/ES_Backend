@@ -9,6 +9,8 @@ uvicorn
 python-dotenv
 httpx
 pymongo
+bs4
+feedparser
 
 # Project Dependent Dependencies
 # Example:

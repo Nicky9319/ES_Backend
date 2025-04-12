@@ -181,6 +181,12 @@ class Service():
             # Return the user profile
             return {"USER_PROFILE": user_profile}
         
+        @self.httpServer.app.get("/UserProfile/GetAllUserProfiles")
+        async def get_all_user_profiles():
+            print("Fetching All User Profiles")
+            user_profiles = list(self.db["USER_PROFILE"].find({}, {'_id': 0}))
+            return {"USER_PROFILES": user_profiles}
+
         @self.httpServer.app.post("/UserProfile/InsertNewUser")
         async def insert_new_user(request: Request):
             try:
@@ -233,6 +239,7 @@ class Service():
             except Exception as e:
                 raise HTTPException(status_code=500, detail=f"Error updating user profile: {str(e)}")
 
+        
 
 
     async def startService(self):

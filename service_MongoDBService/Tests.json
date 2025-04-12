@@ -204,6 +204,26 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get All User Profiles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:14000/UserProfile/GetAllUserProfiles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"UserProfile",
+										"GetAllUserProfiles"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
