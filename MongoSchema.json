@@ -104,7 +104,7 @@
                         "GAMES_PLAYED",
                         "GAME_RELATED_INFO",
                         "HISTORY",
-                        "PLATFORM_ID",
+                        "USER_ID",
                         "PLATFORM_STATUS",
                         "PROFILE_BANNER",
                         "PROFILE_PIC",
@@ -115,7 +115,10 @@
                     ],
                     "properties": {
                         "GAMES_PLAYED": {
-                            "bsonType": "string"
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "string"
+                            }
                         },
                         "GAME_RELATED_INFO": {
                             "bsonType": "object"
@@ -153,7 +156,7 @@
                                 }
                             }
                         },
-                        "PLATFORM_ID": {
+                        "USER_ID": {
                             "bsonType": "string"
                         },
                         "PLATFORM_STATUS": {

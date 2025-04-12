@@ -80,6 +80,8 @@ class Service():
 
     async def ConfigureAPIRoutes(self):
 
+    # Events ---------------------------------
+
         @self.httpServer.app.get("/Events/AllEvents")
         async def get_event():
             print("Fetching All Events")
@@ -162,6 +164,76 @@ class Service():
             except Exception as e:
                 raise HTTPException(status_code=500, detail=f"Error updating event: {str(e)}")
     
+    
+    # User Profile -------------------------
+        
+        @self.httpServer.app.get("/UserProfile/GetUserProfile")
+        async def get_user_profile(userID: str, reuest: Request):
+            # Check if userID is provided
+            if not userID:
+                raise HTTPException(status_code=400, detail="userID is required")
+            
+            # Fetch user profile from the database
+            user_profile = self.db["USER_PROFILE"].find_one({"USER_ID": userID}, {'_id': 0})
+            if not user_profile:
+                raise HTTPException(status_code=404, detail=f"User profile with ID {userID} not found")
+            
+            # Return the user profile
+            return {"USER_PROFILE": user_profile}
+        
+        @self.httpServer.app.post("/UserProfile/InsertNewUser")
+        async def insert_new_user(request: Request):
+            try:
+                user_data = await request.json()
+                print("Received user data:", user_data)
+                
+                # Generate a unique USER_ID
+                user_data["USER_ID"] = str(uuid.uuid4())
+
+                user_data["PLATFORM_STATUS"] = "ACTIVE"
+                
+                # Add creation timestamp
+                user_data["CREATED_AT"] = datetime.now()
+                
+
+                # Insert the user profile
+                result = self.db["USER_PROFILE"].insert_one(user_data)
+                
+                return {"message": "User profile inserted successfully", "USER_ID": user_data["USER_ID"]}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except DuplicateKeyError:
+                raise HTTPException(status_code=409, detail="A user with this ID already exists")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error inserting user profile: {str(e)}")
+
+        @self.httpServer.app.put("/UserProfile/UpdateUserProfile")
+        async def update_user_profile(request: Request, userID : str):
+            try:
+                user_data = await request.json()
+                print("Updating User Profile", user_data)
+                
+                # Check if the user profile exists
+                existing_user = self.db["USER_PROFILE"].find_one({"USER_ID": userID})
+                if not existing_user:
+                    raise HTTPException(status_code=404, detail=f"User profile with ID {userID} not found")
+                
+                # Update the user profile
+                result = self.db["USER_PROFILE"].update_one(
+                    {"USER_ID": userID}, 
+                    {"$set": user_data}
+                )
+                
+                if result.modified_count == 0:
+                    return {"message": "No changes were made to the user profile"}
+                    
+                return {"message": "User profile updated successfully"}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error updating user profile: {str(e)}")
+
+
 
     async def startService(self):
         # await self.messageQueue.InitializeConnection()
