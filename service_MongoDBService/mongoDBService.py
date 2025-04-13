@@ -35,6 +35,8 @@ class Service():
         self.mongo_client = MongoClient('mongodb://localhost:27017/', server_api=ServerApi('1'))
         self.db = self.mongo_client["ES"]  # Database name from MongoSchema.json
         self.event_collection = self.db["EVENTS"]  # Collection name from MongoSchema.json
+        self.user_profile_collection = self.db["USER_PROFILE"] # Collection name from MongoSchema.json
+        self.mentor_profile_collection = self.db["MENTOR_PROFILE"] # Collection name from MongoSchema.json
 
         
     def validate_event_data(self, event_data):
@@ -239,7 +241,76 @@ class Service():
             except Exception as e:
                 raise HTTPException(status_code=500, detail=f"Error updating user profile: {str(e)}")
 
-        
+    # Mentor Profile -------------------------
+
+        @self.httpServer.app.get("/MentorProfile/GetMentorProfile")
+        async def get_mentor_profile(mentorID: str, request: Request):
+            # Check if mentorID is provided
+            if not mentorID:
+                raise HTTPException(status_code=400, detail="mentorID is required")
+
+            # Fetch mentor profile from the database
+            mentor_profile = self.mentor_profile_collection.find_one({"MENTOR_ID": mentorID}, {'_id': 0})
+            if not mentor_profile:
+                raise HTTPException(status_code=404, detail=f"Mentor profile with ID {mentorID} not found")
+
+            # Return the mentor profile
+            return {"MENTOR_PROFILE": mentor_profile}
+
+        @self.httpServer.app.get("/MentorProfile/GetAllMentorProfiles")
+        async def get_all_mentor_profiles():
+            print("Fetching All Mentor Profiles")
+            mentor_profiles = list(self.mentor_profile_collection.find({}, {'_id': 0}))
+            return {"MENTOR_PROFILES": mentor_profiles}
+
+        @self.httpServer.app.post("/MentorProfile/InsertNewMentor")
+        async def insert_new_mentor(request: Request):
+            try:
+                mentor_data = await request.json()
+                print("Received mentor data:", mentor_data)
+
+                # Generate a unique MENTOR_ID
+                mentor_data["MENTOR_ID"] = str(uuid.uuid4())
+
+                # Add creation timestamp
+                mentor_data["CREATED_AT"] = datetime.now()
+
+                # Insert the mentor profile
+                result = self.mentor_profile_collection.insert_one(mentor_data)
+
+                return {"message": "Mentor profile inserted successfully", "MENTOR_ID": mentor_data["MENTOR_ID"]}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except DuplicateKeyError:
+                raise HTTPException(status_code=409, detail="A mentor with this ID already exists")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error inserting mentor profile: {str(e)}")
+
+        @self.httpServer.app.put("/MentorProfile/UpdateMentorProfile")
+        async def update_mentor_profile(request: Request, mentorID: str):
+            try:
+                mentor_data = await request.json()
+                print("Updating Mentor Profile", mentor_data)
+
+                # Check if the mentor profile exists
+                existing_mentor = self.mentor_profile_collection.find_one({"MENTOR_ID": mentorID})
+                if not existing_mentor:
+                    raise HTTPException(status_code=404, detail=f"Mentor profile with ID {mentorID} not found")
+
+                # Update the mentor profile
+                result = self.mentor_profile_collection.update_one(
+                    {"MENTOR_ID": mentorID},
+                    {"$set": mentor_data}
+                )
+
+                if result.modified_count == 0:
+                    return {"message": "No changes were made to the mentor profile"}
+
+                return {"message": "Mentor profile updated successfully"}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error updating mentor profile: {str(e)}")
 
 
     async def startService(self):

@@ -226,6 +226,131 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Mentor Profile",
+					"item": [
+						{
+							"name": "Get Mentor Profile",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:14000/MentorProfile/GetMentorProfile?mentorID=mentor123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"MentorProfile",
+										"GetMentorProfile"
+									],
+									"query": [
+										{
+											"key": "mentorID",
+											"value": "mentor123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Insert New Mentor",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"GAMES\": [\"Valorant\", \"League of Legends\"],\n    \"PROFILE_BANNER\": \"https://example.com/mentor_banner.jpg\",\n    \"PROFILE_PIC\": \"https://example.com/mentor_profile.jpg\",\n    \"LOCATION\": \"New York, USA\",\n    \"EXPERIENCE_YEARS\": 5,\n    \"PRICE_PER_SESSION\": 50,\n    \"SOCIAL_LINKS\": {\n        \"INSTAGRAM\": \"@mentor_insta\",\n        \"DISCORD\": \"mentor#5678\",\n        \"TWITTER\": \"@mentor_tweet\",\n        \"LINKEDIN\": \"linkedin.com/mentor\",\n        \"WEBSITE\": \"mentor.com\",\n        \"YOUTUBE\": \"youtube.com/mentor\"\n    },\n    \"BIO\": \"Experienced esports mentor specializing in FPS and MOBA games.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/MentorProfile/InsertNewMentor",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"MentorProfile",
+										"InsertNewMentor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Mentor Profile",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"GAMES\": [\"Valorant\", \"Apex Legends\"],\n    \"PROFILE_BANNER\": \"https://example.com/updated_mentor_banner.jpg\",\n    \"PROFILE_PIC\": \"https://example.com/updated_mentor_profile.jpg\",\n    \"LOCATION\": \"Los Angeles, USA\",\n    \"EXPERIENCE_YEARS\": 6,\n    \"PRICE_PER_SESSION\": 60,\n    \"SOCIAL_LINKS\": {\n        \"INSTAGRAM\": \"@updated_mentor_insta\",\n        \"DISCORD\": \"updated_mentor#5678\",\n        \"TWITTER\": \"@updated_mentor_tweet\",\n        \"LINKEDIN\": \"linkedin.com/updated_mentor\",\n        \"WEBSITE\": \"updated_mentor.com\",\n        \"YOUTUBE\": \"youtube.com/updated_mentor\"\n    },\n    \"BIO\": \"Updated: Experienced esports mentor specializing in FPS games.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/MentorProfile/UpdateMentorProfile?mentorID=mentor123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"MentorProfile",
+										"UpdateMentorProfile"
+									],
+									"query": [
+										{
+											"key": "mentorID",
+											"value": "mentor123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Mentor Profiles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:14000/MentorProfile/GetAllMentorProfiles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"MentorProfile",
+										"GetAllMentorProfiles"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
