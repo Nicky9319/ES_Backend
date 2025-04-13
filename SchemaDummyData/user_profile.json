@@ -1,0 +1,48 @@
+{
+  "GAMES_PLAYED": [
+    "Valorant",
+    "CS:GO",
+    "Apex Legends"
+  ],
+  "GAME_RELATED_INFO": {
+    "ValorantRank": "Immortal 2",
+    "CSGORank": "Global Elite"
+  },
+  "HISTORY": [
+    {
+      "ROLES_PLAYED": [
+        "Duelist",
+        "Initiator"
+      ],
+      "DURATION": "duration_value_12",
+      "TEAM_NAME": "team_name_value_88",
+      "TEAM_ID": "t_a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      "GAME_NAME": "game_name_value_45"
+    },
+    {
+      "ROLES_PLAYED": [
+        "AWPer"
+      ],
+      "DURATION": "duration_value_5",
+      "TEAM_NAME": "team_name_value_23",
+      "TEAM_ID": "t_b2c3d4e5-f6a7-8901-2345-67890abcdef1",
+      "GAME_NAME": "game_name_value_67"
+    }
+  ],
+  "USER_ID": "u_c3d4e5f6-a7b8-9012-3456-7890abcdef12",
+  "PLATFORM_STATUS": "platform_status_value_91",
+  "PROFILE_BANNER": "https://picsum.photos/seed/101/1200/300",
+  "PROFILE_PIC": "https://picsum.photos/seed/102/200/200",
+  "LOCATION": "location_value_33",
+  "TEAM_STATUS": "team_status_value_76",
+  "SOCIAL_LINKS": {
+    "INSTAGRAM": "instagram_value_2",
+    "DISCORD": "discord_value_58",
+    "TWITTER": "twitter_value_19",
+    "LINKEDIN": "linkedin_value_84",
+    "WEBSITE": "website_value_60",
+    "YOUTUBE": "youtube_value_37"
+  },
+  "BIO": "bio_value_49",
+  "CREATED_AT": { "$date": "2024-06-25T14:20:30.400Z" }
+}

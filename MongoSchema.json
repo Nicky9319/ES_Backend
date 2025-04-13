@@ -47,6 +47,28 @@
                         "EVENT_NAME": {
                             "bsonType": "string"
                         },
+                        "GAME_TYPE": {
+                            "bsonType": "string"
+                        },
+                        "GAME": {
+                            "bsonType": "string"
+                        },
+                        "CONSOLE": {
+                            "bsonType": "string"
+                        },
+                        "PRIZE_POOL": {
+                            "bsonType": "string"
+                        },
+                        "LOCATION": {
+                            "bsonType": "string"
+                        },
+                        "FORMAT": {
+                            "bsonType": "string"
+                        },
+                        "IMAGE": {
+                            "bsonType": "string",
+                            "description": "Must be a URI"
+                        },
                         "QUESTIONNAIRE": {
                             "bsonType": "array",
                             "items": {

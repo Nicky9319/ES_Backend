@@ -1,0 +1,32 @@
+{
+  "PLATFORM_ID": "m_f6a7b8c9-d0e1-2345-6789-0abcdef12345",
+  "GAMES_MENTORED": [
+    "Valorant",
+    "Overwatch"
+  ],
+  "PROFILE_PICTURE": "https://picsum.photos/seed/301/200/200",
+  "COVER_BANNER": "https://picsum.photos/seed/302/1200/300",
+  "TAGLINE": "tagline_value_22",
+  "BIO": "bio_value_81",
+  "LOCATION": "location_value_47",
+  "AVAILABILITY": "Available",
+  "SPECIALTIES": [
+    "Aim Training",
+    "Game Sense"
+  ],
+  "SKILL_TAGS": [
+    "FPS",
+    "Coaching",
+    "Strategy"
+  ],
+  "EXPERIENCE_YEARS": 7,
+  "ESPORTS_BACKGROUND": "esports_background_value_5",
+  "SOCIAL_LINKS": {
+    "DISCORD": "discord_value_93",
+    "INSTAGRAM": "instagram_value_11",
+    "TWITTER": "twitter_value_68",
+    "YOUTUBE": "youtube_value_27",
+    "WEBSITE": "website_value_41"
+  },
+  "CREATED_AT": { "$date": "2024-05-10T08:00:00.000Z" }
+}
