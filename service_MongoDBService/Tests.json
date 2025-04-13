@@ -224,6 +224,286 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Update User Profile Pic",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"PROFILE_PIC\": \"https://example.com/new-profile-pic.jpg\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/UserProfile/updateUserProfilePic?userID=user123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"UserProfile",
+										"updateUserProfilePic"
+									],
+									"query": [
+										{
+											"key": "userID",
+											"value": "user123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Profile Banner",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"PROFILE_BANNER\": \"https://example.com/new-profile-banner.jpg\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/UserProfile/updateUserProfileBanner?userID=user123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"UserProfile",
+										"updateUserProfileBanner"
+									],
+									"query": [
+										{
+											"key": "userID",
+											"value": "user123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Platform Status",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"PLATFORM_STATUS\": \"INACTIVE\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/UserProfile/UpdateUserPlatformStatus?userID=user123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"UserProfile",
+										"UpdateUserPlatformStatus"
+									],
+									"query": [
+										{
+											"key": "userID",
+											"value": "user123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Team Status",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"TEAM_STATUS\": \"In Team\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/UserProfile/UpdateUserTeamStatus?userID=user123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"UserProfile",
+										"UpdateUserTeamStatus"
+									],
+									"query": [
+										{
+											"key": "userID",
+											"value": "user123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Bio",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"BIO\": \"Updated bio for the user.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/UserProfile/UpdateUserBio?userID=user123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"UserProfile",
+										"UpdateUserBio"
+									],
+									"query": [
+										{
+											"key": "userID",
+											"value": "user123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Games Played",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"GAMES_PLAYED\": [\"Valorant\", \"Apex Legends\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/UserProfile/UpdateUserGamesPlayed?userID=user123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"UserProfile",
+										"UpdateUserGamesPlayed"
+									],
+									"query": [
+										{
+											"key": "userID",
+											"value": "user123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Location",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"LOCATION\": \"Pune, India\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/UserProfile/UpdateUserLocation?userID=user123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"UserProfile",
+										"UpdateUserLocation"
+									],
+									"query": [
+										{
+											"key": "userID",
+											"value": "user123"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -345,6 +625,246 @@
 									"path": [
 										"MentorProfile",
 										"GetAllMentorProfiles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Mentor Profile Pic",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"PROFILE_PIC\": \"https://example.com/new-mentor-pic.jpg\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/MentorProfile/updateMentorProfilePic?mentorID=mentor123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"MentorProfile",
+										"updateMentorProfilePic"
+									],
+									"query": [
+										{
+											"key": "mentorID",
+											"value": "mentor123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Mentor Profile Banner",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"PROFILE_BANNER\": \"https://example.com/new-mentor-banner.jpg\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/MentorProfile/updateMentorProfileBanner?mentorID=mentor123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"MentorProfile",
+										"updateMentorProfileBanner"
+									],
+									"query": [
+										{
+											"key": "mentorID",
+											"value": "mentor123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Mentor Experience Years",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"EXPERIENCE_YEARS\": 7\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/MentorProfile/UpdateMentorExperienceYears?mentorID=mentor123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"MentorProfile",
+										"UpdateMentorExperienceYears"
+									],
+									"query": [
+										{
+											"key": "mentorID",
+											"value": "mentor123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Mentor Location",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"LOCATION\": \"San Francisco, USA\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/MentorProfile/UpdateMentorLocation?mentorID=mentor123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"MentorProfile",
+										"UpdateMentorLocation"
+									],
+									"query": [
+										{
+											"key": "mentorID",
+											"value": "mentor123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Mentor Bio",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"BIO\": \"Updated bio for the mentor.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/MentorProfile/UpdateMentorBio?mentorID=mentor123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"MentorProfile",
+										"UpdateMentorBio"
+									],
+									"query": [
+										{
+											"key": "mentorID",
+											"value": "mentor123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Mentor Price Per Session",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"PRICE_PER_SESSION\": 75\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:14000/MentorProfile/UpdateMentorPricePerSession?mentorID=mentor123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "14000",
+									"path": [
+										"MentorProfile",
+										"UpdateMentorPricePerSession"
+									],
+									"query": [
+										{
+											"key": "mentorID",
+											"value": "mentor123"
+										}
 									]
 								}
 							},
