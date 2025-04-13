@@ -132,7 +132,6 @@
                         "PROFILE_PIC",
                         "LOCATION",
                         "TEAM_STATUS",
-                        "SOCIAL_LINKS",
                         "BIO",
                         "CREATED_AT"
                     ],
@@ -252,8 +251,10 @@
                         "PROFILE_BANNER",
                         "PROFILE_PIC",
                         "LOCATION",
-                        "SOCIAL_LINKS",
                         "BIO",
+                        "EXPERIENCE_YEARS",
+                        "PRICE_PER_SESSION",
+                        "SOCIAL_LINKS",
                         "CREATED_AT"
                     ],
                     "properties": {
@@ -317,43 +318,8 @@
                         },
                         "BIO": {
                             "bsonType": "string"
-                        }
-                    }
-                }
-            },
-            "validationLevel": "strict",
-            "validationAction": "error"
-        },
-
-
-        {
-            "name": "MENTOR_PROFILE",
-            "validator": {
-                "$jsonSchema": {
-                    "bsonType": "object",
-                    "required": [
-                        "PLATFORM_ID",
-                        "GAMES_MENTORED"
-                    ],
-                    "properties": {
-                        "PROFILE_PICTURE": {
-                            "bsonType": "string",
-                            "description": "Must be a URI"
-                        },
-                        "COVER_BANNER": {
-                            "bsonType": "string",
-                            "description": "Must be a URI"
-                        },
-                        "PLATFORM_ID": {
-                            "bsonType": "string"
                         },
                         "TAGLINE": {
-                            "bsonType": "string"
-                        },
-                        "BIO": {
-                            "bsonType": "string"
-                        },
-                        "LOCATION": {
                             "bsonType": "string"
                         },
                         "AVAILABILITY": {
@@ -382,34 +348,8 @@
                                 "bsonType": "string"
                             }
                         },
-                        "EXPERIENCE_YEARS": {
-                            "bsonType": "number"
-                        },
                         "ESPORTS_BACKGROUND": {
                             "bsonType": "string"
-                        },
-                        "SOCIAL_LINKS": {
-                            "bsonType": "object",
-                            "properties": {
-                                "DISCORD": {
-                                    "bsonType": "string"
-                                },
-                                "INSTAGRAM": {
-                                    "bsonType": "string"
-                                },
-                                "TWITTER": {
-                                    "bsonType": "string"
-                                },
-                                "YOUTUBE": {
-                                    "bsonType": "string"
-                                },
-                                "WEBSITE": {
-                                    "bsonType": "string"
-                                }
-                            }
-                        },
-                        "CREATED_AT": {
-                            "bsonType": "date"
                         }
                     }
                 }

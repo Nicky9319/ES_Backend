@@ -1,32 +1,38 @@
 {
-  "PLATFORM_ID": "m_f6a7b8c9-d0e1-2345-6789-0abcdef12345",
+  "MENTOR_ID": "590b6f34-feff-4a5b-8bc6-626b975ef4cd",
+  "GAMES": [
+    "Valorant",
+    "League of Legends"
+  ],
   "GAMES_MENTORED": [
     "Valorant",
-    "Overwatch"
+    "League of Legends"
   ],
-  "PROFILE_PICTURE": "https://picsum.photos/seed/301/200/200",
-  "COVER_BANNER": "https://picsum.photos/seed/302/1200/300",
-  "TAGLINE": "tagline_value_22",
-  "BIO": "bio_value_81",
-  "LOCATION": "location_value_47",
+  "PROFILE_PIC": "https://example.com/mentor_profile.jpg",
+  "PROFILE_BANNER": "https://example.com/mentor_banner.jpg",
+  "TAGLINE": "Level up your gameplay with professional coaching",
+  "BIO": "Experienced esports mentor specializing in FPS and MOBA games.",
+  "LOCATION": "New York, USA",
   "AVAILABILITY": "Available",
   "SPECIALTIES": [
-    "Aim Training",
-    "Game Sense"
+    "Strategy Development",
+    "Team Coordination"
   ],
   "SKILL_TAGS": [
     "FPS",
-    "Coaching",
-    "Strategy"
+    "MOBA",
+    "Coaching"
   ],
-  "EXPERIENCE_YEARS": 7,
-  "ESPORTS_BACKGROUND": "esports_background_value_5",
+  "EXPERIENCE_YEARS": 5,
+  "PRICE_PER_SESSION": 50,
+  "ESPORTS_BACKGROUND": "Former professional player with 3 years of competitive experience",
   "SOCIAL_LINKS": {
-    "DISCORD": "discord_value_93",
-    "INSTAGRAM": "instagram_value_11",
-    "TWITTER": "twitter_value_68",
-    "YOUTUBE": "youtube_value_27",
-    "WEBSITE": "website_value_41"
+    "DISCORD": "mentor#5678",
+    "INSTAGRAM": "@mentor_insta",
+    "TWITTER": "@mentor_tweet",
+    "LINKEDIN": "linkedin.com/mentor",
+    "YOUTUBE": "youtube.com/mentor",
+    "WEBSITE": "mentor.com"
   },
-  "CREATED_AT": { "$date": "2024-05-10T08:00:00.000Z" }
+  "CREATED_AT": { "$date": "2025-04-13T07:54:34.171Z" }
 }

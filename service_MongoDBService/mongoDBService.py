@@ -92,10 +92,6 @@ class Service():
     
         @self.httpServer.app.post("/Events/InsertEvent")
         async def insert_event(request: Request):
-            data = await request.json()
-
-                 
-
             try:
                 event_data = await request.json()
                 print("Received event data:", event_data)
