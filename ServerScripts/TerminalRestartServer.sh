@@ -2,6 +2,8 @@
 
 clear
 
+cd ../
+
 # Stop any running instances defined in the docker-compose file
 sudo docker-compose -f ServerScripts/docker-compose.yml down
 sleep 2

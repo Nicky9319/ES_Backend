@@ -1,5 +1,7 @@
 clear
 
+cd ../
+
 # Stop docker-compose containers
 sudo docker-compose -f ServerScripts/docker-compose.yml down
 sleep 2
