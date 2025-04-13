@@ -546,6 +546,58 @@ class Service():
             except Exception as e:
                 raise HTTPException(status_code=500, detail=f"Error updating mentor profile: {str(e)}")
 
+        @self.httpServer.app.put("/MentorProfile/UpdateMentorExperienceYears")
+        async def update_mentor_experience_years(request: Request, MENTOR_ID: str):
+            try:
+                mentor_data = await request.json()
+                print("Updating Mentor Experience Years", mentor_data)
+
+                # Check if the mentor profile exists
+                existing_mentor = self.mentor_profile_collection.find_one({"MENTOR_ID": MENTOR_ID})
+                if not existing_mentor:
+                    raise HTTPException(status_code=404, detail=f"Mentor profile with ID {MENTOR_ID} not found")
+
+                # Update the mentor profile
+                result = self.mentor_profile_collection.update_one(
+                    {"MENTOR_ID": MENTOR_ID},
+                    {"$set": {"EXPERIENCE_YEARS": mentor_data.get("EXPERIENCE_YEARS")}}
+                )
+
+                if result.modified_count == 0:
+                    return {"message": "No changes were made to the mentor profile"}
+
+                return {"message": "Mentor profile updated successfully"}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error updating mentor profile: {str(e)}")
+
+        @self.httpServer.app.put("/MentorProfile/UpdateMentorLocation")
+        async def update_mentor_location(request: Request, MENTOR_ID: str):
+            try:
+                mentor_data = await request.json()
+                print("Updating Mentor Location", mentor_data)
+
+                # Check if the mentor profile exists
+                existing_mentor = self.mentor_profile_collection.find_one({"MENTOR_ID": MENTOR_ID})
+                if not existing_mentor:
+                    raise HTTPException(status_code=404, detail=f"Mentor profile with ID {MENTOR_ID} not found")
+
+                # Update the mentor profile
+                result = self.mentor_profile_collection.update_one(
+                    {"MENTOR_ID": MENTOR_ID},
+                    {"$set": {"LOCATION": mentor_data.get("LOCATION")}}
+                )
+
+                if result.modified_count == 0:
+                    return {"message": "No changes were made to the mentor profile"}
+
+                return {"message": "Mentor profile updated successfully"}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error updating mentor profile: {str(e)}")
+
 
     async def startService(self):
         # await self.messageQueue.InitializeConnection()
