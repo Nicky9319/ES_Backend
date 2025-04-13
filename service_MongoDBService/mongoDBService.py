@@ -293,6 +293,110 @@ class Service():
             except Exception as e:
                 raise HTTPException(status_code=500, detail=f"Error updating user profile: {str(e)}")
 
+        @self.httpServer.app.put("/UserProfile/UpdateUserPlatformStatus")
+        async def update_user_platform_status(request: Request, USER_ID: str):
+            try:
+                user_data = await request.json()
+                print("Updating User Platform Status", user_data)
+                
+
+                existing_user = self.db["USER_PROFILE"].find_one({"USER_ID": USER_ID})
+                if not existing_user:
+                    raise HTTPException(status_code=404, detail=f"User profile with ID {USER_ID} not found")
+                
+
+                result = self.db["USER_PROFILE"].update_one(
+                    {"USER_ID": USER_ID}, 
+                    {"$set": {"PLATFORM_STATUS": user_data.get("PLATFORM_STATUS")}}
+                )
+                
+                if result.modified_count == 0:
+                    return {"message": "No changes were made to the user platform status"}
+                    
+                return {"message": "User platform status updated successfully"}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error updating user platform status: {str(e)}")
+
+        @self.httpServer.app.put("/UserProfile/UpdateUserTeamStatus")
+        async def update_user_team_status(request: Request, USER_ID: str):
+            try:
+                user_data = await request.json()
+                print("Updating User Team Status", user_data)
+                
+                # Check if the user profile exists
+                existing_user = self.db["USER_PROFILE"].find_one({"USER_ID": USER_ID})
+                if not existing_user:
+                    raise HTTPException(status_code=404, detail=f"User profile with ID {USER_ID} not found")
+                
+                # Update the user profile
+                result = self.db["USER_PROFILE"].update_one(
+                    {"USER_ID": USER_ID}, 
+                    {"$set": {"TEAM_STATUS": user_data.get("TEAM_STATUS")}}
+                )
+                
+                if result.modified_count == 0:
+                    return {"message": "No changes were made to the user team status"}
+                    
+                return {"message": "User team status updated successfully"}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error updating user team status: {str(e)}")
+
+        @self.httpServer.app.put("/UserProfile/UpdateUserBio")
+        async def update_user_bio(request: Request, USER_ID: str):
+            try:
+                user_data = await request.json()
+                print("Updating User Bio", user_data)
+                
+                # Check if the user profile exists
+                existing_user = self.db["USER_PROFILE"].find_one({"USER_ID": USER_ID})
+                if not existing_user:
+                    raise HTTPException(status_code=404, detail=f"User profile with ID {USER_ID} not found")
+                
+                # Update the user profile
+                result = self.db["USER_PROFILE"].update_one(
+                    {"USER_ID": USER_ID}, 
+                    {"$set": {"BIO": user_data.get("BIO")}}
+                )
+                
+                if result.modified_count == 0:
+                    return {"message": "No changes were made to the user bio"}
+                    
+                return {"message": "User bio updated successfully"}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error updating user bio: {str(e)}")
+
+        @self.httpServer.app.put("/UserProfile/UpdateUserGamesPlayed")
+        async def update_user_games_played(request: Request, USER_ID: str):
+            try:
+                user_data = await request.json()
+                print("Updating User Games Played", user_data)
+                
+                # Check if the user profile exists
+                existing_user = self.db["USER_PROFILE"].find_one({"USER_ID": USER_ID})
+                if not existing_user:
+                    raise HTTPException(status_code=404, detail=f"User profile with ID {USER_ID} not found")
+                
+                # Update the user profile
+                result = self.db["USER_PROFILE"].update_one(
+                    {"USER_ID": USER_ID}, 
+                    {"$set": {"GAMES_PLAYED": user_data.get("GAMES_PLAYED")}}
+                )
+                
+                if result.modified_count == 0:
+                    return {"message": "No changes were made to the user games played"}
+                    
+                return {"message": "User games played updated successfully"}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error updating user games played: {str(e)}")   
+
     # Mentor Profile -------------------------
 
         @self.httpServer.app.get("/MentorProfile/GetMentorProfile")
