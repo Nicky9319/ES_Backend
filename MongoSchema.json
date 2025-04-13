@@ -111,6 +111,7 @@
                         "LOCATION",
                         "TEAM_STATUS",
                         "SOCIAL_LINKS",
+                        "BIO",
                         "CREATED_AT"
                     ],
                     "properties": {
@@ -205,6 +206,9 @@
                                 }
                             }
                         },
+                        "BIO": {
+                            "bsonType": "string"
+                        },
                         "CREATED_AT": {
                             "bsonType": "date"
                         }
@@ -214,6 +218,91 @@
             "validationLevel": "strict",
             "validationAction": "error"
         },
+
+        {
+            "name": "MENTOR_PROFILE",
+            "validator": {
+                "$jsonSchema": {
+                    "bsonType": "object",
+                    "required": [
+                        "GAMES",
+                        "USER_ID",
+                        "PROFILE_BANNER",
+                        "PROFILE_PIC",
+                        "LOCATION",
+                        "SOCIAL_LINKS",
+                        "BIO",
+                        "CREATED_AT"
+                    ],
+                    "properties": {
+                        "GAMES": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "string"
+                            }
+                        },
+                        "MENTOR_ID": {
+                            "bsonType": "string"
+                        },
+                        "PROFILE_BANNER": {
+                            "bsonType": "string"
+                        },
+                        "PROFILE_PIC": {
+                            "bsonType": "string"
+                        },
+                        "LOCATION": {
+                            "bsonType": "string"
+                        },
+                        "EXPERIENCE_YEARS": {
+                            "bsonType": "number"
+                        },
+                        "PRICE_PER_SESSION": {
+                            "bsonType": "number"
+                        },
+                        "SOCIAL_LINKS": {
+                            "bsonType": "object",
+                            "required": [
+                                "INSTAGRAM",
+                                "DISCORD",
+                                "TWITTER",
+                                "LINKEDIN",
+                                "WEBSITE",
+                                "YOUTUBE"
+                            ],
+                            "properties": {
+                                "INSTAGRAM": {
+                                    "bsonType": "string"
+                                },
+                                "DISCORD": {
+                                    "bsonType": "string"
+                                },
+                                "TWITTER": {
+                                    "bsonType": "string"
+                                },
+                                "LINKEDIN": {
+                                    "bsonType": "string"
+                                },
+                                "WEBSITE": {
+                                    "bsonType": "string"
+                                },
+                                "YOUTUBE": {
+                                    "bsonType": "string"
+                                }
+                            }
+                        },
+                        "CREATED_AT": {
+                            "bsonType": "date"
+                        },
+                        "BIO": {
+                            "bsonType": "string"
+                        }
+                    }
+                }
+            },
+            "validationLevel": "strict",
+            "validationAction": "error"
+        },
+
 
         {
             "name": "MENTOR_PROFILE",
