@@ -397,6 +397,32 @@ class Service():
             except Exception as e:
                 raise HTTPException(status_code=500, detail=f"Error updating user games played: {str(e)}")   
 
+        @self.httpServer.app.put("/UserProfile/UpdateUserLocation")
+        async def update_user_location(request: Request, USER_ID: str):
+            try:
+                user_data = await request.json()
+                print("Updating User Location", user_data)
+                
+                # Check if the user profile exists
+                existing_user = self.db["USER_PROFILE"].find_one({"USER_ID": USER_ID})
+                if not existing_user:
+                    raise HTTPException(status_code=404, detail=f"User profile with ID {USER_ID} not found")
+                
+                # Update the user profile
+                result = self.db["USER_PROFILE"].update_one(
+                    {"USER_ID": USER_ID}, 
+                    {"$set": {"LOCATION": user_data.get("LOCATION")}}
+                )
+                
+                if result.modified_count == 0:
+                    return {"message": "No changes were made to the user location"}
+                    
+                return {"message": "User location updated successfully"}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error updating user location: {str(e)}")
+
     # Mentor Profile -------------------------
 
         @self.httpServer.app.get("/MentorProfile/GetMentorProfile")
