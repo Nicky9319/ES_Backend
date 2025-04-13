@@ -11,6 +11,7 @@ httpx
 pymongo
 bs4
 feedparser
+valorant
 
 # Project Dependent Dependencies
 # Example:
