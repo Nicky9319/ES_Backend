@@ -12,6 +12,8 @@ pymongo
 bs4
 feedparser
 valorant
+boto3
+botocore
 
 # Project Dependent Dependencies
 # Example:

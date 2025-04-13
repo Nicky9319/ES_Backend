@@ -1,13 +1,14 @@
 clear
 
-sudo docker stop rabbit-server
-sleep 1
+# Restart other services via docker-compose
+sudo docker-compose -f ServerScripts/docker-compose.yml down
+sleep 2
 
-sudo docker run -d --rm --name rabbit-server -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+sudo docker-compose -f ServerScripts/docker-compose.yml up -d
 sleep 10
 
 clear
 
-# Mention the Services you want to restart
+# Additional service restart commands
 # Example: systemctl restart MainServer.service
 
