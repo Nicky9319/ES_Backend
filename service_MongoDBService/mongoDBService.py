@@ -273,7 +273,7 @@ class Service():
                 mentor_data["MENTOR_ID"] = str(uuid.uuid4())
 
                 # Add creation timestamp
-                mentor_data["CREATED_AT"] = datetime.now()
+                mentor_data["CREATED_AT"] = datetime.now() 
 
                 # Insert the mentor profile
                 result = self.mentor_profile_collection.insert_one(mentor_data)

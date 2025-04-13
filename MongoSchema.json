@@ -226,7 +226,7 @@
                     "bsonType": "object",
                     "required": [
                         "GAMES",
-                        "USER_ID",
+                        "MENTOR_ID",
                         "PROFILE_BANNER",
                         "PROFILE_PIC",
                         "LOCATION",
