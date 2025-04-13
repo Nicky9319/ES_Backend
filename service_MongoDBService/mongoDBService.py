@@ -216,20 +216,72 @@ class Service():
                 raise HTTPException(status_code=500, detail=f"Error inserting user profile: {str(e)}")
 
         @self.httpServer.app.put("/UserProfile/UpdateUserProfile")
-        async def update_user_profile(request: Request, userID : str):
+        async def update_user_profile(request: Request, USER_ID : str):
             try:
                 user_data = await request.json()
                 print("Updating User Profile", user_data)
                 
                 # Check if the user profile exists
-                existing_user = self.db["USER_PROFILE"].find_one({"USER_ID": userID})
+                existing_user = self.db["USER_PROFILE"].find_one({"USER_ID": USER_ID})
                 if not existing_user:
-                    raise HTTPException(status_code=404, detail=f"User profile with ID {userID} not found")
+                    raise HTTPException(status_code=404, detail=f"User profile with ID {USER_ID} not found")
                 
                 # Update the user profile
                 result = self.db["USER_PROFILE"].update_one(
-                    {"USER_ID": userID}, 
+                    {"USER_ID": USER_ID}, 
                     {"$set": user_data}
+                )
+                
+                if result.modified_count == 0:
+                    return {"message": "No changes were made to the user profile"}
+                    
+                return {"message": "User profile updated successfully"}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error updating user profile: {str(e)}")
+
+        @self.httpServer.app.put("/UserProfile/updateUserProfilePic")
+        async def update_user_profile_pic(request: Request, USER_ID: str):
+            try:
+                user_data = await request.json()
+                print("Updating User Profile Pic", user_data)
+                
+                # Check if the user profile exists
+                existing_user = self.db["USER_PROFILE"].find_one({"USER_ID": USER_ID})
+                if not existing_user:
+                    raise HTTPException(status_code=404, detail=f"User profile with ID {USER_ID} not found")
+                
+                # Update the user profile
+                result = self.db["USER_PROFILE"].update_one(
+                    {"USER_ID": USER_ID}, 
+                    {"$set": {"PROFILE_PIC": user_data.get("PROFILE_PIC")}}
+                )
+                
+                if result.modified_count == 0:
+                    return {"message": "No changes were made to the user profile"}
+                    
+                return {"message": "User profile updated successfully"}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error updating user profile: {str(e)}")
+
+        @self.httpServer.app.put("/UserProfile/updateUserProfileBanner")
+        async def update_user_profile_banner(request: Request, USER_ID: str):
+            try:
+                user_data = await request.json()
+                print("Updating User Profile Banner", user_data)
+                
+                # Check if the user profile exists
+                existing_user = self.db["USER_PROFILE"].find_one({"USER_ID": USER_ID})
+                if not existing_user:
+                    raise HTTPException(status_code=404, detail=f"User profile with ID {USER_ID} not found")
+                
+                # Update the user profile
+                result = self.db["USER_PROFILE"].update_one(
+                    {"USER_ID": USER_ID}, 
+                    {"$set": {"PROFILE_BANNER": user_data.get("PROFILE_BANNER")}}
                 )
                 
                 if result.modified_count == 0:
@@ -287,20 +339,72 @@ class Service():
                 raise HTTPException(status_code=500, detail=f"Error inserting mentor profile: {str(e)}")
 
         @self.httpServer.app.put("/MentorProfile/UpdateMentorProfile")
-        async def update_mentor_profile(request: Request, mentorID: str):
+        async def update_mentor_profile(request: Request, MENTOR_ID: str):
             try:
                 mentor_data = await request.json()
                 print("Updating Mentor Profile", mentor_data)
 
                 # Check if the mentor profile exists
-                existing_mentor = self.mentor_profile_collection.find_one({"MENTOR_ID": mentorID})
+                existing_mentor = self.mentor_profile_collection.find_one({"MENTOR_ID": MENTOR_ID})
                 if not existing_mentor:
-                    raise HTTPException(status_code=404, detail=f"Mentor profile with ID {mentorID} not found")
+                    raise HTTPException(status_code=404, detail=f"Mentor profile with ID {MENTOR_ID} not found")
 
                 # Update the mentor profile
                 result = self.mentor_profile_collection.update_one(
-                    {"MENTOR_ID": mentorID},
+                    {"MENTOR_ID": MENTOR_ID},
                     {"$set": mentor_data}
+                )
+
+                if result.modified_count == 0:
+                    return {"message": "No changes were made to the mentor profile"}
+
+                return {"message": "Mentor profile updated successfully"}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error updating mentor profile: {str(e)}")
+
+        @self.httpServer.app.put("/MentorProfile/updateMentorProfilePic")
+        async def update_mentor_profile_pic(request: Request, MENTOR_ID: str):
+            try:
+                mentor_data = await request.json()
+                print("Updating Mentor Profile Pic", mentor_data)
+
+                # Check if the mentor profile exists
+                existing_mentor = self.mentor_profile_collection.find_one({"MENTOR_ID": MENTOR_ID})
+                if not existing_mentor:
+                    raise HTTPException(status_code=404, detail=f"Mentor profile with ID {MENTOR_ID} not found")
+
+                # Update the mentor profile
+                result = self.mentor_profile_collection.update_one(
+                    {"MENTOR_ID": MENTOR_ID},
+                    {"$set": {"PROFILE_PIC": mentor_data.get("PROFILE_PIC")}}
+                )
+
+                if result.modified_count == 0:
+                    return {"message": "No changes were made to the mentor profile"}
+
+                return {"message": "Mentor profile updated successfully"}
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error updating mentor profile: {str(e)}")
+
+        @self.httpServer.app.put("/MentorProfile/updateMentorProfileBanner")
+        async def update_mentor_profile_banner(request: Request, MENTOR_ID:str):
+            try:
+                mentor_data = await request.json()
+                print("Updating Mentor Profile Banner", mentor_data)
+
+                # Check if the mentor profile exists
+                existing_mentor = self.mentor_profile_collection.find_one({"MENTOR_ID": MENTOR_ID})
+                if not existing_mentor:
+                    raise HTTPException(status_code=404, detail=f"Mentor profile with ID {MENTOR_ID} not found")
+
+                # Update the mentor profile
+                result = self.mentor_profile_collection.update_one(
+                    {"MENTOR_ID": MENTOR_ID},
+                    {"$set": {"PROFILE_BANNER": mentor_data.get("PROFILE_BANNER")}}
                 )
 
                 if result.modified_count == 0:
