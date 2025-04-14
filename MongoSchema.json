@@ -342,6 +342,12 @@
                                 "bsonType": "string"
                             }
                         },
+                        "SPECIALITIES": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "string"
+                            }
+                        },
                         "SKILL_TAGS": {
                             "bsonType": "array",
                             "items": {
@@ -350,6 +356,24 @@
                         },
                         "ESPORTS_BACKGROUND": {
                             "bsonType": "string"
+                        },
+                        "RATING": {
+                            "bsonType": "number"
+                        },
+                        "VERIFIED": {
+                            "bsonType": "bool"
+                        },
+                        "SESSIONS_COMPLETED": {
+                            "bsonType": "number"
+                        },
+                        "SUCCESS_RATE": {
+                            "bsonType": "number"
+                        },
+                        "LANGUAGES": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "string"
+                            }
                         }
                     }
                 }
