@@ -19,7 +19,7 @@ def create_mongo_db():
     # Drop database if it exists for a clean start
     client.drop_database(db_name)
     print(f"Creating database: {db_name}")
-    
+        
     db = client[db_name]
 
     # Create collections with validators
