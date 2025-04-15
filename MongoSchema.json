@@ -484,7 +484,7 @@
             "validationAction": "error"
         },
         {
-            "name": "Teams",
+            "name": "TEAMS",
             "validator": {
                 "$jsonSchema": {
                     "bsonType": "object",
