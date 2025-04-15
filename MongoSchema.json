@@ -1,21 +1,29 @@
 {
     "database": "ES",
     "collections": [
-
         {
             "name": "EVENTS",
             "validator": {
                 "$jsonSchema": {
                     "bsonType": "object",
                     "required": [
-                        "CONTACT_INFO",
                         "DESCRIPTION",
                         "EVENT_DATE",
                         "EVENT_ID",
                         "EVENT_NAME",
                         "REGISTRATION_DEADLINE",
                         "VENUE",
-                        "ELIGIBILITY"
+                        "ELIGIBILITY",
+                        "GAME_TYPE",
+                        "GAME",
+                        "CONSOLE",
+                        "PRIZE_POOL",
+                        "LOCATION",
+                        "FORMAT",
+                        "IMAGE",
+                        "NUMBER_OF_MEMBERS",
+                        "NUMBER_OF_TEAMS",
+                        "CREATED_AT"
                     ],
                     "properties": {
                         "CONTACT_INFO": {
@@ -74,26 +82,46 @@
                             "items": {
                                 "bsonType": "object",
                                 "required": [
-                                    "NAME",
-                                    "AGE",
-                                    "CONTACT_INFO",
-                                    "OWN_SETUP"
+                                    "QUESTION",
+                                    "ID"
                                 ],
                                 "properties": {
-                                    "NAME": {
+                                    "ID": {
+                                        "bsonType": "string",
+                                        "description": "Unique identifier for each questionnaire item"
+                                    },
+                                    "QUESTION": {
                                         "bsonType": "string"
                                     },
-                                    "AGE": {
-                                        "bsonType": "int"
-                                    },
-                                    "CONTACT_INFO": {
+                                    "ANSWER": {
                                         "bsonType": "string"
-                                    },
-                                    "OWN_SETUP": {
-                                        "bsonType": "bool"
                                     }
                                 }
                             }
+                        },
+                        "FAQ": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "object",
+                                "required": [
+                                    "QUESTION",
+                                    "ANSWER"
+                                ],
+                                "properties": {
+                                    "QUESTION": {
+                                        "bsonType": "string"
+                                    },
+                                    "ANSWER": {
+                                        "bsonType": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "NUMBER_OF_MEMBERS": {
+                            "bsonType": "int"
+                        },
+                        "NUMBER_OF_TEAMS": {
+                            "bsonType": "int"
                         },
                         "REGISTRATION_DEADLINE": {
                             "bsonType": "date"
@@ -116,7 +144,6 @@
             "validationLevel": "strict",
             "validationAction": "error"
         },
-
         {
             "name": "USER_PROFILE",
             "validator": {
@@ -239,7 +266,6 @@
             "validationLevel": "strict",
             "validationAction": "error"
         },
-
         {
             "name": "MENTOR_PROFILE",
             "validator": {
@@ -381,7 +407,6 @@
             "validationLevel": "strict",
             "validationAction": "error"
         },
-
         {
             "name": "CHAT_INFO",
             "validator": {
@@ -411,7 +436,6 @@
             "validationLevel": "strict",
             "validationAction": "error"
         },
-
         {
             "name": "CHAT_MESSAGES",
             "validator": {
@@ -458,7 +482,114 @@
             },
             "validationLevel": "strict",
             "validationAction": "error"
+        },
+        {
+            "name": "Teams",
+            "validator": {
+                "$jsonSchema": {
+                    "bsonType": "object",
+                    "required": [
+                        "NAME",
+                        "SHORT_NAME",
+                        "TAGLINE",
+                        "TEAM_SIZE",
+                        "PARTICIPANTS",
+                        "TEAM_LOGO",
+                        "TEAM_DESCRIPTION",
+                        "GAME",
+                        "TEAM_ID",
+                        "MILESTONES",
+                        "EVENTS_ENROLLED"
+                    ],
+                    "properties": {
+                        "NAME": {
+                            "bsonType": "string"
+                        },
+                        "SHORT_NAME": {
+                            "bsonType": "string"
+                        },
+                        "TAGLINE": {
+                            "bsonType": "string"
+                        },
+                        "TEAM_SIZE": {
+                            "bsonType": "int"
+                        },
+                        "PARTICIPANTS": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "object",
+                                "required": [
+                                    "ACCESS",
+                                    "USER_ID"
+                                ],
+                                "properties": {
+                                    "ACCESS": {
+                                        "bsonType": "string",
+                                        "enum": ["ADMIN", "MEMBER"]
+                                    },
+                                    "USER_ID": {
+                                        "bsonType": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "TEAM_LOGO": {
+                            "bsonType": "string"
+                        },
+                        "TEAM_DESCRIPTION": {
+                            "bsonType": "string"
+                        },
+                        "GAME": {
+                            "bsonType": "string"
+                        },
+                        "TEAM_ID": {
+                            "bsonType": "string"
+                        },
+                        "MILESTONES": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "object",
+                                "required": [
+                                    "MILESTONE_ID",
+                                    "MILESTONE_NAME",
+                                    "MILESTONE_DESCRIPTION",
+                                    "MILESTONE_DATE"
+                                ],
+                                "properties": {
+                                    "MILESTONE_ID": {
+                                        "bsonType": "string"
+                                    },
+                                    "MILESTONE_NAME": {
+                                        "bsonType": "string"
+                                    },
+                                    "MILESTONE_DESCRIPTION": {
+                                        "bsonType": "string"
+                                    },
+                                    "MILESTONE_DATE": {
+                                        "bsonType": "date"
+                                    }
+                                }
+                            }
+                        },
+                        "EVENTS_ENROLLED": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "object",
+                                "required": [
+                                    "EVENT_ID"
+                                ],
+                                "properties": {
+                                    "EVENT_ID": {
+                                        "bsonType": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "validationLevel": "strict",
+            "validationAction": "error"
         }
-        
     ]
 }
