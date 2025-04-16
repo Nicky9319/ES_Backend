@@ -95,7 +95,18 @@ class Service():
             USER_ID: str,
             request: Request
         ):
-            pass
+            print(f"Fetching All Events Organized by User: {USER_ID}")
+            if not USER_ID:
+                raise HTTPException(status_code=400, detail="USER_ID is required")
+
+            # Query the database for events organized by the user
+            events = list(self.event_collection.find({"ORGANIZER": USER_ID}, {'_id': 0}))
+
+            if not events:
+                # It's okay if a user hasn't organized any events, return an empty list
+                return {"EVENTS": []}
+
+            return {"EVENTS": events}
 
         @self.httpServer.app.post("/Events/CreateNewEvent")
         async def insert_event(request: Request):
@@ -388,7 +399,7 @@ class Service():
                 raise HTTPException(status_code=500, detail=f"Error inserting mentor profile: {str(e)}")
        
         @self.httpServer.app.put("/MentorProfile/Update/ProfilePic")
-        async def update_user_profile_pic(
+        async def update_mentor_profile_pic(
             request: Request
         ):
             data = await request.json()
@@ -396,32 +407,32 @@ class Service():
             MENTOR_ID = data.get("MENTOR_ID")
             PROFILE_PIC = data.get("PROFILE_PIC")
 
-            # Check if USER_ID is provided
+            # Check if MENTOR_ID is provided
             if not MENTOR_ID:
-                raise HTTPException(status_code=400, detail="USER_ID is required")
+                raise HTTPException(status_code=400, detail="MENTOR_ID is required")
             
             # Check if PROFILE_PIC is provided
             if not PROFILE_PIC:
                 raise HTTPException(status_code=400, detail="PROFILE_PIC is required")
             
-            # Check if the user profile exists
-            existing_user = self.db["MENTOR_PROFILE"].find_one({"MENTOR_ID": MENTOR_ID})
-            if not existing_user:
-                raise HTTPException(status_code=404, detail=f"User with ID {MENTOR_ID} not found")
+            # Check if the mentor profile exists
+            existing_mentor = self.db["MENTOR_PROFILE"].find_one({"MENTOR_ID": MENTOR_ID})
+            if not existing_mentor:
+                raise HTTPException(status_code=404, detail=f"Mentor with ID {MENTOR_ID} not found")
             
-            # Update the user profile
+            # Update the mentor profile
             result = self.db["MENTOR_PROFILE"].update_one(
                 {"MENTOR_ID": MENTOR_ID},
                 {"$set": {"PROFILE_PIC": PROFILE_PIC}}
             )
             
             if result.modified_count == 0:
-                return {"message": "No changes were made to the user profile"}
+                return {"message": "No changes were made to the mentor profile"}
             
-            return {"message": "Mentor profile updated successfully"}
+            return {"message": "Mentor profile pic updated successfully"}
 
         @self.httpServer.app.put("/MentorProfile/Update/ProfileBanner")
-        async def update_user_profile_banner(
+        async def update_mentor_profile_banner(
             request: Request
         ):
             data = await request.json()
@@ -429,7 +440,7 @@ class Service():
             MENTOR_ID = data.get("MENTOR_ID")
             PROFILE_BANNER = data.get("PROFILE_BANNER")
 
-            # Check if USER_ID is provided
+            # Check if MENTOR_ID is provided
             if not MENTOR_ID:
                 raise HTTPException(status_code=400, detail="MENTOR_ID is required")
             
@@ -437,21 +448,21 @@ class Service():
             if not PROFILE_BANNER:
                 raise HTTPException(status_code=400, detail="PROFILE_BANNER is required")
             
-            # Check if the user profile exists
-            existing_user = self.db["MENTOR_PROFILE"].find_one({"MENTOR_ID": MENTOR_ID})
-            if not existing_user:
-                raise HTTPException(status_code=404, detail=f"User with ID {MENTOR_ID} not found")
+            # Check if the mentor profile exists
+            existing_mentor = self.db["MENTOR_PROFILE"].find_one({"MENTOR_ID": MENTOR_ID})
+            if not existing_mentor:
+                raise HTTPException(status_code=404, detail=f"Mentor with ID {MENTOR_ID} not found")
             
-            # Update the user profile
+            # Update the mentor profile
             result = self.db["MENTOR_PROFILE"].update_one(
                 {"MENTOR_ID": MENTOR_ID},
                 {"$set": {"PROFILE_BANNER": PROFILE_BANNER}}
             )
             
             if result.modified_count == 0:
-                return {"message": "No changes were made to the user profile"}
+                return {"message": "No changes were made to the mentor profile"}
             
-            return {"message": "Mentor profile updated successfully"}
+            return {"message": "Mentor profile banner updated successfully"}
 
 
 
@@ -464,7 +475,22 @@ class Service():
             USER_ID: str,
             request: Request
         ):
-            pass
+            print(f"Fetching All Teams for User: {USER_ID}")
+            if not USER_ID:
+                raise HTTPException(status_code=400, detail="USER_ID is required")
+
+            # Query the database for teams where the user is a participant
+            # We use $elemMatch to find documents where the PARTICIPANTS array contains at least one element matching the criteria
+            teams = list(self.teams_collection.find(
+                {"PARTICIPANTS": {"$elemMatch": {"USER_ID": USER_ID}}},
+                {'_id': 0}
+            ))
+
+            if not teams:
+                # It's okay if a user isn't part of any teams, return an empty list
+                return {"TEAMS": []}
+
+            return {"TEAMS": teams}
 
         @self.httpServer.app.post("/Teams/CreateNewTeam")
         async def insert_new_team(request: Request):
@@ -495,7 +521,7 @@ class Service():
                 raise HTTPException(status_code=409, detail="A mentor with this ID already exists")
             except Exception as e:
                 print(str(e))
-                raise HTTPException(status_code=500, detail=f"Error inserting mentor profile: {str(e)}")
+                raise HTTPException(status_code=500, detail=f"Error inserting team profile: {str(e)}")
        
         @self.httpServer.app.put("/Teams/Update/TeamLogo")
         async def update_team_logo(

@@ -148,7 +148,6 @@
             "validationLevel": "strict",
             "validationAction": "error"
         },
-
         {
             "name": "USER_PROFILE",
             "validator": {
@@ -277,7 +276,6 @@
             "validationLevel": "strict",
             "validationAction": "error"
         },
-
         {
             "name": "MENTOR_PROFILE",
             "validator": {
@@ -430,7 +428,6 @@
             "validationLevel": "strict",
             "validationAction": "error"
         },
-
         {
             "name": "CHAT_INFO",
             "validator": {
@@ -460,7 +457,6 @@
             "validationLevel": "strict",
             "validationAction": "error"
         },
-
         {
             "name": "CHAT_MESSAGES",
             "validator": {
@@ -508,7 +504,6 @@
             "validationLevel": "strict",
             "validationAction": "error"
         },
-        
         {
             "name": "TEAMS",
             "validator": {
@@ -551,7 +546,10 @@
                                 "properties": {
                                     "ACCESS": {
                                         "bsonType": "string",
-                                        "enum": ["ADMIN", "MEMBER"]
+                                        "enum": [
+                                            "ADMIN",
+                                            "MEMBER"
+                                        ]
                                     },
                                     "USER_ID": {
                                         "bsonType": "string"
