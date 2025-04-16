@@ -43,21 +43,12 @@ class Service():
             PROFILE_BANNER: UploadFile = Form(...),  
             USER_INFO: str = Form(...)
         ):
-            # print(PROFILE_PIC)
-            # print(USER_INFO)
-
-
             serviceName = "MONGO_DB_SERVICE"
             serviceURL = await self.getServiceURL(serviceName)
 
             userID = None
 
-            # print(USER_INFO)
-            # print(type(USER_INFO))
-
             USER_INFO = json.loads(USER_INFO)
-            # print(USER_INFO)
-            # print(type(USER_INFO))
 
             async with httpx.AsyncClient() as client:
 
@@ -74,7 +65,6 @@ class Service():
 
             print("User ID: ", userID)
         
-
             if PROFILE_PIC != None:
                 serviceName = "BLOB_STORAGE_SERVICE"
                 serviceURL = await self.getServiceURL(serviceName)
@@ -104,6 +94,7 @@ class Service():
                     responseInJson = response.json()
                 print("Response from MongoDB Service: ", responseInJson)
 
+            print("Profile Pic Updated")
 
             if PROFILE_BANNER != None:
                 serviceName = "BLOB_STORAGE_SERVICE"
@@ -133,8 +124,9 @@ class Service():
                     responseInJson = response.json()
                 print("Response from MongoDB Service: ", responseInJson)
 
+            print("Profile Banner Updated")
 
-            return {"message": f"Created new user with info {USER_INFO}"}
+            return {"USER_ID" : userID}
     
 
     async def startService(self):

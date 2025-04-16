@@ -1,0 +1,56 @@
+{
+  "info": {
+    "_postman_id": "YOUR_POSTMAN_ID_MENTOR",
+    "name": "MentorProfileService Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create New Mentor",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "multipart/form-data",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "PROFILE_PIC",
+              "type": "file",
+              "src": ""
+            },
+            {
+              "key": "PROFILE_BANNER",
+              "type": "file",
+              "src": ""
+            },
+            {
+              "key": "MENTOR_INFO",
+              "value": "{\n  \"FIRST_NAME\": \"Jane\",\n  \"LAST_NAME\": \"Smith\",\n  \"EMAIL\": \"jane.smith@example.com\",\n  \"PASSWORD\": \"securepass456\",\n  \"PROFILE_DESCRIPTION\": \"Passionate about coaching new talent.\",\n  \"TEACHING_STYLE\": \"Hands-on\",\n  \"EXPERTISE\": [\"Game Strategy\", \"Team Dynamics\"],\n  \"SOCIAL_LINKS\": {\n    \"LINKEDIN\": \"linkedin.com/in/janesmith\",\n    \"TWITTER\": \"twitter.com/janesmith\"\n  }\n}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:10000/MentorProfile/CreateNewMentor",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "10000",
+          "path": [
+            "MentorProfile",
+            "CreateNewMentor"
+          ]
+        },
+        "description": "Test case for creating a new mentor profile via the MentorProfileService"
+      },
+      "response": []
+    }
+  ]
+}
