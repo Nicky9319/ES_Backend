@@ -41,22 +41,48 @@ class Service():
         print("Fun2 " , msg)
 
 
-    async def uploadImageToBlobStorage(self, image: UploadFile, bucket: str, user_id: str):
+    async def uploadImageToBlobStorage(self, image: UploadFile, bucket: str, key: str):
         try:
             contents = await image.read()
-            self.client.put_object(Bucket=bucket, Key=user_id , Body=contents)
+            self.client.put_object(Bucket=bucket, Key=key , Body=contents)
             return {"filename": image.filename}
+        except Exception as e:
+            return {"error": str(e)}
+        
+    async def retrieveImageFromBlobStorage(self, bucket: str, key: str):
+        try:
+            response = self.client.get_object(Bucket=bucket, Key=key)
+            data = response['Body'].read()
+            print(type(data))
+            return data
         except Exception as e:
             return {"error": str(e)}
 
     async def ConfigureAPIRoutes(self):
         @self.httpServer.app.post("/UserProfilePic/StoreImage")
-        async def read_root(
+        async def user_profile_pic_storeImage(
             PROFILE_PIC: UploadFile = Form(...),
             USER_ID: str = Form(...),
         ):
+            print(PROFILE_PIC)
+            print(USER_ID)
+            await self.uploadImageToBlobStorage(PROFILE_PIC, "user-profile-pic", USER_ID + ".jpg")
             print("Received the User ID and the Profile Pic")
+            return {"message": "Image uploaded successfully"}
     
+        @self.httpServer.app.get("/Image/RetrieveImage")
+        async def retrieve_image(
+            bucket: str,
+            key: str
+        ):
+            print(bucket)
+            print(key)
+            data = await self.retrieveImageFromBlobStorage(bucket, key)
+            if isinstance(data, bytes):
+                return Response(content=data, media_type="image/jpg")
+            else:
+                return {"error": data["error"]}
+
 
     async def startService(self):
         # await self.messageQueue.InitializeConnection()

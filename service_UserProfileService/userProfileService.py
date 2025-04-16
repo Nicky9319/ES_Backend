@@ -2,10 +2,14 @@ import asyncio
 from fastapi import FastAPI, Response, Request, Form, UploadFile
 import uvicorn
 
+import requests
 
 import asyncio
 import aio_pika
 
+import json
+import uuid
+import httpx
 
 import sys
 import os
@@ -30,6 +34,11 @@ class Service():
         print("Fun2 " , msg)
 
 
+    async def getServiceURL(self, serviceName):
+        servicePortMapping = json.load(open("ServiceURLMapping.json"))
+        return servicePortMapping[serviceName]
+
+
     async def ConfigureAPIRoutes(self):
         @self.httpServer.app.post("/UserProfile/CreateNewUser")
         async def create_new_user(
@@ -37,8 +46,23 @@ class Service():
             PROFILE_BANNER: UploadFile = Form(...),  
             USER_INFO: str = Form(...)
         ):
+            
             print(PROFILE_PIC)
-            print(USER_INFO)
+
+            serviceName = "BLOB_STORAGE_SERVICE"
+            serviceURL = await self.getServiceURL(serviceName)
+
+            files = {
+                "PROFILE_PIC": (PROFILE_PIC.filename, await PROFILE_PIC.read(), PROFILE_PIC.content_type),
+            }
+            data = {
+                "USER_ID": str(uuid.uuid4())
+            }
+
+            async with httpx.AsyncClient() as client:
+                response = await client.post(f"http://{serviceURL}/UserProfilePic/StoreImage", files=files, data=data)
+                responseInJson = response.json()
+
             return {"message": f"Created new user with info {USER_INFO}"}
     
 
