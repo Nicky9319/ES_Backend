@@ -130,6 +130,22 @@ class Service():
 
             return {"EVENTS": events}
 
+        @self.httpServer.app.get("/Events/GetEventInfo")
+        async def get_event_info(
+            EVENT_ID : str,
+        ):
+            # Check if EVENT_ID is provided
+            if not EVENT_ID:
+                raise HTTPException(status_code=400, detail="EVENT_ID is required")
+            
+            # Fetch event details from the database
+            event = self.event_collection.find_one({"EVENT_ID": EVENT_ID}, {'_id': 0})
+            if not event:
+                raise HTTPException(status_code=404, detail=f"Event with ID {EVENT_ID} not found")
+            
+            # Return the event details
+            return {"EVENT_INFO": event}
+
         @self.httpServer.app.post("/Events/CreateNewEvent")
         async def insert_event(request: Request):
             try:

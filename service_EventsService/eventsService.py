@@ -1,5 +1,5 @@
 import asyncio
-from fastapi import FastAPI, Response, Request, Form, UploadFile
+from fastapi import FastAPI, Response, Request, Form, UploadFile, HTTPException
 import uvicorn
 
 import asyncio
@@ -95,6 +95,52 @@ class Service():
 
 
             return {"EVENT_ID" : eventID}
+
+        @self.httpServer.app.get("/Events/AllEvents")
+        async def get_all_events():
+            serviceName = "MONGO_DB_SERVICE"
+            serviceURL = await self.getServiceURL(serviceName)
+
+            async with httpx.AsyncClient() as client:
+                response = await client.get(f"http://{serviceURL}/Events/AllEvents")
+                responseInJson = response.json()
+
+            return responseInJson
+
+        @self.httpServer.app.get("/Events/GetEventInfo")
+        async def get_event_info(
+            EVENT_ID: str,
+        ):
+
+            serviceName = "MONGO_DB_SERVICE"
+            serviceURL = await self.getServiceURL(serviceName)
+
+            async with httpx.AsyncClient() as client:
+                response = await client.get(f"http://{serviceURL}/Events/GetEventInfo?EVENT_ID={EVENT_ID}")
+                responseInJson = response.json()
+
+            if responseInJson["EVENT_ID"] == None:
+                raise HTTPException(status_code=404, detail="Event not found")
+
+            return responseInJson
+
+        @self.httpServer.app.get("/Events/Organized/User/AllEvents")
+        async def get_all_organized_events(
+            USER_ID: str,
+            request: Request
+        ):
+            serviceName = "MONGO_DB_SERVICE"
+            serviceURL = await self.getServiceURL(serviceName)
+
+            async with httpx.AsyncClient() as client:
+                response = await client.get(f"http://{serviceURL}/Events/GetEventInfo?USER_ID={USER_ID}")
+                responseInJson = response.json()
+
+            if responseInJson["EVENT_ID"] == None:
+                raise HTTPException(status_code=404, detail="Event not found")
+
+            return responseInJson
+
 
     async def startService(self):
         # await self.messageQueue.InitializeConnection()
