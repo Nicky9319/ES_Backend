@@ -103,12 +103,15 @@ class Service():
                 
                 # Generate a unique EVENT_ID
                 event_data["EVENT_ID"] = str(uuid.uuid4())
+
+                event_data["QUESTIONNAIRE"] = []
                 
                 # Add creation timestamp
                 event_data["CREATED_AT"] = datetime.now()
 
                 event_data["EVENT_DATE"] = self.parse_date_time(event_data.get("EVENT_DATE"))
                 event_data["REGISTRATION_DEADLINE"] = self.parse_date_time(event_data.get("REGISTRATION_DEADLINE"))
+
 
                 print(event_data)
                 

@@ -11,6 +11,10 @@ import httpx
 import sys
 import os
 
+from dotenv import load_dotenv
+load_dotenv()
+
+
 sys.path.append(os.path.join(os.path.dirname(__file__), "../ServiceTemplates/Basic"))
 
 
@@ -22,6 +26,8 @@ class Service():
         self.messageQueue = MessageQueue("amqp://guest:guest@localhost/","/")
         self.httpServer = HTTPServer(httpServerHost, httpServerPort)
 
+        self.serverIPAddress = os.getenv("SERVER_IP_ADDRESS")
+
     # async def fun1(self, message: aio_pika.IncomingMessage):
     #     msg = message.body.decode()
     #     print("Fun1 " , msg)
@@ -30,6 +36,9 @@ class Service():
     #     msg = message.body.decode()
     #     print("Fun2 " , msg)
 
+    async def getServiceURL(self, serviceName):
+        servicePortMapping = json.load(open("ServiceURLMapping.json"))
+        return servicePortMapping[serviceName]
 
     async def ConfigureAPIRoutes(self):
         @self.httpServer.app.post("/Events/CreateNewEvent")
@@ -69,6 +78,9 @@ class Service():
                 async with httpx.AsyncClient() as client:
                     response = await client.post(f"http://{serviceURL}/Event/StoreImage", files=files, data=data)
                     responseInJson = response.json()
+
+                serviceName = "MONGO_DB_SERVICE"
+                serviceURL = await self.getServiceURL(serviceName)
      
                 data = {
                     "EVENT_ID" : str(eventID),
