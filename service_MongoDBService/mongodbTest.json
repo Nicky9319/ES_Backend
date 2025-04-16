@@ -1,0 +1,466 @@
+{
+  "info": {
+    "_postman_id": "a1234567-89ab-cdef-0123-456789abcdef",
+    "name": "MongoDB Service Endpoints Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "Get All Events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:14000/Events/AllEvents",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Events",
+                "AllEvents"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create New Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"CONTACT_INFO\": { \"EMAIL\": \"test@example.com\", \"MOBILE_NUMBER\": \"1234567890\" },\n  \"DESCRIPTION\": \"Test event\",\n  \"EVENT_DATE\": \"2024-10-10T10:00:00Z\",\n  \"EVENT_NAME\": \"Sample Event\",\n  \"REGISTRATION_DEADLINE\": \"2024-10-01T10:00:00Z\",\n  \"VENUE\": \"Online\",\n  \"ELIGIBILITY\": [\"beginner\"]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:14000/Events/CreateNewEvent",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Events",
+                "CreateNewEvent"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Event",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"EVENT_ID\": \"replace-with-valid-event-id\",\n  \"CONTACT_INFO\": { \"EMAIL\": \"update@example.com\", \"MOBILE_NUMBER\": \"0987654321\" },\n  \"DESCRIPTION\": \"Updated event description\",\n  \"EVENT_DATE\": \"2024-10-15T10:00:00Z\",\n  \"EVENT_NAME\": \"Updated Event\",\n  \"REGISTRATION_DEADLINE\": \"2024-10-05T10:00:00Z\",\n  \"VENUE\": \"Offline\",\n  \"ELIGIBILITY\": [\"advanced\"]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:14000/Events/Update",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Events",
+                "Update"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Event Banner",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"EVENT_ID\": \"replace-with-valid-event-id\",\n  \"EVENT_BANNER\": \"https://example.com/new_banner.jpg\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:14000/Events/Update/EventBanner",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Events",
+                "Update",
+                "EventBanner"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User Profile",
+      "item": [
+        {
+          "name": "Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:14000/UserProfile/GetUserProfile?userID=replace-with-valid-user-id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "UserProfile",
+                "GetUserProfile"
+              ],
+              "query": [
+                {
+                  "key": "userID",
+                  "value": "replace-with-valid-user-id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All User Profiles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:14000/UserProfile/GetAllUserProfiles",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "UserProfile",
+                "GetAllUserProfiles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create New User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"GAMES_PLAYED\": [\"Valorant\", \"CS:GO\", \"Apex Legends\"],\n  \"GAME_RELATED_INFO\": {\"ValorantRank\": \"Immortal 2\", \"CSGORank\": \"Global Elite\"},\n  \"HISTORY\": [{\n      \"ROLES_PLAYED\": [\"Duelist\", \"Initiator\"],\n      \"DURATION\": \"2 years\",\n      \"TEAM_NAME\": \"Team Alpha\",\n      \"TEAM_ID\": \"t_a1b2c3d4-e5f6-7890-1234-567890abcdef\",\n      \"GAME_NAME\": \"Valorant\"\n    }],\n  \"PROFILE_BANNER\": \"https://picsum.photos/seed/101/1200/300\",\n  \"PROFILE_PIC\": \"https://picsum.photos/seed/102/200/200\",\n  \"LOCATION\": \"San Francisco, CA\",\n  \"TEAM_STATUS\": \"Looking for Team\",\n  \"SOCIAL_LINKS\": {\n      \"INSTAGRAM\": \"instagram.com/user\",\n      \"DISCORD\": \"user#1234\",\n      \"TWITTER\": \"@usertwitter\",\n      \"LINKEDIN\": \"linkedin.com/in/user\",\n      \"WEBSITE\": \"user.com\",\n      \"YOUTUBE\": \"youtube.com/user\"\n    },\n  \"BIO\": \"Competitive gamer looking for a pro team.\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:14000/UserProfile/CreateNewUser",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "UserProfile",
+                "CreateNewUser"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User Profile Pic",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"USER_ID\": \"replace-with-valid-user-id\",\n  \"PROFILE_PIC\": \"https://example.com/new_profile.jpg\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:14000/UserProfile/Update/ProfilePic",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "UserProfile",
+                "Update",
+                "ProfilePic"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User Profile Banner",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"USER_ID\": \"replace-with-valid-user-id\",\n  \"PROFILE_BANNER\": \"https://example.com/new_banner.jpg\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:14000/UserProfile/Update/ProfileBanner",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "UserProfile",
+                "Update",
+                "ProfileBanner"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Mentor Profile",
+      "item": [
+        {
+          "name": "Get Mentor Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:14000/MentorProfile/GetMentorProfile?mentorID=replace-with-valid-mentor-id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "MentorProfile",
+                "GetMentorProfile"
+              ],
+              "query": [
+                {
+                  "key": "mentorID",
+                  "value": "replace-with-valid-mentor-id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Mentor Profiles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:14000/MentorProfile/GetAllMentorProfiles",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "MentorProfile",
+                "GetAllMentorProfiles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create New Mentor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"GAMES\": [\"Valorant\", \"League of Legends\"],\n  \"PROFILE_BANNER\": \"https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80\",\n  \"PROFILE_PIC\": \"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80\",\n  \"LOCATION\": \"New York, USA\",\n  \"EXPERIENCE_YEARS\": 5,\n  \"PRICE_PER_SESSION\": 200,\n  \"SOCIAL_LINKS\": {\n      \"INSTAGRAM\": \"www.instagram.com/saxena_paarth/\",\n      \"DISCORD\": \"mentor#5678\",\n      \"TWITTER\": \"@mentor_tweet\",\n      \"LINKEDIN\": \"linkedin.com/mentor\",\n      \"WEBSITE\": \"mentor.com\",\n      \"YOUTUBE\": \"youtube.com/mentor\"\n    },\n  \"BIO\": \"Experienced esports mentor specializing in FPS and MOBA games. etc etc etc \",\n  \"VERIFIED\": true,\n  \"TAGLINE\": \"Level up your game with personalized coaching!\",\n  \"SESSIONS_COMPLETED\": 150,\n  \"SUCCESS_RATE\": 75,\n  \"SPECIALITIES\": [\"FPS\", \"MOBA\"],\n  \"LANGUAGES\": [\"English\", \"Spanish\"]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:14000/MentorProfile/CreateNewMentor",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "MentorProfile",
+                "CreateNewMentor"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Mentor Profile Pic",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MENTOR_ID\": \"replace-with-valid-mentor-id\",\n  \"PROFILE_PIC\": \"https://example.com/new_mentor_profile.jpg\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:14000/MentorProfile/Update/ProfilePic",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "MentorProfile",
+                "Update",
+                "ProfilePic"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Mentor Profile Banner",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MENTOR_ID\": \"replace-with-valid-mentor-id\",\n  \"PROFILE_BANNER\": \"https://example.com/new_mentor_banner.jpg\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:14000/MentorProfile/Update/ProfileBanner",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "MentorProfile",
+                "Update",
+                "ProfileBanner"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Teams",
+      "item": [
+        {
+          "name": "Create New Team",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TEAM_NAME\": \"The Terminators\",\n  \"TEAM_LOGO\": \"https://example.com/team_logo.png\",\n  \"TEAM_BANNER\": \"https://example.com/team_banner.png\",\n  \"TEAM_DESCRIPTION\": \"A competitive Valorant team.\",\n  \"TEAM_MEMBERS\": [\n    {\n      \"USER_ID\": \"replace-with-user-id-1\",\n      \"ROLE\": \"Captain\"\n    },\n    {\n      \"USER_ID\": \"replace-with-user-id-2\",\n      \"ROLE\": \"Player\"\n    }\n  ],\n  \"TEAM_MENTOR\": {\n    \"MENTOR_ID\": \"replace-with-mentor-id\",\n    \"ROLE\": \"Coach\"\n  },\n  \"TEAM_STATUS\": \"Actively Recruiting\",\n  \"TEAM_ACHIEVEMENTS\": [\"Local Tournament Winner 2023\"],\n  \"SOCIAL_LINKS\": {\n    \"DISCORD\": \"discord.gg/terminators\",\n    \"TWITTER\": \"@terminators\"\n  },\n  \"MILESTONES\": [\n    {\n      \"MILESTONE_NAME\": \"Qualify for Regionals\",\n      \"MILESTONE_DATE\": \"2024-12-01T00:00:00Z\",\n      \"MILESTONE_STATUS\": \"Pending\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:14000/Teams/CreateNewTeam",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Teams",
+                "CreateNewTeam"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Team Logo",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TEAM_ID\": \"replace-with-valid-team-id\",\n  \"TEAM_LOGO\": \"https://example.com/new_team_logo.jpg\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:14000/Teams/Update/TeamLogo",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Teams",
+                "Update",
+                "TeamLogo"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
