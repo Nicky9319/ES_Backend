@@ -30,14 +30,6 @@ class Service():
 
         self.serverIPAddress = os.getenv("SERVER_IP_ADDRESS")
 
-    async def fun1(self, message: aio_pika.IncomingMessage):
-        msg = message.body.decode()
-        print("Fun1 " , msg)
-    
-    async def fun2(self, message: aio_pika.IncomingMessage):
-        msg = message.body.decode()
-        print("Fun2 " , msg)
-
 
     async def getServiceURL(self, serviceName):
         servicePortMapping = json.load(open("ServiceURLMapping.json"))
