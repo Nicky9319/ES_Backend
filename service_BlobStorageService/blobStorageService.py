@@ -133,7 +133,7 @@ class Service():
         ):
             print(EVENT_BANNER)
             print(EVENT_ID)
-            await self.uploadImageToBlobStorage(EVENT_BANNER, "event-image", EVENT_ID + ".jpg")
+            await self.uploadImageToBlobStorage(EVENT_BANNER, "event-banner", EVENT_ID + ".jpg")
             print("Received the Event ID and the Event Banner")
             return {"message": "Image uploaded successfully"}
 

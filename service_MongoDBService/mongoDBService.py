@@ -90,7 +90,7 @@ class Service():
             events = list(self.event_collection.find({}, {'_id': 0}))  # Fetch all events, exclude _id
             return {"EVENTS": events}
     
-        @self.httpServer.app.post("/Events/InsertEvent")
+        @self.httpServer.app.post("/Events/CreateNewEvent")
         async def insert_event(request: Request):
             try:
                 event_data = await request.json()
@@ -162,7 +162,10 @@ class Service():
             except Exception as e:
                 raise HTTPException(status_code=500, detail=f"Error updating event: {str(e)}")
     
-    
+        @self.httpServer.app.put("/Events/Update/EventBanner")
+        async def update_event_banner(request: Request):
+            pass
+
     # User Profile -------------------------
         
         @self.httpServer.app.get("/UserProfile/GetUserProfile")
