@@ -159,7 +159,9 @@
                         "LOCATION",
                         "TEAM_STATUS",
                         "BIO",
-                        "CREATED_AT"
+                        "CREATED_AT",
+                        "USER_NAME",
+                        "TAGLINE"
                     ],
                     "properties": {
                         "GAMES_PLAYED": {
@@ -258,6 +260,12 @@
                         },
                         "CREATED_AT": {
                             "bsonType": "date"
+                        },
+                        "USER_NAME": {
+                            "bsonType": "string"
+                        },
+                        "TAGLINE": {
+                            "bsonType": "string"
                         }
                     }
                 }
