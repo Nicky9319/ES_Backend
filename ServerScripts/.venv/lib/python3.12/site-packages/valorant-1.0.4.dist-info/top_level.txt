@@ -1,0 +1,3 @@
+valorant
+valorant/local
+valorant/objects
