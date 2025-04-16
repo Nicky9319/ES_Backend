@@ -190,7 +190,7 @@ class Service():
             # Update the event
             result = self.event_collection.update_one(
                 {"EVENT_ID": EVENT_ID},
-                {"$set": {"EVENT_BANNER": EVENT_BANNER}}
+                {"$set": {"IMAGE": EVENT_BANNER}}
             )
             
             if result.modified_count == 0:
@@ -240,6 +240,10 @@ class Service():
                 
                 # Add creation timestamp
                 user_data["CREATED_AT"] = datetime.now()
+
+                user_data["HISTORY"] = []
+
+                user_data["GAME_RELATED_INFO"] = []
                 
 
                 # Insert the user profile
