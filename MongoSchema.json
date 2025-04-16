@@ -610,6 +610,9 @@
                                     }
                                 }
                             }
+                        },
+                        "CREATED_AT": {
+                            "bsonType": "date"
                         }
                     }
                 }

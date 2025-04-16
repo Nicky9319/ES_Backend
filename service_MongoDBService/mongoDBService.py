@@ -437,6 +437,28 @@ class Service():
             return {"message": "Mentor profile updated successfully"}
 
 
+    # Team -----------------------------------
+
+        @self.httpServer.app.post("/Team/CreateNewTeam")
+        async def insert_new_mentor(request: Request):
+            try:
+                team_data = await request.json()
+                print("Received mentor data:", team_data)
+
+
+                team_data["TEAM_ID"] = str(uuid.uuid4())
+
+                # Add creation timestamp
+                team_data["CREATED_AT"] = datetime.now() 
+
+            except ValidationError as e:
+                raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
+            except DuplicateKeyError:
+                raise HTTPException(status_code=409, detail="A mentor with this ID already exists")
+            except Exception as e:
+                print(str(e))
+                raise HTTPException(status_code=500, detail=f"Error inserting mentor profile: {str(e)}")
+       
 
 
 

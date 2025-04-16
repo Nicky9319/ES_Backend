@@ -29,5 +29,8 @@
     {
       "EVENT_ID" : "cfgvhbnjkm,l;fgbhnjkm,l;."
     }
-  ]
+  ],
+  "CREATED_AT": {
+    "$date": "2023-10-14T12:00:00Z"
+  }
 }
