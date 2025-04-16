@@ -194,6 +194,7 @@ class Service():
             request: Request
         ):
             try:
+                
                 user_data = await request.json()
                 print("Received user data:", user_data)
                 

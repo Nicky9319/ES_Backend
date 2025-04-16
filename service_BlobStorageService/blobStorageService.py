@@ -42,6 +42,7 @@ class Service():
 
 
     async def uploadImageToBlobStorage(self, image: UploadFile, bucket: str, key: str):
+        print(image)
         try:
             contents = await image.read()
             self.client.put_object(Bucket=bucket, Key=key , Body=contents)
@@ -67,11 +68,11 @@ class Service():
             PROFILE_PIC: UploadFile = Form(...),
             USER_ID: str = Form(...),
         ):
-            print(PROFILE_PIC)
-            print(USER_ID)
+            # print(PROFILE_PIC)
+            # print(USER_ID)
             await self.uploadImageToBlobStorage(PROFILE_PIC, "user-profile-pic", USER_ID + ".jpg")
             print("Received the User ID and the Profile Pic")
-            return {"message": "Image uploaded successfully"}
+            return {"message": "Image uploaded successfully"}   
     
         @self.httpServer.app.post("/UserProfileBanner/StoreImage")
         async def user_profile_banner_storeImage(

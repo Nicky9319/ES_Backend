@@ -60,17 +60,27 @@ class Service():
 
             userID = None
 
+            # print(USER_INFO)
+            # print(type(USER_INFO))
+
+            USER_INFO = json.loads(USER_INFO)
+            # print(USER_INFO)
+            # print(type(USER_INFO))
+
             async with httpx.AsyncClient() as client:
 
                 USER_INFO["PROFILE_PIC"] = "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                 USER_INFO["PROFILE_BANNER"] = "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
 
-                response = await client.post(f"http://{serviceURL}/UserProfile/CreateNewUser", data=USER_INFO)
+                response = await client.post(f"http://{serviceURL}/UserProfile/CreateNewUser", json=USER_INFO)
                 responseInJson = response.json()
 
+
+                # print("Response from MongoDB Service: ", responseInJson)
+                # print()
                 userID = responseInJson["USER_ID"]
 
-                print("Response from MongoDB Service: ", responseInJson)
+            print("User ID: ", userID)
         
 
             if PROFILE_PIC != None:
@@ -98,12 +108,15 @@ class Service():
                 }
 
                 async with httpx.AsyncClient() as client:
-                    response = await client.post(f"http://{serviceURL}/UserProfile/UpdateUserProfilePic", data=data)
+                    response = await client.put(f"http://{serviceURL}/UserProfile/Update/ProfilePic", json=data)
                     responseInJson = response.json()
                 print("Response from MongoDB Service: ", responseInJson)
 
 
             if PROFILE_BANNER != None:
+                serviceName = "BLOB_STORAGE_SERVICE"
+                serviceURL = await self.getServiceURL(serviceName)
+                
                 files ={
                     "PROFILE_BANNER": (PROFILE_BANNER.filename, await PROFILE_BANNER.read(), PROFILE_BANNER.content_type)
                 }
@@ -124,7 +137,7 @@ class Service():
                 }
 
                 async with httpx.AsyncClient() as client:
-                    response = await client.post(f"http://{serviceURL}/UserProfileBanner/StoreImage", files=files, data=data)
+                    response = await client.put(f"http://{serviceURL}/UserProfile/Update/ProfileBanner", json=data)
                     responseInJson = response.json()
                 print("Response from MongoDB Service: ", responseInJson)
 
