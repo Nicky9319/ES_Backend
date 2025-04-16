@@ -163,8 +163,37 @@ class Service():
                 raise HTTPException(status_code=500, detail=f"Error updating event: {str(e)}")
     
         @self.httpServer.app.put("/Events/Update/EventBanner")
-        async def update_event_banner(request: Request):
-            pass
+        async def update_event_banner(
+            request: Request
+        ):
+            data = await request.json()
+
+            EVENT_ID = data.get("EVENT_ID")
+            EVENT_BANNER = data.get("EVENT_BANNER")
+
+            # Check if EVENT_ID is provided
+            if not EVENT_ID:
+                raise HTTPException(status_code=400, detail="EVENT_ID is required")
+            
+            # Check if EVENT_BANNER is provided
+            if not EVENT_BANNER:
+                raise HTTPException(status_code=400, detail="EVENT_BANNER is required")
+            
+            # Check if the event exists
+            existing_event = self.event_collection.find_one({"EVENT_ID": EVENT_ID})
+            if not existing_event:
+                raise HTTPException(status_code=404, detail=f"Event with ID {EVENT_ID} not found")
+            
+            # Update the event
+            result = self.event_collection.update_one(
+                {"EVENT_ID": EVENT_ID},
+                {"$set": {"EVENT_BANNER": EVENT_BANNER}}
+            )
+            
+            if result.modified_count == 0:
+                return {"message": "No changes were made to the event"}
+            
+            return {"message": "Event banner updated successfully"}
 
     # User Profile -------------------------
         

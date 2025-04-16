@@ -32,7 +32,7 @@ class Service():
 
 
     async def ConfigureAPIRoutes(self):
-        @self.httpServer.app.get("/Events/CreateNewEvent")
+        @self.httpServer.app.post("/Events/CreateNewEvent")
         async def create_new_event(
             IMAGE: UploadFile = Form(...),  
             EVENT_INFO: str = Form(...)
