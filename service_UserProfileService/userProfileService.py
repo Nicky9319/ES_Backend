@@ -128,6 +128,31 @@ class Service():
 
             return {"USER_ID" : userID}
     
+        @self.httpServer.app.get("/UserProfile/GetAllUserProfiles")
+        async def get_all_user_profiles():
+            serviceName = "MONGO_DB_SERVICE"
+            serviceURL = await self.getServiceURL(serviceName)
+
+            async with httpx.AsyncClient() as client:
+                response = await client.get(f"http://{serviceURL}/UserProfile/GetAllUserProfiles")
+                responseInJson = response.json()
+
+            return responseInJson
+
+        @self.httpServer.app.get("/UserProfile/GetUserProfile")
+        async def get_user_profile(
+            USER_ID: str
+        ):
+            serviceName = "MONGO_DB_SERVICE"
+            serviceURL = await self.getServiceURL(serviceName)
+
+            async with httpx.AsyncClient() as client:
+                response = await client.get(f"http://{serviceURL}//UserProfile/GetUserProfile?USER_ID={USER_ID}")
+                responseInJson = response.json()
+
+            return responseInJson
+            
+
 
     async def startService(self):
         # await self.messageQueue.InitializeConnection()

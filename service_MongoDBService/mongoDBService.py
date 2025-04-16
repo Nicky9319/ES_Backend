@@ -261,15 +261,15 @@ class Service():
         
         @self.httpServer.app.get("/UserProfile/GetUserProfile")
         async def get_user_profile(
-            userID: str, 
+            USER_ID: str, 
             request: Request
         ):
             # Check if userID is provided
-            if not userID:
+            if not USER_ID:
                 raise HTTPException(status_code=400, detail="userID is required")
             
             # Fetch user profile from the database
-            user_profile = self.db["USER_PROFILE"].find_one({"USER_ID": userID}, {'_id': 0})
+            user_profile = self.db["USER_PROFILE"].find_one({"USER_ID": USER_ID}, {'_id': 0})
             if not user_profile:
                 raise HTTPException(status_code=404, detail=f"User profile with ID {userID} not found")
             
