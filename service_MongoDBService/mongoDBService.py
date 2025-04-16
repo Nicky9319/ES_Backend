@@ -80,6 +80,27 @@ class Service():
         return field
 
 
+
+    async def get_all_events_organized_by_user(self, userID, mongoProjecton=None):
+        if mongoProjecton == None:
+            return self.event_collection.find({"ORGANIZER": userID}, {'_id': 0})
+        
+        return self.event_collection.find({"ORGANIZER": userID}, mongoProjecton)
+
+    async def get_all_teams_for_a_user(self, userID, mongoProjecton=None):
+        if mongoProjecton == None:
+            return self.teams_collection.find(
+                {"PARTICIPANTS": {"$elemMatch": {"USER_ID": userID}}},
+                {'_id': 0}
+            )
+        
+        return self.teams_collection.find(
+                {"PARTICIPANTS": {"$elemMatch": {"USER_ID": userID}}},
+                mongoProjecton
+            )
+
+
+
     async def ConfigureAPIRoutes(self):
 
     # Events ---------------------------------
@@ -100,7 +121,8 @@ class Service():
                 raise HTTPException(status_code=400, detail="USER_ID is required")
 
             # Query the database for events organized by the user
-            events = list(self.event_collection.find({"ORGANIZER": USER_ID}, {'_id': 0}))
+            # events = list(self.event_collection.find({"ORGANIZER": USER_ID}, {'_id': 0}))
+            events = list(await self.get_all_events_organized_by_user(USER_ID, {'_id': 0}))
 
             if not events:
                 # It's okay if a user hasn't organized any events, return an empty list
@@ -481,10 +503,12 @@ class Service():
 
             # Query the database for teams where the user is a participant
             # We use $elemMatch to find documents where the PARTICIPANTS array contains at least one element matching the criteria
-            teams = list(self.teams_collection.find(
-                {"PARTICIPANTS": {"$elemMatch": {"USER_ID": USER_ID}}},
-                {'_id': 0}
-            ))
+            # teams = list(self.teams_collection.find(
+            #     {"PARTICIPANTS": {"$elemMatch": {"USER_ID": USER_ID}}},
+            #     {'_id': 0}
+            # ))
+
+            teams = list(await self.get_all_teams_for_a_user(USER_ID, {'_id': 0}))
 
             if not teams:
                 # It's okay if a user isn't part of any teams, return an empty list
