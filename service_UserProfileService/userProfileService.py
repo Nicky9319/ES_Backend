@@ -50,19 +50,20 @@ class Service():
             # print(USER_INFO)
 
 
-            # serviceName = "MONGO_DB_SERVICE"
-            # serviceURL = await self.getServiceURL(serviceName)
+            serviceName = "MONGO_DB_SERVICE"
+            serviceURL = await self.getServiceURL(serviceName)
 
-            # userID = None
+            userID = None
 
-            # async with httpx.AsyncClient() as client:
-            #     response = await client.post(f"http://{serviceURL}/UserProfile/CreateNewUser", data=USER_INFO)
-            #     responseInJson = response.json()
+            async with httpx.AsyncClient() as client:
+                response = await client.post(f"http://{serviceURL}/UserProfile/CreateNewUser", data=USER_INFO)
+                responseInJson = response.json()
 
-            #     userID = responseInJson["USER_ID"]
+                userID = responseInJson["USER_ID"]
 
-            #     print("Response from MongoDB Service: ", responseInJson)
+                print("Response from MongoDB Service: ", responseInJson)
         
+
 
             serviceName = "BLOB_STORAGE_SERVICE"
             serviceURL = await self.getServiceURL(serviceName)
@@ -71,12 +72,25 @@ class Service():
                  "PROFILE_PIC": (PROFILE_PIC.filename, await PROFILE_PIC.read(), PROFILE_PIC.content_type),
              }
             data = {
-                 "USER_ID": str(uuid.uuid4())
+                 "USER_ID": str(userID)
              }
  
             async with httpx.AsyncClient() as client:
                 response = await client.post(f"http://{serviceURL}/UserProfilePic/StoreImage", files=files, data=data)
                 responseInJson = response.json()
+
+
+            files ={
+                "PROFILE_BANNER": (PROFILE_BANNER.filename, await PROFILE_BANNER.read(), PROFILE_BANNER.content_type)
+            }
+            data = {
+                "USER_ID": str(userID)
+            }
+
+            async with httpx.AsyncClient() as client:
+                response = await client.post(f"http://{serviceURL}/UserProfileBanner/StoreImage", files=files, data=data)
+                responseInJson = response.json()
+
 
             return {"message": f"Created new user with info {USER_INFO}"}
     

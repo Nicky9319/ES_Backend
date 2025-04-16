@@ -1,0 +1,23 @@
+{
+    "GAMES_PLAYED": [
+        "Valorant",
+        "CS:GO",
+        "Apex Legends"
+    ],
+    "LOCATION": "location_value_33",
+    "TEAM_STATUS": "Away",
+    "SOCIAL_LINKS": {
+        "INSTAGRAM": "instagram_value_2",
+        "DISCORD": "discord_value_58",
+        "TWITTER": "twitter_value_19",
+        "LINKEDIN": "linkedin_value_84",
+        "WEBSITE": "website_value_60",
+        "YOUTUBE": "youtube_value_37"
+    },
+    "BIO": "bio_value_49",
+    "CREATED_AT": {
+        "$date": "2024-06-25T14:20:30.400Z"
+    },
+    "USER_NAME": "test_user_123",
+    "TAGLINE": "test_tagline_456"
+}

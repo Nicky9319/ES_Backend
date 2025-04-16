@@ -185,7 +185,7 @@ class Service():
             user_profiles = list(self.db["USER_PROFILE"].find({}, {'_id': 0}))
             return {"USER_PROFILES": user_profiles}
 
-        @self.httpServer.app.post("/UserProfile/InsertNewUser")
+        @self.httpServer.app.post("/UserProfile/CreateNewUser")
         async def insert_new_user(request: Request):
             try:
                 user_data = await request.json()
@@ -209,6 +209,7 @@ class Service():
             except DuplicateKeyError:
                 raise HTTPException(status_code=409, detail="A user with this ID already exists")
             except Exception as e:
+                print(str(e))
                 raise HTTPException(status_code=500, detail=f"Error inserting user profile: {str(e)}")
 
     # Mentor Profile -------------------------

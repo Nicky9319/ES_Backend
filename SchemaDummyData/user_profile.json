@@ -34,7 +34,7 @@
   "PROFILE_BANNER": "https://picsum.photos/seed/101/1200/300",
   "PROFILE_PIC": "https://picsum.photos/seed/102/200/200",
   "LOCATION": "location_value_33",
-  "TEAM_STATUS": "team_status_value_76",
+  "TEAM_STATUS": "Away",
   "SOCIAL_LINKS": {
     "INSTAGRAM": "instagram_value_2",
     "DISCORD": "discord_value_58",
@@ -44,5 +44,7 @@
     "YOUTUBE": "youtube_value_37"
   },
   "BIO": "bio_value_49",
-  "CREATED_AT": { "$date": "2024-06-25T14:20:30.400Z" }
+  "CREATED_AT": { "$date": "2024-06-25T14:20:30.400Z" },
+  "USER_NAME": "test_user_123",
+  "TAGLINE" : "test_tagline_456"
 }

@@ -30,7 +30,7 @@
             },
             {
               "key": "USER_INFO",
-              "value": "{\"username\": \"testuser\", \"email\": \"test@example.com\"}",
+              "value": "{\"GAMES_PLAYED\": [\"Valorant\"], \"GAME_RELATED_INFO\": {\"ValorantRank\": \"Immortal\"}, \"HISTORY\": [], \"LOCATION\": \"Paris, France\", \"TEAM_STATUS\": \"Free Agent\", \"SOCIAL_LINKS\": {\"DISCORD\": \"TestUser#1234\"}, \"BIO\": \"Test bio for new user\"}",
               "type": "text"
             }
           ]

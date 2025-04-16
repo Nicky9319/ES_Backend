@@ -152,8 +152,6 @@
                     "bsonType": "object",
                     "required": [
                         "GAMES_PLAYED",
-                        "GAME_RELATED_INFO",
-                        "HISTORY",
                         "USER_ID",
                         "PLATFORM_STATUS",
                         "PROFILE_BANNER",
