@@ -390,13 +390,16 @@ class Service():
     # Mentor Profile -------------------------
 
         @self.httpServer.app.get("/MentorProfile/GetMentorProfile")
-        async def get_mentor_profile(mentorID: str, request: Request):
+        async def get_mentor_profile(
+            MENTOR_ID: str,
+            request: Request
+        ):
             # Check if mentorID is provided
-            if not mentorID:
+            if not MENTOR_ID:
                 raise HTTPException(status_code=400, detail="mentorID is required")
 
             # Fetch mentor profile from the database
-            mentor_profile = self.mentor_profile_collection.find_one({"MENTOR_ID": mentorID}, {'_id': 0})
+            mentor_profile = self.mentor_profile_collection.find_one({"MENTOR_ID": MENTOR_ID}, {'_id': 0})
             if not mentor_profile:
                 raise HTTPException(status_code=404, detail=f"Mentor profile with ID {mentorID} not found")
 

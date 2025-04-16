@@ -130,7 +130,29 @@ class Service():
 
             return {"MENTOR_ID": mentorID}
 
+        @self.httpServer.app.get("/MentorProfile/GetAllMentorProfiles")
+        async def get_all_mentor_profiles():
+            serviceName = "MONGO_DB_SERVICE"
+            serviceURL = await self.getServiceURL(serviceName)
 
+            async with httpx.AsyncClient() as client:
+                response = await client.get(f"http://{serviceURL}/MentorProfile/GetAllMentorProfiles")
+                responseInJson = response.json()
+
+            return responseInJson
+
+        @self.httpServer.app.get("/MentorProfile/GetMentorProfile")
+        async def get_mentor_profile(
+            MENTOR_ID: str,
+        ):
+            serviceName = "MONGO_DB_SERVICE"
+            serviceURL = await self.getServiceURL(serviceName)
+
+            async with httpx.AsyncClient() as client:
+                response = await client.get(f"http://{serviceURL}/MentorProfile/GetMentorProfile?MENTOR_ID={MENTOR_ID}")
+                responseInJson = response.json()
+
+            return responseInJson
     
 
     async def startService(self):
