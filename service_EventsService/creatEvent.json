@@ -33,5 +33,6 @@
         }
     ],
     "NUMBER_OF_MEMBERS": 4,
-    "NUMBER_OF_TEAMS": 16
-}
+    "NUMBER_OF_TEAMS": 16,
+    "ORGANIZER": "organizer-uuid"
+} 

@@ -20,32 +20,27 @@ class Service():
         self.messageQueue = MessageQueue("amqp://guest:guest@localhost/","/")
         self.httpServer = HTTPServer(httpServerHost, httpServerPort)
 
-    async def fun1(self, message: aio_pika.IncomingMessage):
-        msg = message.body.decode()
-        print("Fun1 " , msg)
+    # async def fun1(self, message: aio_pika.IncomingMessage):
+    #     msg = message.body.decode()
+    #     print("Fun1 " , msg)
     
-    async def fun2(self, message: aio_pika.IncomingMessage):
-        msg = message.body.decode()
-        print("Fun2 " , msg)
+    # async def fun2(self, message: aio_pika.IncomingMessage):
+    #     msg = message.body.decode()
+    #     print("Fun2 " , msg)
 
 
     async def ConfigureAPIRoutes(self):
-        @self.httpServer.app.get("/")
-        async def read_root():
-            print("Running Through Someone Else")
-            return {"message": "Hello World"}
-        
-        @self.httpServer.app.get("/Events/AllEvents")
+        @self.httpServer.app.get("/Events/CreateNewEvent")
         async def getAllEvents():
             print("Running Through Someone Else")
             return {"message": "Hello World"}
     
 
     async def startService(self):
-        await self.messageQueue.InitializeConnection()
-        await self.messageQueue.AddQueueAndMapToCallback("queue1", self.fun1)
-        await self.messageQueue.AddQueueAndMapToCallback("queue2", self.fun2)
-        await self.messageQueue.StartListeningToQueue()
+        # await self.messageQueue.InitializeConnection()
+        # await self.messageQueue.AddQueueAndMapToCallback("queue1", self.fun1)
+        # await self.messageQueue.AddQueueAndMapToCallback("queue2", self.fun2)
+        # await self.messageQueue.StartListeningToQueue()
 
         await self.ConfigureAPIRoutes()
         await self.httpServer.run_app()

@@ -23,7 +23,8 @@
                         "IMAGE",
                         "NUMBER_OF_MEMBERS",
                         "NUMBER_OF_TEAMS",
-                        "CREATED_AT"
+                        "CREATED_AT",
+                        "ORGANIZER"
                     ],
                     "properties": {
                         "CONTACT_INFO": {
@@ -137,6 +138,9 @@
                         },
                         "CREATED_AT": {
                             "bsonType": "date"
+                        },
+                        "ORGANIZER": {
+                            "bsonType": "string"
                         }
                     }
                 }
