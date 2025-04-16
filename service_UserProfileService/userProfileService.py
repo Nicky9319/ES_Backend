@@ -48,18 +48,34 @@ class Service():
         ):
             # print(PROFILE_PIC)
             # print(USER_INFO)
+
+
+            # serviceName = "MONGO_DB_SERVICE"
+            # serviceURL = await self.getServiceURL(serviceName)
+
+            # userID = None
+
+            # async with httpx.AsyncClient() as client:
+            #     response = await client.post(f"http://{serviceURL}/UserProfile/CreateNewUser", data=USER_INFO)
+            #     responseInJson = response.json()
+
+            #     userID = responseInJson["USER_ID"]
+
+            #     print("Response from MongoDB Service: ", responseInJson)
         
 
             serviceName = "BLOB_STORAGE_SERVICE"
             serviceURL = await self.getServiceURL(serviceName)
 
-            formData = {
-                "PROFILE_PIC": (PROFILE_PIC.filename, await PROFILE_PIC.read(), PROFILE_PIC.content_type),
-                "USER_ID": uuid.uuid4()
-            }
-
+            files = {
+                 "PROFILE_PIC": (PROFILE_PIC.filename, await PROFILE_PIC.read(), PROFILE_PIC.content_type),
+             }
+            data = {
+                 "USER_ID": str(uuid.uuid4())
+             }
+ 
             async with httpx.AsyncClient() as client:
-                response = await client.post(f"http://{serviceURL}/UserProfilePic/StoreImage", files=formData)
+                response = await client.post(f"http://{serviceURL}/UserProfilePic/StoreImage", files=files, data=data)
                 responseInJson = response.json()
 
             return {"message": f"Created new user with info {USER_INFO}"}
