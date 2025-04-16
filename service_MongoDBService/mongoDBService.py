@@ -302,7 +302,7 @@ class Service():
 
                 user_data["HISTORY"] = []
 
-                user_data["GAME_RELATED_INFO"] = {}
+                user_data["GAME_RELATED_INFO"] = []
                 
 
                 # Insert the user profile

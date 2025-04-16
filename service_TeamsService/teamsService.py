@@ -14,6 +14,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+from fastapi.middleware.cors import CORSMiddleware
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "../ServiceTemplates/Basic"))
 
@@ -25,6 +26,14 @@ class Service():
     def __init__(self,httpServerHost, httpServerPort):
         self.messageQueue = MessageQueue("amqp://guest:guest@localhost/","/")
         self.httpServer = HTTPServer(httpServerHost, httpServerPort)
+
+        self.httpServer.app.add_middleware(
+            CORSMiddleware,
+            allow_origins=["*"],
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
 
     # async def fun1(self, message: aio_pika.IncomingMessage):
     #     msg = message.body.decode()

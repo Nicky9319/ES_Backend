@@ -22,6 +22,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "../ServiceTemplates/Bas
 
 from HTTP_SERVER import HTTPServer
 from MESSAGE_QUEUE import MessageQueue
+from fastapi.middleware.cors import CORSMiddleware
 
 class Service():
     def __init__(self,httpServerHost, httpServerPort):
@@ -30,17 +31,16 @@ class Service():
 
         self.serverIPAddress = os.getenv("SERVER_IP_ADDRESS")
 
+        self.httpServer.app.add_middleware(
+            CORSMiddleware,
+            allow_origins=["*"],
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
+
 
     async def getServiceURL(self, serviceName):
-        servicePortMapping = json.load(open("ServiceURLMapping.json"))
-        return servicePortMapping[serviceName]
-
-
-
-    async def ConfigureAPIRoutes(self):
-        @self.httpServer.app.post("/MentorProfile/CreateNewMentor")
-        async def create_new_mentor(
-            PROFILE_PIC: UploadFile = Form(...), 
             PROFILE_BANNER: UploadFile = Form(...),  
             MENTOR_INFO: str = Form(...)
         ):

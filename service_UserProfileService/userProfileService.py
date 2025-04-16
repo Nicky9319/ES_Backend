@@ -22,11 +22,20 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "../ServiceTemplates/Bas
 
 from HTTP_SERVER import HTTPServer
 from MESSAGE_QUEUE import MessageQueue
+from fastapi.middleware.cors import CORSMiddleware
 
 class Service():
     def __init__(self,httpServerHost, httpServerPort):
         self.messageQueue = MessageQueue("amqp://guest:guest@localhost/","/")
         self.httpServer = HTTPServer(httpServerHost, httpServerPort)
+
+        self.httpServer.app.add_middleware(
+            CORSMiddleware,
+            allow_origins=["*"],
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
 
         self.serverIPAddress = os.getenv("SERVER_IP_ADDRESS")
 

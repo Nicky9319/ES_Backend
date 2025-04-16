@@ -5,6 +5,8 @@ import uvicorn
 import asyncio
 import aio_pika
 
+from fastapi.middleware.cors import CORSMiddleware
+
 import json
 import httpx
 
@@ -25,6 +27,14 @@ class Service():
     def __init__(self,httpServerHost, httpServerPort):
         self.messageQueue = MessageQueue("amqp://guest:guest@localhost/","/")
         self.httpServer = HTTPServer(httpServerHost, httpServerPort)
+
+        self.httpServer.app.add_middleware(
+            CORSMiddleware,
+            allow_origins=["*"],  # Allows all origins
+            allow_credentials=True,
+            allow_methods=["*"],  # Allows all methods
+            allow_headers=["*"],  # Allows all headers
+        )
 
         self.serverIPAddress = os.getenv("SERVER_IP_ADDRESS")
 
