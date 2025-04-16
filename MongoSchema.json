@@ -289,7 +289,14 @@
                         "EXPERIENCE_YEARS",
                         "PRICE_PER_SESSION",
                         "SOCIAL_LINKS",
-                        "CREATED_AT"
+                        "CREATED_AT",
+                        "TAGLINE",
+                        "RATING",
+                        "VERIFIED",
+                        "SESSIONS_COMPLETED",
+                        "SUCCESS_RATE",
+                        "SPECIALITIES",
+                        "LANGUAGES"
                     ],
                     "properties": {
                         "GAMES": {
