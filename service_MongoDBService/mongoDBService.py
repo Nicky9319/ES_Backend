@@ -37,7 +37,7 @@ class Service():
         self.event_collection = self.db["EVENTS"]  # Collection name from MongoSchema.json
         self.user_profile_collection = self.db["USER_PROFILE"] # Collection name from MongoSchema.json
         self.mentor_profile_collection = self.db["MENTOR_PROFILE"] # Collection name from MongoSchema.json
-
+        self.teams_collection = self.db["TEAMS"]
         
     def validate_event_data(self, event_data):
         """Validate event data against the required schema"""
@@ -437,19 +437,30 @@ class Service():
             return {"message": "Mentor profile updated successfully"}
 
 
-    # Team -----------------------------------
+    # Teams -----------------------------------
 
-        @self.httpServer.app.post("/Team/CreateNewTeam")
-        async def insert_new_mentor(request: Request):
+        @self.httpServer.app.post("/Teams/CreateNewTeam")
+        async def insert_new_team(request: Request):
             try:
                 team_data = await request.json()
                 print("Received mentor data:", team_data)
-
+                
+                # Parse milestone dates if present and in the unsupported format
+                if "MILESTONES" in team_data:
+                    for milestone in team_data["MILESTONES"]:
+                        if isinstance(milestone.get("MILESTONE_DATE"), dict) and "$date" in milestone["MILESTONE_DATE"]:
+                            milestone["MILESTONE_DATE"] = datetime.fromisoformat(milestone["MILESTONE_DATE"]["$date"].replace("Z", "+00:00"))
 
                 team_data["TEAM_ID"] = str(uuid.uuid4())
 
                 # Add creation timestamp
                 team_data["CREATED_AT"] = datetime.now() 
+
+                team_data["EVENTS_ENROLLED"] = []
+
+                result = self.teams_collection.insert_one(team_data)
+
+                return {"message": "Team profile inserted successfully", "TEAM_ID": team_data["TEAM_ID"]}
 
             except ValidationError as e:
                 raise HTTPException(status_code=400, detail=f"Schema validation failed: {str(e)}")
@@ -459,6 +470,38 @@ class Service():
                 print(str(e))
                 raise HTTPException(status_code=500, detail=f"Error inserting mentor profile: {str(e)}")
        
+        @self.httpServer.app.put("/Teams/Update/TeamLogo")
+        async def update_team_logo(
+            request: Request
+        ):
+            data = await request.json()
+
+            TEAM_ID = data.get("TEAM_ID")
+            TEAM_LOGO = data.get("TEAM_LOGO")
+
+            # Check if USER_ID is provided
+            if not TEAM_ID:
+                raise HTTPException(status_code=400, detail="USER_ID is required")
+            
+            # Check if PROFILE_PIC is provided
+            if not TEAM_LOGO:
+                raise HTTPException(status_code=400, detail="PROFILE_PIC is required")
+            
+            # Check if the user profile exists
+            existing_user = self.db["TEAMS"].find_one({"TEAM_ID": TEAM_ID})
+            if not existing_user:
+                raise HTTPException(status_code=404, detail=f"User with ID {TEAM_ID} not found")
+            
+            # Update the user profile
+            result = self.db["TEAMS"].update_one(
+                {"TEAM_ID": TEAM_ID},
+                {"$set": {"TEAM_LOGO": TEAM_LOGO}}
+            )
+            
+            if result.modified_count == 0:
+                return {"message": "No changes were made to the user profile"}
+            
+            return {"message": "Team logo updated successfully"}
 
 
 

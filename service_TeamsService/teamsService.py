@@ -33,6 +33,10 @@ class Service():
     # async def fun2(self, message: aio_pika.IncomingMessage):
     #     msg = message.body.decode()
     #     print("Fun2 " , msg)
+    
+    async def getServiceURL(self, serviceName):
+        servicePortMapping = json.load(open("ServiceURLMapping.json"))
+        return servicePortMapping[serviceName]
 
 
     async def ConfigureAPIRoutes(self):
@@ -42,7 +46,7 @@ class Service():
             TEAM_INFO : str = Form(...)
         ):
             serviceName = "MONGO_DB_SERVICE"
-            serviceURL = await self.httpServer.getServiceURL(serviceName)
+            serviceURL = await self.getServiceURL(serviceName)
 
             teamID = None
 
@@ -61,7 +65,7 @@ class Service():
 
             if TEAM_LOGO != None:
                 serviceName = "BLOB_STORAGE_SERVICE"
-                serviceURL = await self.httpServer.getServiceURL(serviceName)
+                serviceURL = await self.getServiceURL(serviceName)
 
                 files = {
                     "TEAM_LOGO": (TEAM_LOGO.filename, await TEAM_LOGO.read(), TEAM_LOGO.content_type),
@@ -75,7 +79,7 @@ class Service():
                     responseInJson = response.json()
 
                 serviceName = "MONGO_DB_SERVICE"
-                serviceURL = await self.httpServer.getServiceURL(serviceName)
+                serviceURL = await self.getServiceURL(serviceName)
             
                 data = {
                     "TEAM_ID" : str(teamID),
