@@ -1,0 +1,54 @@
+{
+  "info": {
+    "_postman_id": "YOUR_POSTMAN_ID",
+    "name": "UserProfileService Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create New User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "multipart/form-data"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "PROFILE_PIC",
+              "value": "test_image.jpg",
+              "type": "file"
+            },
+            {
+              "key": "PROFILE_BANNER",
+              "value": "test_banner.jpg",
+              "type": "file"
+            },
+            {
+              "key": "USER_INFO",
+              "value": "{\"username\": \"testuser\", \"email\": \"test@example.com\"}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:7000/UserProfile/CreateNewUser",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7000",
+          "path": [
+            "UserProfile",
+            "CreateNewUser"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

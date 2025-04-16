@@ -1,0 +1,392 @@
+[
+    {
+        "GAMES_PLAYED": [
+            "Valorant",
+            "Overwatch 2",
+            "Apex Legends"
+        ],
+        "GAME_RELATED_INFO": {
+            "ValorantRank": "Radiant",
+            "OverwatchRank": "Grandmaster",
+            "ApexRank": "Predator"
+        },
+        "HISTORY": [
+            {
+                "ROLES_PLAYED": [
+                    "Duelist",
+                    "Flex"
+                ],
+                "DURATION": "1 year 2 months",
+                "TEAM_NAME": "Crimson Raptors",
+                "TEAM_ID": "t_1a2b3c4d-e5f6-7890-1234-aaaaaaaaaaaa",
+                "GAME_NAME": "Valorant"
+            },
+            {
+                "ROLES_PLAYED": [
+                    "DPS",
+                    "Tank"
+                ],
+                "DURATION": "8 months",
+                "TEAM_NAME": "Quantum Leap",
+                "TEAM_ID": "t_1a2b3c4d-e5f6-7890-1234-bbbbbbbbbbbb",
+                "GAME_NAME": "Overwatch 2"
+            }
+        ],
+        "USER_ID": "u_abcdef12-3456-7890-abcd-000000000001",
+        "PLATFORM_STATUS": "Online",
+        "PROFILE_BANNER": "https://picsum.photos/seed/1001/1200/300",
+        "PROFILE_PIC": "https://picsum.photos/seed/1002/200/200",
+        "LOCATION": "London, UK",
+        "TEAM_STATUS": "Looking for Team",
+        "SOCIAL_LINKS": {
+            "TWITTER": "user1_twitter",
+            "TWITCH": "user1_twitch",
+            "DISCORD": "UserOne#1111"
+        },
+        "BIO": "Highly competitive FPS player seeking a dedicated team for tournaments.",
+        "CREATED_AT": {
+            "$date": "2024-07-10T08:30:00.000Z"
+        }
+    },
+    {
+        "GAMES_PLAYED": [
+            "CS:GO",
+            "Valorant"
+        ],
+        "GAME_RELATED_INFO": {
+            "CSGORank": "Global Elite",
+            "ValorantRank": "Immortal 3"
+        },
+        "HISTORY": [
+            {
+                "ROLES_PLAYED": [
+                    "AWPer",
+                    "IGL"
+                ],
+                "DURATION": "2 years",
+                "TEAM_NAME": "Viper Squad",
+                "TEAM_ID": "t_2b3c4d5e-f6a7-8901-2345-cccccccccccc",
+                "GAME_NAME": "CS:GO"
+            }
+        ],
+        "USER_ID": "u_bcdef123-4567-8901-bcde-000000000002",
+        "PLATFORM_STATUS": "Offline",
+        "PROFILE_BANNER": "https://picsum.photos/seed/1003/1200/300",
+        "PROFILE_PIC": "https://picsum.photos/seed/1004/200/200",
+        "LOCATION": "Berlin, Germany",
+        "TEAM_STATUS": "Free Agent",
+        "SOCIAL_LINKS": {
+            "TWITTER": "user2_gaming",
+            "YOUTUBE": "user2_highlights"
+        },
+        "BIO": "Experienced AWPer with strong leadership skills. LFT CS/Valorant.",
+        "CREATED_AT": {
+            "$date": "2024-07-11T11:05:15.000Z"
+        }
+    },
+    {
+        "GAMES_PLAYED": [
+            "Apex Legends",
+            "Warzone"
+        ],
+        "GAME_RELATED_INFO": {
+            "ApexRank": "Master",
+            "WarzoneKD": "2.8"
+        },
+        "HISTORY": [
+            {
+                "ROLES_PLAYED": [
+                    "Fragger",
+                    "Support"
+                ],
+                "DURATION": "1 season",
+                "TEAM_NAME": "Apex Predators Clan",
+                "TEAM_ID": "t_3c4d5e6f-a7b8-9012-3456-dddddddddddd",
+                "GAME_NAME": "Apex Legends"
+            }
+        ],
+        "USER_ID": "u_cdef1234-5678-9012-cdef-000000000003",
+        "PLATFORM_STATUS": "In Game",
+        "PROFILE_BANNER": "https://picsum.photos/seed/1005/1200/300",
+        "PROFILE_PIC": "https://picsum.photos/seed/1006/200/200",
+        "LOCATION": "New York, USA",
+        "TEAM_STATUS": "On Team 'Zone Controllers'",
+        "SOCIAL_LINKS": {
+            "INSTAGRAM": "user3_clips",
+            "TWITCH": "user3_streams"
+        },
+        "BIO": "Battle Royale enthusiast, grinding ranks and dropping clips.",
+        "CREATED_AT": {
+            "$date": "2024-07-12T14:00:00.000Z"
+        }
+    },
+    {
+        "GAMES_PLAYED": [
+            "League of Legends",
+            "Dota 2"
+        ],
+        "GAME_RELATED_INFO": {
+            "LoLRank": "Challenger",
+            "DotaMMR": "7500"
+        },
+        "HISTORY": [
+            {
+                "ROLES_PLAYED": [
+                    "Mid Laner"
+                ],
+                "DURATION": "3 years",
+                "TEAM_NAME": "Nexus Kings",
+                "TEAM_ID": "t_4d5e6f7a-b8c9-0123-4567-eeeeeeeeeeee",
+                "GAME_NAME": "League of Legends"
+            },
+            {
+                "ROLES_PLAYED": [
+                    "Position 2",
+                    "Position 4"
+                ],
+                "DURATION": "1.5 years",
+                "TEAM_NAME": "Ancient Defenders",
+                "TEAM_ID": "t_4d5e6f7a-b8c9-0123-4567-ffffffffffff",
+                "GAME_NAME": "Dota 2"
+            }
+        ],
+        "USER_ID": "u_def12345-6789-0123-def0-000000000004",
+        "PLATFORM_STATUS": "Online",
+        "PROFILE_BANNER": "https://picsum.photos/seed/1007/1200/300",
+        "PROFILE_PIC": "https://picsum.photos/seed/1008/200/200",
+        "LOCATION": "Seoul, South Korea",
+        "TEAM_STATUS": "Looking for Pro MOBA Team",
+        "SOCIAL_LINKS": {
+            "TWITTER": "moba_master4",
+            "OPGG": "user4_opgg_link"
+        },
+        "BIO": "Top-tier MOBA player with extensive competitive experience.",
+        "CREATED_AT": {
+            "$date": "2024-07-13T09:15:45.000Z"
+        }
+    },
+    {
+        "GAMES_PLAYED": [
+            "Valorant"
+        ],
+        "GAME_RELATED_INFO": {
+            "ValorantRank": "Ascendant 1"
+        },
+        "HISTORY": [
+            {
+                "ROLES_PLAYED": [
+                    "Controller",
+                    "Sentinel"
+                ],
+                "DURATION": "6 months",
+                "TEAM_NAME": "Shadow Agents",
+                "TEAM_ID": "t_5e6f7a8b-c9d0-1234-5678-111111111111",
+                "GAME_NAME": "Valorant"
+            }
+        ],
+        "USER_ID": "u_ef123456-7890-1234-ef12-000000000005",
+        "PLATFORM_STATUS": "Looking to Play",
+        "PROFILE_BANNER": "https://picsum.photos/seed/1009/1200/300",
+        "PROFILE_PIC": "https://picsum.photos/seed/1010/200/200",
+        "LOCATION": "Paris, France",
+        "TEAM_STATUS": "Free Agent",
+        "SOCIAL_LINKS": {
+            "DISCORD": "SupportMain#5555",
+            "VALORANTSTATS": "user5_stats"
+        },
+        "BIO": "Strategic player focused on support roles. Aiming for Immortal.",
+        "CREATED_AT": {
+            "$date": "2024-07-14T18:20:00.000Z"
+        }
+    },
+    {
+        "GAMES_PLAYED": [
+            "Rocket League",
+            "CS:GO"
+        ],
+        "GAME_RELATED_INFO": {
+            "RocketLeagueRank": "Grand Champion II",
+            "CSGORank": "Legendary Eagle Master"
+        },
+        "HISTORY": [
+            {
+                "ROLES_PLAYED": [
+                    "Striker"
+                ],
+                "DURATION": "4 seasons",
+                "TEAM_NAME": "Supersonic Avengers",
+                "TEAM_ID": "t_6f7a8b9c-d0e1-2345-6789-222222222222",
+                "GAME_NAME": "Rocket League"
+            }
+        ],
+        "USER_ID": "u_f1234567-8901-2345-f123-000000000006",
+        "PLATFORM_STATUS": "Online",
+        "PROFILE_BANNER": "https://picsum.photos/seed/1011/1200/300",
+        "PROFILE_PIC": "https://picsum.photos/seed/1012/200/200",
+        "LOCATION": "Sydney, Australia",
+        "TEAM_STATUS": "Looking for RLCS Team",
+        "SOCIAL_LINKS": {
+            "TWITTER": "RocketUser6",
+            "TWITCH": "user6_rl"
+        },
+        "BIO": "Mechanical Rocket League player grinding for SSL.",
+        "CREATED_AT": {
+            "$date": "2024-07-15T07:00:00.000Z"
+        }
+    },
+    {
+        "GAMES_PLAYED": [
+            "Fortnite",
+            "Apex Legends"
+        ],
+        "GAME_RELATED_INFO": {
+            "FortniteEarnings": "$500",
+            "ApexRank": "Diamond IV"
+        },
+        "HISTORY": [
+            {
+                "ROLES_PLAYED": [
+                    "Builder",
+                    "Fragger"
+                ],
+                "DURATION": "2 years",
+                "TEAM_NAME": "Storm Riders",
+                "TEAM_ID": "t_7a8b9c0d-e1f2-3456-7890-333333333333",
+                "GAME_NAME": "Fortnite"
+            }
+        ],
+        "USER_ID": "u_12345678-9012-3456-1234-000000000007",
+        "PLATFORM_STATUS": "Offline",
+        "PROFILE_BANNER": "https://picsum.photos/seed/1013/1200/300",
+        "PROFILE_PIC": "https://picsum.photos/seed/1014/200/200",
+        "LOCATION": "Toronto, Canada",
+        "TEAM_STATUS": "Free Agent",
+        "SOCIAL_LINKS": {
+            "YOUTUBE": "FortnitePro7",
+            "INSTAGRAM": "user7_builds"
+        },
+        "BIO": "Creative Fortnite player and aspiring Apex grinder.",
+        "CREATED_AT": {
+            "$date": "2024-07-16T12:45:30.000Z"
+        }
+    },
+    {
+        "GAMES_PLAYED": [
+            "Overwatch 2",
+            "Valorant"
+        ],
+        "GAME_RELATED_INFO": {
+            "OverwatchRank": "Master 3",
+            "ValorantRank": "Diamond 2"
+        },
+        "HISTORY": [
+            {
+                "ROLES_PLAYED": [
+                    "Support",
+                    "Flex Support"
+                ],
+                "DURATION": "1 year",
+                "TEAM_NAME": "Guardian Angels",
+                "TEAM_ID": "t_8b9c0d1e-f2a3-4567-8901-444444444444",
+                "GAME_NAME": "Overwatch 2"
+            }
+        ],
+        "USER_ID": "u_23456789-0123-4567-2345-000000000008",
+        "PLATFORM_STATUS": "Online",
+        "PROFILE_BANNER": "https://picsum.photos/seed/1015/1200/300",
+        "PROFILE_PIC": "https://picsum.photos/seed/1016/200/200",
+        "LOCATION": "Los Angeles, USA",
+        "TEAM_STATUS": "Looking for Overwatch Team",
+        "SOCIAL_LINKS": {
+            "TWITTER": "HealerMain8",
+            "DISCORD": "MercyMagic#8888"
+        },
+        "BIO": "Dedicated support player, strong game sense and communication.",
+        "CREATED_AT": {
+            "$date": "2024-07-17T19:00:55.000Z"
+        }
+    },
+    {
+        "GAMES_PLAYED": [
+            "CS:GO"
+        ],
+        "GAME_RELATED_INFO": {
+            "CSGORank": "Supreme Master First Class",
+            "FaceitLevel": "10"
+        },
+        "HISTORY": [
+            {
+                "ROLES_PLAYED": [
+                    "Rifler",
+                    "Lurker"
+                ],
+                "DURATION": "2.5 years",
+                "TEAM_NAME": "Global Offensive Crew",
+                "TEAM_ID": "t_9c0d1e2f-a3b4-5678-9012-555555555555",
+                "GAME_NAME": "CS:GO"
+            }
+        ],
+        "USER_ID": "u_34567890-1234-5678-3456-000000000009",
+        "PLATFORM_STATUS": "In Game (Faceit)",
+        "PROFILE_BANNER": "https://picsum.photos/seed/1017/1200/300",
+        "PROFILE_PIC": "https://picsum.photos/seed/1018/200/200",
+        "LOCATION": "Stockholm, Sweden",
+        "TEAM_STATUS": "Free Agent",
+        "SOCIAL_LINKS": {
+            "FACEIT": "cs_user9",
+            "HLTV": "user9_profile"
+        },
+        "BIO": "High-level CS player LFT, focused on Faceit and ESEA leagues.",
+        "CREATED_AT": {
+            "$date": "2024-07-18T10:10:10.000Z"
+        }
+    },
+    {
+        "GAMES_PLAYED": [
+            "Apex Legends",
+            "Valorant",
+            "CS:GO"
+        ],
+        "GAME_RELATED_INFO": {
+            "ApexRank": "Predator",
+            "ValorantRank": "Immortal 1",
+            "CSGORank": "Global Elite"
+        },
+        "HISTORY": [
+            {
+                "ROLES_PLAYED": [
+                    "IGL",
+                    "Fragger"
+                ],
+                "DURATION": "3 seasons",
+                "TEAM_NAME": "Apex Champions",
+                "TEAM_ID": "t_0d1e2f3a-b4c5-6789-0123-666666666666",
+                "GAME_NAME": "Apex Legends"
+            },
+            {
+                "ROLES_PLAYED": [
+                    "Initiator"
+                ],
+                "DURATION": "Current",
+                "TEAM_NAME": "Radiant Dawn",
+                "TEAM_ID": "t_0d1e2f3a-b4c5-6789-0123-777777777777",
+                "GAME_NAME": "Valorant"
+            }
+        ],
+        "USER_ID": "u_45678901-2345-6789-4567-000000000010",
+        "PLATFORM_STATUS": "Streaming",
+        "PROFILE_BANNER": "https://picsum.photos/seed/1019/1200/300",
+        "PROFILE_PIC": "https://picsum.photos/seed/1020/200/200",
+        "LOCATION": "Austin, USA",
+        "TEAM_STATUS": "On Team 'Radiant Dawn'",
+        "SOCIAL_LINKS": {
+            "TWITCH": "ProGamerX10",
+            "TWITTER": "GamerX_10",
+            "YOUTUBE": "GamerXHighlights"
+        },
+        "BIO": "Versatile FPS pro competing at the highest level in multiple titles.",
+        "CREATED_AT": {
+            "$date": "2024-07-19T15:55:00.000Z"
+        }
+    }
+]

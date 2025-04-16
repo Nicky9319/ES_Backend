@@ -1,6 +1,7 @@
 import asyncio
-from fastapi import FastAPI, Response, Request
+from fastapi import FastAPI, Response, Request, Form, UploadFile
 import uvicorn
+
 
 import asyncio
 import aio_pika
@@ -30,17 +31,22 @@ class Service():
 
 
     async def ConfigureAPIRoutes(self):
-        @self.httpServer.app.get("/")
-        async def read_root():
-            print("Running Through Someone Else")
-            return {"message": "Hello World"}
+        @self.httpServer.app.post("/UserProfile/CreateNewUser")
+        async def create_new_user(
+            PROFILE_PIC: UploadFile = Form(...), 
+            PROFILE_BANNER: UploadFile = Form(...),  
+            USER_INFO: str = Form(...)
+        ):
+            print(PROFILE_PIC)
+            print(USER_INFO)
+            return {"message": f"Created new user with info {USER_INFO}"}
     
 
     async def startService(self):
-        await self.messageQueue.InitializeConnection()
-        await self.messageQueue.AddQueueAndMapToCallback("queue1", self.fun1)
-        await self.messageQueue.AddQueueAndMapToCallback("queue2", self.fun2)
-        await self.messageQueue.StartListeningToQueue()
+        # await self.messageQueue.InitializeConnection()
+        # await self.messageQueue.AddQueueAndMapToCallback("queue1", self.fun1)
+        # await self.messageQueue.AddQueueAndMapToCallback("queue2", self.fun2)
+        # await self.messageQueue.StartListeningToQueue()
 
         await self.ConfigureAPIRoutes()
         await self.httpServer.run_app()

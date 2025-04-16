@@ -14,6 +14,7 @@ feedparser
 valorant
 boto3
 botocore
+python-multipart
 
 # Project Dependent Dependencies
 # Example:
