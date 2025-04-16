@@ -166,7 +166,10 @@ class Service():
     # User Profile -------------------------
         
         @self.httpServer.app.get("/UserProfile/GetUserProfile")
-        async def get_user_profile(userID: str, reuest: Request):
+        async def get_user_profile(
+            userID: str, 
+            request: Request
+        ):
             # Check if userID is provided
             if not userID:
                 raise HTTPException(status_code=400, detail="userID is required")
@@ -185,8 +188,11 @@ class Service():
             user_profiles = list(self.db["USER_PROFILE"].find({}, {'_id': 0}))
             return {"USER_PROFILES": user_profiles}
 
+
         @self.httpServer.app.post("/UserProfile/CreateNewUser")
-        async def insert_new_user(request: Request):
+        async def insert_new_user(
+            request: Request
+        ):
             try:
                 user_data = await request.json()
                 print("Received user data:", user_data)
@@ -211,6 +217,73 @@ class Service():
             except Exception as e:
                 print(str(e))
                 raise HTTPException(status_code=500, detail=f"Error inserting user profile: {str(e)}")
+
+        @self.httpServer.app.put("/UserProfile/Update/ProfilePic")
+        async def update_user_profile_pic(
+            request: Request
+        ):
+            data = await request.json()
+
+            USER_ID = data.get("USER_ID")
+            PROFILE_PIC = data.get("PROFILE_PIC")
+
+            # Check if USER_ID is provided
+            if not USER_ID:
+                raise HTTPException(status_code=400, detail="USER_ID is required")
+            
+            # Check if PROFILE_PIC is provided
+            if not PROFILE_PIC:
+                raise HTTPException(status_code=400, detail="PROFILE_PIC is required")
+            
+            # Check if the user profile exists
+            existing_user = self.db["USER_PROFILE"].find_one({"USER_ID": USER_ID})
+            if not existing_user:
+                raise HTTPException(status_code=404, detail=f"User with ID {USER_ID} not found")
+            
+            # Update the user profile
+            result = self.db["USER_PROFILE"].update_one(
+                {"USER_ID": USER_ID},
+                {"$set": {"PROFILE_PIC": PROFILE_PIC}}
+            )
+            
+            if result.modified_count == 0:
+                return {"message": "No changes were made to the user profile"}
+            
+            return {"message": "User profile updated successfully"}
+
+        @self.httpServer.app.put("/UserProfile/Update/ProfileBanner")
+        async def update_user_profile_banner(
+            request: Request
+        ):
+            data = await request.json()
+
+            USER_ID = data.get("USER_ID")
+            PROFILE_BANNER = data.get("PROFILE_BANNER")
+
+            # Check if USER_ID is provided
+            if not USER_ID:
+                raise HTTPException(status_code=400, detail="USER_ID is required")
+            
+            # Check if PROFILE_BANNER is provided
+            if not PROFILE_BANNER:
+                raise HTTPException(status_code=400, detail="PROFILE_BANNER is required")
+            
+            # Check if the user profile exists
+            existing_user = self.db["USER_PROFILE"].find_one({"USER_ID": USER_ID})
+            if not existing_user:
+                raise HTTPException(status_code=404, detail=f"User with ID {USER_ID} not found")
+            
+            # Update the user profile
+            result = self.db["USER_PROFILE"].update_one(
+                {"USER_ID": USER_ID},
+                {"$set": {"PROFILE_BANNER": PROFILE_BANNER}}
+            )
+            
+            if result.modified_count == 0:
+                return {"message": "No changes were made to the user profile"}
+            
+            return {"message": "User profile updated successfully"}
+
 
     # Mentor Profile -------------------------
 
