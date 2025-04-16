@@ -320,6 +320,9 @@ class Service():
                 # Add creation timestamp
                 mentor_data["CREATED_AT"] = datetime.now() 
 
+                # Set default values for optional fields
+                mentor_data["RATING"] = 3.0
+
                 # Insert the mentor profile
                 result = self.mentor_profile_collection.insert_one(mentor_data)
 
@@ -329,6 +332,7 @@ class Service():
             except DuplicateKeyError:
                 raise HTTPException(status_code=409, detail="A mentor with this ID already exists")
             except Exception as e:
+                print(str(e))
                 raise HTTPException(status_code=500, detail=f"Error inserting mentor profile: {str(e)}")
        
         @self.httpServer.app.put("/MentorProfile/Update/ProfilePic")
@@ -337,11 +341,11 @@ class Service():
         ):
             data = await request.json()
 
-            USER_ID = data.get("MENTOR_ID")
+            MENTOR_ID = data.get("MENTOR_ID")
             PROFILE_PIC = data.get("PROFILE_PIC")
 
             # Check if USER_ID is provided
-            if not USER_ID:
+            if not MENTOR_ID:
                 raise HTTPException(status_code=400, detail="USER_ID is required")
             
             # Check if PROFILE_PIC is provided
@@ -349,13 +353,13 @@ class Service():
                 raise HTTPException(status_code=400, detail="PROFILE_PIC is required")
             
             # Check if the user profile exists
-            existing_user = self.db["USER_PROFILE"].find_one({"USER_ID": USER_ID})
+            existing_user = self.db["MENTOR_PROFILE"].find_one({"MENTOR_ID": MENTOR_ID})
             if not existing_user:
-                raise HTTPException(status_code=404, detail=f"User with ID {USER_ID} not found")
+                raise HTTPException(status_code=404, detail=f"User with ID {MENTOR_ID} not found")
             
             # Update the user profile
             result = self.db["MENTOR_PROFILE"].update_one(
-                {"USER_ID": USER_ID},
+                {"MENTOR_ID": MENTOR_ID},
                 {"$set": {"PROFILE_PIC": PROFILE_PIC}}
             )
             
@@ -370,25 +374,25 @@ class Service():
         ):
             data = await request.json()
 
-            USER_ID = data.get("MENTOR_ID")
+            MENTOR_ID = data.get("MENTOR_ID")
             PROFILE_BANNER = data.get("PROFILE_BANNER")
 
             # Check if USER_ID is provided
-            if not USER_ID:
-                raise HTTPException(status_code=400, detail="USER_ID is required")
+            if not MENTOR_ID:
+                raise HTTPException(status_code=400, detail="MENTOR_ID is required")
             
             # Check if PROFILE_BANNER is provided
             if not PROFILE_BANNER:
                 raise HTTPException(status_code=400, detail="PROFILE_BANNER is required")
             
             # Check if the user profile exists
-            existing_user = self.db["USER_PROFILE"].find_one({"USER_ID": USER_ID})
+            existing_user = self.db["MENTOR_PROFILE"].find_one({"MENTOR_ID": MENTOR_ID})
             if not existing_user:
-                raise HTTPException(status_code=404, detail=f"User with ID {USER_ID} not found")
+                raise HTTPException(status_code=404, detail=f"User with ID {MENTOR_ID} not found")
             
             # Update the user profile
             result = self.db["MENTOR_PROFILE"].update_one(
-                {"USER_ID": USER_ID},
+                {"MENTOR_ID": MENTOR_ID},
                 {"$set": {"PROFILE_BANNER": PROFILE_BANNER}}
             )
             

@@ -56,7 +56,7 @@ class Service():
                 MENTOR_INFO["PROFILE_PIC"] = "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                 MENTOR_INFO["PROFILE_BANNER"] = "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
 
-                response = await client.post(f"http://{serviceURL}/UserProfile/CreateNewUser", json=MENTOR_INFO)
+                response = await client.post(f"http://{serviceURL}/MentorProfile/CreateNewMentor", json=MENTOR_INFO)
                 responseInJson = response.json()
 
 
@@ -86,7 +86,7 @@ class Service():
                 serviceURL = await self.getServiceURL(serviceName)
 
                 data = {
-                    "USER_ID" : str(mentorID),
+                    "MENTOR_ID" : str(mentorID),
                     "PROFILE_PIC" : f"http://{self.serverIPAddress}:15000/Image/RetrieveImage?bucket=mentor-profile-pic&key={mentorID}.jpg"
                 }
 
@@ -117,7 +117,7 @@ class Service():
                 serviceURL = await self.getServiceURL(serviceName)
 
                 data = {
-                    "USER_ID" : str(mentorID),
+                    "MENTOR_ID" : str(mentorID),
                     "PROFILE_BANNER" : f"http://{self.serverIPAddress}:15000/Image/RetrieveImage?bucket=mentor-profile-banner&key={mentorID}.jpg"
                 }
 

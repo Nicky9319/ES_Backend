@@ -296,7 +296,8 @@
                         "SESSIONS_COMPLETED",
                         "SUCCESS_RATE",
                         "SPECIALITIES",
-                        "LANGUAGES"
+                        "LANGUAGES",
+                        "USER_NAME"
                     ],
                     "properties": {
                         "GAMES": {
@@ -415,6 +416,9 @@
                             "items": {
                                 "bsonType": "string"
                             }
+                        },
+                        "USER_NAME": {
+                            "bsonType": "string"
                         }
                     }
                 }

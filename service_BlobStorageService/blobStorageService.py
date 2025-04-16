@@ -91,22 +91,22 @@ class Service():
         @self.httpServer.app.post("/MentorProfilePic/StoreImage")
         async def mentor_profile_pic_storeImage(
             PROFILE_PIC: UploadFile = Form(...),
-            USER_ID: str = Form(...),
+            MENTOR_ID: str = Form(...),
         ):
             print(PROFILE_PIC)
-            print(USER_ID)
-            await self.uploadImageToBlobStorage(PROFILE_PIC, "mentor-profile-pic", USER_ID + ".jpg")
+            print(MENTOR_ID)
+            await self.uploadImageToBlobStorage(PROFILE_PIC, "mentor-profile-pic", MENTOR_ID + ".jpg")
             print("Received the User ID and the Profile Pic")
             return {"message": "Image uploaded successfully"}
         
         @self.httpServer.app.post("/MentorProfileBanner/StoreImage")
         async def mentor_profile_banner_storeImage(
             PROFILE_BANNER: UploadFile = Form(...),
-            USER_ID: str = Form(...),
+            MENTOR_ID: str = Form(...),
         ):
             print(PROFILE_BANNER)
-            print(USER_ID)
-            await self.uploadImageToBlobStorage(PROFILE_BANNER, "mentor-profile-banner", USER_ID + ".jpg")
+            print(MENTOR_ID)
+            await self.uploadImageToBlobStorage(PROFILE_BANNER, "mentor-profile-banner", MENTOR_ID + ".jpg")
             print("Received the User ID and the Profile Banner")
             return {"message": "Image uploaded successfully"}
 
