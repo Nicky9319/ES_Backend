@@ -29,6 +29,34 @@
           "response": []
         },
         {
+          "name": "Get All Events Organized by User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:14000/Events/Organized/User/AllEvents?USER_ID=replace-with-valid-user-id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Events",
+                "Organized",
+                "User",
+                "AllEvents"
+              ],
+              "query": [
+                {
+                  "key": "USER_ID",
+                  "value": "replace-with-valid-user-id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Create New Event",
           "request": {
             "method": "POST",
@@ -401,6 +429,33 @@
     {
       "name": "Teams",
       "item": [
+        {
+          "name": "Get All Teams for User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:14000/Teams/User/GetAllTeams?USER_ID=replace-with-valid-user-id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Teams",
+                "User",
+                "GetAllTeams"
+              ],
+              "query": [
+                {
+                  "key": "USER_ID",
+                  "value": "replace-with-valid-user-id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
         {
           "name": "Create New Team",
           "request": {
