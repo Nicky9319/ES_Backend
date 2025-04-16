@@ -46,21 +46,20 @@ class Service():
             PROFILE_BANNER: UploadFile = Form(...),  
             USER_INFO: str = Form(...)
         ):
-            
-            print(PROFILE_PIC)
+            # print(PROFILE_PIC)
+            # print(USER_INFO)
+        
 
             serviceName = "BLOB_STORAGE_SERVICE"
             serviceURL = await self.getServiceURL(serviceName)
 
-            files = {
+            formData = {
                 "PROFILE_PIC": (PROFILE_PIC.filename, await PROFILE_PIC.read(), PROFILE_PIC.content_type),
-            }
-            data = {
-                "USER_ID": str(uuid.uuid4())
+                "USER_ID": uuid.uuid4()
             }
 
             async with httpx.AsyncClient() as client:
-                response = await client.post(f"http://{serviceURL}/UserProfilePic/StoreImage", files=files, data=data)
+                response = await client.post(f"http://{serviceURL}/UserProfilePic/StoreImage", files=formData)
                 responseInJson = response.json()
 
             return {"message": f"Created new user with info {USER_INFO}"}

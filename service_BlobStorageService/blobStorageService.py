@@ -59,6 +59,9 @@ class Service():
             return {"error": str(e)}
 
     async def ConfigureAPIRoutes(self):
+    
+    # User Profile 
+
         @self.httpServer.app.post("/UserProfilePic/StoreImage")
         async def user_profile_pic_storeImage(
             PROFILE_PIC: UploadFile = Form(...),
@@ -70,6 +73,70 @@ class Service():
             print("Received the User ID and the Profile Pic")
             return {"message": "Image uploaded successfully"}
     
+        @self.httpServer.app.post("/UserProfileBanner/StoreImage")
+        async def user_profile_banner_storeImage(
+            PROFILE_BANNER: UploadFile = Form(...),
+            USER_ID: str = Form(...),
+        ):
+            print(PROFILE_BANNER)
+            print(USER_ID)
+            await self.uploadImageToBlobStorage(PROFILE_BANNER, "user-profile-banner", USER_ID + ".jpg")
+            print("Received the User ID and the Profile Banner")
+            return {"message": "Image uploaded successfully"}
+
+
+    # Mentor Profile
+
+        @self.httpServer.app.post("/MentorProfilePic/StoreImage")
+        async def mentor_profile_pic_storeImage(
+            PROFILE_PIC: UploadFile = Form(...),
+            USER_ID: str = Form(...),
+        ):
+            print(PROFILE_PIC)
+            print(USER_ID)
+            await self.uploadImageToBlobStorage(PROFILE_PIC, "mentor-profile-pic", USER_ID + ".jpg")
+            print("Received the User ID and the Profile Pic")
+            return {"message": "Image uploaded successfully"}
+        
+        @self.httpServer.app.post("/MentorProfileBanner/StoreImage")
+        async def mentor_profile_banner_storeImage(
+            PROFILE_BANNER: UploadFile = Form(...),
+            USER_ID: str = Form(...),
+        ):
+            print(PROFILE_BANNER)
+            print(USER_ID)
+            await self.uploadImageToBlobStorage(PROFILE_BANNER, "mentor-profile-banner", USER_ID + ".jpg")
+            print("Received the User ID and the Profile Banner")
+            return {"message": "Image uploaded successfully"}
+
+    # Team
+
+        @self.httpServer.app.post("/Team/StoreImage")
+        async def team_store_logo(
+            TEAM_LOGO: UploadFile = Form(...),
+            TEAM_ID: str = Form(...),
+        ):
+            print(TEAM_LOGO)
+            print(TEAM_ID)
+            await self.uploadImageToBlobStorage(TEAM_LOGO, "team-logo", TEAM_ID + ".jpg")
+            print("Received the Team ID and the Team Logo")
+            return {"message": "Image uploaded successfully"}
+
+
+    # Events
+
+        @self.httpServer.app.post("/Event/StoreImage")
+        async def event_store_image(
+            EVENT_BANNER: UploadFile = Form(...),
+            EVENT_ID: str = Form(...),
+        ):
+            print(EVENT_BANNER)
+            print(EVENT_ID)
+            await self.uploadImageToBlobStorage(EVENT_BANNER, "event-image", EVENT_ID + ".jpg")
+            print("Received the Event ID and the Event Banner")
+            return {"message": "Image uploaded successfully"}
+
+    # Retrieve Existing Images
         @self.httpServer.app.get("/Image/RetrieveImage")
         async def retrieve_image(
             bucket: str,
