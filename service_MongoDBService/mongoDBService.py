@@ -85,11 +85,18 @@ class Service():
     # Events ---------------------------------
 
         @self.httpServer.app.get("/Events/AllEvents")
-        async def get_event():
+        async def get_all_event():
             print("Fetching All Events")
             events = list(self.event_collection.find({}, {'_id': 0}))  # Fetch all events, exclude _id
             return {"EVENTS": events}
     
+        @self.httpServer.app.get("/Events/Organized/User/AllEvents")
+        async def get_all_organized_events(
+            USER_ID: str,
+            request: Request
+        ):
+            pass
+
         @self.httpServer.app.post("/Events/CreateNewEvent")
         async def insert_event(request: Request):
             try:
@@ -197,6 +204,9 @@ class Service():
                 return {"message": "No changes were made to the event"}
             
             return {"message": "Event banner updated successfully"}
+
+
+
 
     # User Profile -------------------------
         
@@ -325,6 +335,9 @@ class Service():
             return {"message": "User profile updated successfully"}
 
 
+
+
+
     # Mentor Profile -------------------------
 
         @self.httpServer.app.get("/MentorProfile/GetMentorProfile")
@@ -441,7 +454,17 @@ class Service():
             return {"message": "Mentor profile updated successfully"}
 
 
+
+
+
     # Teams -----------------------------------
+
+        @self.httpServer.app.get("/Teams/User/GetAllTeams")
+        async def get_all_teams_for_a_user(
+            USER_ID: str,
+            request: Request
+        ):
+            pass
 
         @self.httpServer.app.post("/Teams/CreateNewTeam")
         async def insert_new_team(request: Request):
