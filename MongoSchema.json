@@ -617,6 +617,62 @@
             },
             "validationLevel": "strict",
             "validationAction": "error"
+        },
+        {
+            "name": "MILESTONES",
+            "validator": {
+                "$jsonSchema": {
+                    "bsonType": "object",
+                    "required": [
+                        "PERSONA",
+                        "MILESTONES"
+                    ],
+                    "properties": {
+                        "PERSONA": {
+                            "bsonType": "string",
+                            "description": "Persona associated with the milestones document"
+                        },
+                        "MILESTONES": {
+                            "bsonType": "array",
+                            "description": "List of milestone objects",
+                            "items": {
+                                "bsonType": "object",
+                                "required": [
+                                    "NAME",
+                                    "DEADLINE",
+                                    "STATUS",
+                                    "MILESTONE_ID"
+                                ],
+                                "properties": {
+                                    "NAME": {
+                                        "bsonType": "string",
+                                        "description": "Name of the milestone"
+                                    },
+                                    "DEADLINE": {
+                                        "bsonType": "date",
+                                        "description": "Deadline for the milestone"
+                                    },
+                                    "STATUS": {
+                                        "bsonType": "string",
+                                        "description": "Current status of the milestone",
+                                        "enum": [
+                                            "Completed",
+                                            "In Progress",
+                                            "Not Started"
+                                        ]
+                                    },
+                                    "MILESTONE_ID": {
+                                        "bsonType": "string",
+                                        "description": "Unique identifier for the milestone"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "validationLevel": "strict",
+            "validationAction": "error"
         }
     ]
 }

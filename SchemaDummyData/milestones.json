@@ -1,0 +1,21 @@
+{
+    "PERSONA": "Developer",
+    "MILESTONES": [
+        {
+            "NAME": "Setup Development Environment",
+            "DEADLINE": {
+                "$date": "2025-05-10T00:00:00Z"
+            },
+            "STATUS": "Completed",
+            "MILESTONE_ID": "m-001"
+        },
+        {
+            "NAME": "Implement Auth Module",
+            "DEADLINE": {
+                "$date": "2025-05-10T00:00:00Z"
+            },
+            "STATUS": "In Progress",
+            "MILESTONE_ID": "m-002"
+        }
+    ]
+}

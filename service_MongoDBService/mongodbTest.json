@@ -143,6 +143,32 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "Get Event Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:14000/Events/GetEventInfo?EVENT_ID=replace-with-valid-event-id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Events",
+                "GetEventInfo"
+              ],
+              "query": [
+                {
+                  "key": "EVENT_ID",
+                  "value": "replace-with-valid-event-id"
+                }
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -155,7 +181,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:14000/UserProfile/GetUserProfile?userID=replace-with-valid-user-id",
+              "raw": "http://localhost:14000/UserProfile/GetUserProfile?USER_ID=replace-with-valid-user-id",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -167,7 +193,7 @@
               ],
               "query": [
                 {
-                  "key": "userID",
+                  "key": "USER_ID",
                   "value": "replace-with-valid-user-id"
                 }
               ]
@@ -295,7 +321,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:14000/MentorProfile/GetMentorProfile?mentorID=replace-with-valid-mentor-id",
+              "raw": "http://localhost:14000/MentorProfile/GetMentorProfile?MENTOR_ID=replace-with-valid-mentor-id",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -307,7 +333,7 @@
               ],
               "query": [
                 {
-                  "key": "mentorID",
+                  "key": "MENTOR_ID",
                   "value": "replace-with-valid-mentor-id"
                 }
               ]
@@ -330,6 +356,33 @@
               "path": [
                 "MentorProfile",
                 "GetAllMentorProfiles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Mentor Dashboard Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:14000/MentorProfile/Dashboard/GetMentorProfile?MENTOR_ID=replace-with-valid-mentor-id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "MentorProfile",
+                "Dashboard",
+                "GetMentorProfile"
+              ],
+              "query": [
+                {
+                  "key": "MENTOR_ID",
+                  "value": "replace-with-valid-mentor-id"
+                }
               ]
             }
           },
@@ -510,6 +563,32 @@
                 "Teams",
                 "Update",
                 "TeamLogo"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Disband Team",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:14000/Teams/DisbandTeam?TEAM_ID=replace-with-valid-team-id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Teams",
+                "DisbandTeam"
+              ],
+              "query": [
+                {
+                  "key": "TEAM_ID",
+                  "value": "replace-with-valid-team-id"
+                }
               ]
             }
           },

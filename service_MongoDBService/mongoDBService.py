@@ -412,6 +412,38 @@ class Service():
             mentor_profiles = list(self.mentor_profile_collection.find({}, {'_id': 0}))
             return {"MENTOR_PROFILES": mentor_profiles}
 
+        @self.httpServer.app.get("/MentorProfile/Dashboard/GetMentorProfile")
+        async def get_mentor_profile_for_dashboard(
+            MENTOR_ID: str,
+            request: Request
+        ):
+            # Check if mentorID is provided
+            if not MENTOR_ID:
+                raise HTTPException(status_code=400, detail="MENTOR_ID is required")
+
+            # Define the projection to fetch only the required fields for the dashboard
+            projection = {
+                "_id": 0,  # Exclude the default MongoDB ID
+                "PROFILE_PIC": 1,
+                "TAGLINE": 1,
+                "USER_NAME": 1,
+                "RATING": 1,
+                "VERIFIED": 1,
+                "SESSIONS_COMPLETED": 1
+            }
+
+            # Fetch mentor profile from the database with the specified projection
+            mentor_profile = self.mentor_profile_collection.find_one(
+                {"MENTOR_ID": MENTOR_ID},
+                projection
+            )
+
+            if not mentor_profile:
+                raise HTTPException(status_code=404, detail=f"Mentor profile with ID {MENTOR_ID} not found")
+
+            # Return the mentor profile dashboard data
+            return {"MENTOR_PROFILE_DASHBOARD": mentor_profile}
+
         @self.httpServer.app.post("/MentorProfile/CreateNewMentor")
         async def insert_new_mentor(request: Request):
             try:
@@ -599,6 +631,27 @@ class Service():
             
             return {"message": "Team logo updated successfully"}
 
+        @self.httpServer.app.delete("/Teams/DisbandTeam")
+        async def disband_team(
+            TEAM_ID: str,
+            request: Request
+        ):
+            # Check if TEAM_ID is provided
+            if not TEAM_ID:
+                raise HTTPException(status_code=400, detail="TEAM_ID is required")
+            
+            # Check if the team exists
+            existing_team = self.teams_collection.find_one({"TEAM_ID": TEAM_ID})
+            if not existing_team:
+                raise HTTPException(status_code=404, detail=f"Team with ID {TEAM_ID} not found")
+            
+            # Delete the team
+            result = self.teams_collection.delete_one({"TEAM_ID": TEAM_ID})
+            
+            if result.deleted_count == 0:
+                return {"message": "No changes were made to the team"}
+            
+            return {"message": "Team disbanded successfully"}
 
 
     async def startService(self):
