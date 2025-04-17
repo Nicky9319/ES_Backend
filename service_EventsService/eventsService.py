@@ -151,6 +151,21 @@ class Service():
 
             return responseInJson
 
+        @self.httpServer.app.delete("/Events/DeleteEvent")
+        async def delete_event(
+            EVENT_ID: str,
+        ):
+            serviceName = "MONGO_DB_SERVICE"
+            serviceURL = await self.getServiceURL(serviceName)
+
+            async with httpx.AsyncClient() as client:
+                response = await client.delete(f"http://{serviceURL}/Events/DeleteEvent?EVENT_ID={EVENT_ID}")
+                responseInJson = response.json()
+
+            if responseInJson["EVENT_ID"] == None:
+                raise HTTPException(status_code=404, detail="Event not found")
+
+            return responseInJson
 
     async def startService(self):
         # await self.messageQueue.InitializeConnection()

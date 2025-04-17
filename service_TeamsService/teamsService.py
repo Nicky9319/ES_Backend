@@ -120,6 +120,22 @@ class Service():
 
             return responseInJson
 
+        @self.httpServer.app.get("/Teams/GetTeamInfo")
+        async def get_single_team_info(
+            TEAM_ID: str,
+            request: Request
+        ):
+            serviceName = "MONGO_DB_SERVICE"
+            serviceURL = await self.getServiceURL(serviceName)
+
+            async with httpx.AsyncClient() as client:
+                response = await client.get(f"http://{serviceURL}/Teams/GetTeamInfo?TEAM_ID={TEAM_ID}")
+                responseInJson = response.json()
+
+            print("Response from MongoDB Service: ", responseInJson)
+
+            return responseInJson
+
     async def startService(self):
         # await self.messageQueue.InitializeConnection()
         # await self.messageQueue.AddQueueAndMapToCallback("queue1", self.fun1)
