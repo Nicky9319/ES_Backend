@@ -156,7 +156,7 @@ class Service():
             serviceURL = await self.getServiceURL(serviceName)
 
             async with httpx.AsyncClient() as client:
-                response = await client.get(f"http://{serviceURL}//UserProfile/GetUserProfile?USER_ID={USER_ID}")
+                response = await client.get(f"http://{serviceURL}/UserProfile/GetUserProfile?USER_ID={USER_ID}")
                 responseInJson = response.json()
 
             return responseInJson
