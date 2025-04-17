@@ -276,6 +276,95 @@ class Service():
             
             return {"message": "Event banner updated successfully"}
 
+        @self.httpServer.app.delete("/Events/DeleteEvent")
+        async def delete_event(
+            EVENT_ID: str,
+        ):
+            # Check if EVENT_ID is provided
+            if not EVENT_ID:
+                raise HTTPException(status_code=400, detail="EVENT_ID is required")
+
+            # Check if the event exists
+            existing_event = self.event_collection.find_one({"EVENT_ID": EVENT_ID})
+            if not existing_event:
+                raise HTTPException(status_code=404, detail=f"Event with ID {EVENT_ID} not found")
+
+            try:
+                # Delete the event
+                result = self.event_collection.delete_one({"EVENT_ID": EVENT_ID})
+
+                if result.deleted_count == 0:
+                    # This case should ideally not happen if find_one succeeded, but good practice to check
+                    raise HTTPException(status_code=404, detail=f"Event with ID {EVENT_ID} could not be deleted")
+
+                return {"message": f"Event with ID {EVENT_ID} deleted successfully"}
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error deleting event: {str(e)}")
+
+
+        @self.httpServer.app.post("/Events/Discussion/AddNewQuestion")
+        async def add_new_question(
+            request: Request # Use request body for POST
+        ):
+            try:
+                data = await request.json()
+                EVENT_ID = data.get("EVENT_ID")
+                QUESTION = data.get("QUESTION")
+
+                # Check if EVENT_ID and QUESTION are provided
+                if not EVENT_ID:
+                    raise HTTPException(status_code=400, detail="EVENT_ID is required")
+                if not QUESTION:
+                    raise HTTPException(status_code=400, detail="QUESTION is required")
+
+                # Check if the event exists
+                existing_event = self.event_collection.find_one({"EVENT_ID": EVENT_ID})
+                if not existing_event:
+                    raise HTTPException(status_code=404, detail=f"Event with ID {EVENT_ID} not found")
+
+                # Create the new question object
+                new_question = {
+                    "ID": str(uuid.uuid4()), # Generate a unique ID for the question
+                    "QUESTION": QUESTION,
+                    "ANSWER": None # Initialize answer as null or empty
+                }
+
+                # Add the new question to the QUESTIONNAIRE array
+                result = self.event_collection.update_one(
+                    {"EVENT_ID": EVENT_ID},
+                    {"$push": {"QUESTIONNAIRE": new_question}}
+                )
+
+                if result.modified_count == 0:
+                    raise HTTPException(status_code=500, detail="Failed to add question to the event")
+
+                return {"message": "Question added successfully", "QUESTION_ID": new_question["ID"]}
+
+            except HTTPException as e:
+                raise e
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error adding question: {str(e)}")
+
+
+        @self.httpServer.app.get("/Events/Organizer/GetEventInfo")
+        async def get_organizer_specific_event_info(
+            EVENT_ID: str,
+        ):
+            # Check if EVENT_ID is provided
+            if not EVENT_ID:
+                raise HTTPException(status_code=400, detail="EVENT_ID is required")
+
+            # Fetch event details from the database, excluding the internal _id
+            # Assuming organizer-specific info means the full event document for now
+            event = self.event_collection.find_one({"EVENT_ID": EVENT_ID}, {'_id': 0})
+
+            if not event:
+                raise HTTPException(status_code=404, detail=f"Event with ID {EVENT_ID} not found")
+
+            # Return the event details
+            # Potentially, you could add more checks here to ensure the requester is the actual organizer
+            # before returning sensitive data if the schema evolves.
+            return {"EVENT_INFO": event}
 
 
 
@@ -675,6 +764,30 @@ class Service():
             
             return {"message": "Team disbanded successfully"}
 
+        @self.httpServer.app.get("/Teams/GetTeamInfo")
+        async def get_single_team_info(
+            TEAM_ID: str,
+            request: Request
+        ):
+            print(f"Fetching Team Info for TEAM_ID: {TEAM_ID}")
+            # Check if TEAM_ID is provided
+            if not TEAM_ID:
+            raise HTTPException(status_code=400, detail="TEAM_ID is required")
+
+            # Query the database for the team with the specified TEAM_ID
+            # Exclude the MongoDB internal _id field
+            team_info = self.teams_collection.find_one(
+            {"TEAM_ID": TEAM_ID},
+            {'_id': 0}
+            )
+
+            # Check if a team was found
+            if not team_info:
+            raise HTTPException(status_code=404, detail=f"Team with ID {TEAM_ID} not found")
+
+            # Return the team information
+            return {"TEAM_INFO": team_info}
+            
 
     # Milestones
 

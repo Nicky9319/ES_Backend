@@ -184,6 +184,23 @@ class Service():
 
             return responseInJson
 
+        @self.httpServer.app.get("/Events/Organizer/GetEventInfo")
+        async def get_organizer_specific_event_info(
+            EVENT_ID: str,
+        ):
+
+            serviceName = "MONGO_DB_SERVICE"
+            serviceURL = await self.getServiceURL(serviceName)
+
+            async with httpx.AsyncClient() as client:
+                response = await client.get(f"http://{serviceURL}/Events/Organizer/GetEventInfo?EVENT_ID={EVENT_ID}")
+                responseInJson = response.json()
+
+            if responseInJson.get("EVENT_ID") is None:
+                raise HTTPException(status_code=404, detail="Event not found")
+
+            return responseInJson
+
     async def startService(self):
         # await self.messageQueue.InitializeConnection()
         # await self.messageQueue.AddQueueAndMapToCallback("queue1", self.fun1)
