@@ -625,12 +625,17 @@
                     "bsonType": "object",
                     "required": [
                         "PERSONA",
+                        "ID",
                         "MILESTONES"
                     ],
                     "properties": {
                         "PERSONA": {
                             "bsonType": "string",
                             "description": "Persona associated with the milestones document"
+                        },
+                        "ID": {
+                            "bsonType": "string",
+                            "description": "Unique identifier for the milestones document"
                         },
                         "MILESTONES": {
                             "bsonType": "array",
