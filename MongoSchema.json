@@ -626,52 +626,40 @@
                     "required": [
                         "PERSONA",
                         "ID",
-                        "MILESTONES"
+                        "NAME",
+                        "DEADLINE",
+                        "STATUS",
+                        "MILESTONE_ID"
                     ],
                     "properties": {
                         "PERSONA": {
                             "bsonType": "string",
-                            "description": "Persona associated with the milestones document"
+                            "description": "Persona associated with the milestone"
                         },
                         "ID": {
                             "bsonType": "string",
-                            "description": "Unique identifier for the milestones document"
+                            "description": "Unique identifier for the milestone document"
                         },
-                        "MILESTONES": {
-                            "bsonType": "array",
-                            "description": "List of milestone objects",
-                            "items": {
-                                "bsonType": "object",
-                                "required": [
-                                    "NAME",
-                                    "DEADLINE",
-                                    "STATUS",
-                                    "MILESTONE_ID"
-                                ],
-                                "properties": {
-                                    "NAME": {
-                                        "bsonType": "string",
-                                        "description": "Name of the milestone"
-                                    },
-                                    "DEADLINE": {
-                                        "bsonType": "date",
-                                        "description": "Deadline for the milestone"
-                                    },
-                                    "STATUS": {
-                                        "bsonType": "string",
-                                        "description": "Current status of the milestone",
-                                        "enum": [
-                                            "Completed",
-                                            "In Progress",
-                                            "Not Started"
-                                        ]
-                                    },
-                                    "MILESTONE_ID": {
-                                        "bsonType": "string",
-                                        "description": "Unique identifier for the milestone"
-                                    }
-                                }
-                            }
+                        "NAME": {
+                            "bsonType": "string",
+                            "description": "Name of the milestone"
+                        },
+                        "DEADLINE": {
+                            "bsonType": "date",
+                            "description": "Deadline for the milestone"
+                        },
+                        "STATUS": {
+                            "bsonType": "string",
+                            "description": "Current status of the milestone",
+                            "enum": [
+                                "Completed",
+                                "In Progress",
+                                "Not Started"
+                            ]
+                        },
+                        "MILESTONE_ID": {
+                            "bsonType": "string",
+                            "description": "Unique identifier for the milestone"
                         }
                     }
                 }

@@ -657,7 +657,7 @@ class Service():
     # Milestones
 
         @self.httpServer.app.post("/Milestone/CreateNewMilestone")
-        async def create_new_milestone_document( # Renamed for clarity if inserting whole doc
+        async def add_milestone_to_document( # Renamed function logic, endpoint remains
             PERSONA: str,
             ID: str,
             request: Request
@@ -669,9 +669,9 @@ class Service():
                 raise HTTPException(status_code=400, detail="ID query parameter is required")
 
             try:
-                # 1. Get milestone data from request body
+            # 1. Get milestone data from request body
                 milestone_data = await request.json()
-                print(f"Received milestone data for new document {PERSONA}/{ID}:", milestone_data)
+                print(f"Received milestone data for {PERSONA}/{ID}:", milestone_data)
 
                 # 2. Validate required fields in the request body for the milestone itself
                 required_fields = ["NAME", "DEADLINE", "STATUS"]
@@ -683,66 +683,85 @@ class Service():
                 try:
                     deadline = self.parse_date_time(milestone_data.get("DEADLINE")) # Use .get for safety
                     if not isinstance(deadline, datetime):
+                        # Try parsing from ISO string if it's a string
                         if isinstance(milestone_data.get("DEADLINE"), str):
                             deadline = datetime.fromisoformat(milestone_data["DEADLINE"].replace('Z', '+00:00'))
-                    else:
-                        # Raise if DEADLINE is present but not string or $date dict
-                        if "DEADLINE" in milestone_data:
-                            raise ValueError("DEADLINE must be a valid ISO date string or $date object")
-                        else: # Should have been caught by required_fields check, but defensive
-                            raise ValueError("DEADLINE is missing")
+                        else:
+                            # Raise if DEADLINE is present but not string or $date dict
+                            if "DEADLINE" in milestone_data:
+                                raise ValueError("DEADLINE must be a valid ISO date string or $date object")
+                            else: # Should have been caught by required_fields check, but defensive
+                                raise ValueError("DEADLINE is missing")
                 except (ValueError, TypeError) as e:
                     raise HTTPException(status_code=400, detail=f"Invalid DEADLINE format. Use ISO format (YYYY-MM-DDTHH:MM:SSZ or YYYY-MM-DDTHH:MM:SS+HH:MM) or MongoDB $date format. Error: {e}")
 
-                # 4. Generate a unique MILESTONE_ID for the first milestone
+                # 4. Generate a unique MILESTONE_ID for the new milestone
                 milestone_id = str(uuid.uuid4())
 
-                # 5. Construct the single milestone object
+                # 5. Construct the single milestone object to be added
                 new_milestone_object = {
                     "NAME": milestone_data["NAME"],
                     "DEADLINE": deadline,
                     "STATUS": milestone_data["STATUS"], # Add validation for enum values if needed
                     "MILESTONE_ID": milestone_id
+                    # Add any other fields from milestone_data that should be included
                 }
+                # Example: Add optional description if provided
+                if "DESCRIPTION" in milestone_data:
+                    new_milestone_object["DESCRIPTION"] = milestone_data["DESCRIPTION"]
 
-                # 6. Construct the full document to be inserted
-                new_milestone_document = {
-                    "PERSONA": PERSONA,
-                    "ID": ID,
-                    "MILESTONES": [new_milestone_object] # Array containing only the new milestone
-                    # Optionally add a creation timestamp for the document itself
-                    # "CREATED_AT": datetime.now()
-                }
 
-                # 7. Ensure the milestones collection attribute exists
+                # 6. Ensure the milestones collection attribute exists
                 if not hasattr(self, 'milestones_collection'):
                     self.milestones_collection = self.db["MILESTONES"] # Define if not present in __init__
 
-                # 8. Insert the new document
-                # This will raise DuplicateKeyError if a document with the same _id (or unique index on PERSONA/ID) exists
-                result = self.milestones_collection.insert_one(new_milestone_document)
+                # 7. Use update_one with upsert=True to add or insert
+                # If document with PERSONA/ID exists, $push adds to MILESTONES array.
+                # If not, upsert creates the document with PERSONA, ID, and MILESTONES array containing the new object.
+                result = self.milestones_collection.update_one(
+                    {"PERSONA": PERSONA, "ID": ID}, # Filter to find the document
+                    {
+                    "$push": {"MILESTONES": new_milestone_object}, # Add the new milestone to the array
+                    "$setOnInsert": { # Set these fields only if a new document is created
+                        "PERSONA": PERSONA,
+                        "ID": ID,
+                        # Optionally add a creation timestamp for the document itself on insert
+                        # "CREATED_AT": datetime.now()
+                    }
+                    },
+                    upsert=True # Create the document if it doesn't exist
+                )
 
-                # 9. Check if the insertion was acknowledged
-                if result.inserted_id:
+                # 8. Check the result
+                if result.upserted_id:
                     print(f"New milestone document created for {PERSONA}/{ID} with milestone {milestone_id}")
-                    # Return the ID of the *milestone* within the document, as before
-                    return {"message": "Milestone document created successfully", "MILESTONE_ID": milestone_id}
+                    message = "New milestone document created successfully."
+                elif result.modified_count > 0:
+                    print(f"Milestone {milestone_id} added to existing document for {PERSONA}/{ID}")
+                    message = "Milestone added successfully to existing document."
+                elif result.matched_count > 0 and result.modified_count == 0:
+                    # This case is unlikely with $push unless the exact same object was somehow already there
+                    # or if there was a concurrent modification conflict. Treat as success but log warning.
+                    print(f"Warning: Document found for {PERSONA}/{ID} but milestone {milestone_id} was not added (matched_count={result.matched_count}, modified_count={result.modified_count}).")
+                    message = "Milestone added (or already existed) in document." # Adjust message as needed
                 else:
-                    # Should not happen if insert_one doesn't raise an exception
-                    print(f"Error: insert_one for {PERSONA}/{ID} did not return an inserted_id.")
-                    raise HTTPException(status_code=500, detail="Failed to create milestone document.")
+                    # Should not happen if upsert=True and no exceptions occurred
+                    print(f"Error: Milestone operation for {PERSONA}/{ID} resulted in unexpected counts (matched={result.matched_count}, modified={result.modified_count}, upserted_id={result.upserted_id}).")
+                    raise HTTPException(status_code=500, detail="Failed to add or create milestone.")
+
+
+                # 9. Return success response with the new MILESTONE_ID
+                return {"message": message, "MILESTONE_ID": milestone_id}
 
             except HTTPException as e:
             # Re-raise HTTPExceptions to let FastAPI handle them
                 raise e
-            except DuplicateKeyError:
-            # This error occurs if a document with the same unique key (e.g., _id or a custom unique index on PERSONA/ID) already exists.
-                print(f"Duplicate key error during insert for {PERSONA}/{ID}")
-                raise HTTPException(status_code=409, detail=f"A milestone document for PERSONA '{PERSONA}' and ID '{ID}' already exists.")
+            # No need to catch DuplicateKeyError specifically anymore, as upsert handles it.
             except Exception as e:
             # Catch any other unexpected errors
-                print(f"Error creating milestone document for {PERSONA}/{ID}: {str(e)}")
-                raise HTTPException(status_code=500, detail=f"Internal server error creating milestone document: {str(e)}")
+                print(f"Error processing milestone for {PERSONA}/{ID}: {str(e)}")
+                raise HTTPException(status_code=500, detail=f"Internal server error processing milestone: {str(e)}")
+
 
         @self.httpServer.app.get("/Milestone/GetMilestoneInfo")
         async def get_milestone_info(
