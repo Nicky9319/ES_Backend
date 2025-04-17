@@ -595,6 +595,204 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Milestones",
+      "item": [
+        {
+          "name": "Create New Milestone",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"NAME\": \"Launch Beta\",\n  \"DEADLINE\": \"2024-12-31T23:59:59Z\",\n  \"STATUS\": \"Not Started\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:14000/Milestone/CreateNewMilestone?PERSONA=gamer&ID=replace-with-valid-id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Milestone",
+                "CreateNewMilestone"
+              ],
+              "query": [
+                {
+                  "key": "PERSONA",
+                  "value": "gamer"
+                },
+                {
+                  "key": "ID",
+                  "value": "replace-with-valid-id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Milestone Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:14000/Milestone/GetMilestoneInfo?PERSONA=gamer&ID=replace-with-valid-id&MILESTONE_ID=replace-with-valid-milestone-id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Milestone",
+                "GetMilestoneInfo"
+              ],
+              "query": [
+                {
+                  "key": "PERSONA",
+                  "value": "gamer"
+                },
+                {
+                  "key": "ID",
+                  "value": "replace-with-valid-id"
+                },
+                {
+                  "key": "MILESTONE_ID",
+                  "value": "replace-with-valid-milestone-id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Milestone",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"NAME\": \"Launch Official\",\n  \"DEADLINE\": \"2025-01-15T12:00:00Z\",\n  \"STATUS\": \"In Progress\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:14000/Milestone/UpdateMilestone?PERSONA=gamer&ID=replace-with-valid-id&MILESTONE_ID=replace-with-valid-milestone-id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Milestone",
+                "UpdateMilestone"
+              ],
+              "query": [
+                {
+                  "key": "PERSONA",
+                  "value": "gamer"
+                },
+                {
+                  "key": "ID",
+                  "value": "replace-with-valid-id"
+                },
+                {
+                  "key": "MILESTONE_ID",
+                  "value": "replace-with-valid-milestone-id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Milestone",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:14000/Milestone/DeleteMilestone?PERSONA=gamer&ID=replace-with-valid-id&MILESTONE_ID=replace-with-valid-milestone-id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Milestone",
+                "DeleteMilestone"
+              ],
+              "query": [
+                {
+                  "key": "PERSONA",
+                  "value": "gamer"
+                },
+                {
+                  "key": "ID",
+                  "value": "replace-with-valid-id"
+                },
+                {
+                  "key": "MILESTONE_ID",
+                  "value": "replace-with-valid-milestone-id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Milestone Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"STATUS\": \"Completed\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:14000/Milestone/UpdateMilestoneStatus?PERSONA=gamer&ID=replace-with-valid-id&MILESTONE_ID=replace-with-valid-milestone-id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "14000",
+              "path": [
+                "Milestone",
+                "UpdateMilestoneStatus"
+              ],
+              "query": [
+                {
+                  "key": "PERSONA",
+                  "value": "gamer"
+                },
+                {
+                  "key": "ID",
+                  "value": "replace-with-valid-id"
+                },
+                {
+                  "key": "MILESTONE_ID",
+                  "value": "replace-with-valid-milestone-id"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }
