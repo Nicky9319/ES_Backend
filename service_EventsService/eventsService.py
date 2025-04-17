@@ -167,6 +167,23 @@ class Service():
 
             return responseInJson
 
+        @self.httpServer.app.post("/Events/Discussion/AddNewQuestion")
+        async def add_new_question(
+            EVENT_ID: str,
+            QUESTION: str,
+        ):
+            serviceName = "MONGO_DB_SERVICE"
+            serviceURL = await self.getServiceURL(serviceName)
+
+            async with httpx.AsyncClient() as client:
+                response = await client.post(f"http://{serviceURL}/Events/Discussion/AddNewQuestion?EVENT_ID={EVENT_ID}&QUESTION={QUESTION}")
+                responseInJson = response.json()
+
+            if responseInJson["EVENT_ID"] == None:
+                raise HTTPException(status_code=404, detail="Event not found")
+
+            return responseInJson
+
     async def startService(self):
         # await self.messageQueue.InitializeConnection()
         # await self.messageQueue.AddQueueAndMapToCallback("queue1", self.fun1)
