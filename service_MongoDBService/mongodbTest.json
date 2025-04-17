@@ -68,7 +68,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"CONTACT_INFO\": { \"EMAIL\": \"test@example.com\", \"MOBILE_NUMBER\": \"1234567890\" },\n  \"DESCRIPTION\": \"Test event\",\n  \"EVENT_DATE\": \"2024-10-10T10:00:00Z\",\n  \"EVENT_NAME\": \"Sample Event\",\n  \"REGISTRATION_DEADLINE\": \"2024-10-01T10:00:00Z\",\n  \"VENUE\": \"Online\",\n  \"ELIGIBILITY\": [\"beginner\"]\n}"
+              "raw": "{\n  \"CONTACT_INFO\": { \"EMAIL\": \"test@example.com\", \"MOBILE_NUMBER\": \"1234567890\" },\n  \"DESCRIPTION\": \"Test event\",\n  \"EVENT_DATE\": \"2024-10-10T10:00:00Z\",\n  \"EVENT_NAME\": \"Sample Event\",\n  \"REGISTRATION_DEADLINE\": \"2024-10-01T10:00:00Z\",\n  \"VENUE\": \"Online\",\n  \"ELIGIBILITY\": [\"beginner\"],\n  \"GAME_TYPE\": \"FPS\",\n  \"GAME\": \"Valorant\",\n  \"CONSOLE\": \"PC\",\n  \"PRIZE_POOL\": \"$1000\",\n  \"LOCATION\": \"Online\",\n  \"FORMAT\": \"Single Elimination\",\n  \"NUMBER_OF_MEMBERS\": 5,\n  \"NUMBER_OF_TEAMS\": 8,\n  \"ORGANIZER\": \"user-uuid\",\n  \"STATUS\": \"UPCOMING\",\n  \"SPONSORSHIP_TIERS\": [\n    {\n      \"TIER_NAME\": \"Gold\",\n      \"PRICE\": 1000,\n      \"BENEFITS\": [\"Logo on stream\", \"Social media shoutouts\"]\n    }\n  ],\n  \"SOCIAL_LINKS\": {\n    \"DISCORD\": \"discord.gg/event\",\n    \"TWITTER\": \"@eventhandle\"\n  }\n}"
             },
             "url": {
               "raw": "http://localhost:14000/Events/CreateNewEvent",
@@ -97,7 +97,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"EVENT_ID\": \"replace-with-valid-event-id\",\n  \"CONTACT_INFO\": { \"EMAIL\": \"update@example.com\", \"MOBILE_NUMBER\": \"0987654321\" },\n  \"DESCRIPTION\": \"Updated event description\",\n  \"EVENT_DATE\": \"2024-10-15T10:00:00Z\",\n  \"EVENT_NAME\": \"Updated Event\",\n  \"REGISTRATION_DEADLINE\": \"2024-10-05T10:00:00Z\",\n  \"VENUE\": \"Offline\",\n  \"ELIGIBILITY\": [\"advanced\"]\n}"
+              "raw": "{\n  \"EVENT_ID\": \"replace-with-valid-event-id\",\n  \"CONTACT_INFO\": { \"EMAIL\": \"update@example.com\", \"MOBILE_NUMBER\": \"0987654321\" },\n  \"DESCRIPTION\": \"Updated event description\",\n  \"EVENT_DATE\": \"2024-10-15T10:00:00Z\",\n  \"EVENT_NAME\": \"Updated Event\",\n  \"REGISTRATION_DEADLINE\": \"2024-10-05T10:00:00Z\",\n  \"VENUE\": \"Offline\",\n  \"ELIGIBILITY\": [\"advanced\"],\n  \"GAME_TYPE\": \"MOBA\",\n  \"GAME\": \"League of Legends\",\n  \"PRIZE_POOL\": \"$2000\",\n  \"STATUS\": \"IN_PROGRESS\",\n  \"SPONSORSHIP_TIERS\": [\n    {\n      \"TIER_NAME\": \"Platinum\",\n      \"PRICE\": 2000,\n      \"BENEFITS\": [\"Premium placement\", \"VIP access\"]\n    }\n  ],\n  \"SOCIAL_LINKS\": {\n    \"DISCORD\": \"discord.gg/updated-event\",\n    \"TWITTER\": \"@updatedevent\"\n  }\n}"
             },
             "url": {
               "raw": "http://localhost:14000/Events/Update",
