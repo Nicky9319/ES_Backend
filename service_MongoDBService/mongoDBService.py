@@ -772,21 +772,21 @@ class Service():
             print(f"Fetching Team Info for TEAM_ID: {TEAM_ID}")
             # Check if TEAM_ID is provided
             if not TEAM_ID:
-            raise HTTPException(status_code=400, detail="TEAM_ID is required")
+                raise HTTPException(status_code=400, detail="TEAM_ID is required")
 
-            # Query the database for the team with the specified TEAM_ID
-            # Exclude the MongoDB internal _id field
-            team_info = self.teams_collection.find_one(
-            {"TEAM_ID": TEAM_ID},
-            {'_id': 0}
-            )
+                # Query the database for the team with the specified TEAM_ID
+                # Exclude the MongoDB internal _id field
+                team_info = self.teams_collection.find_one(
+                {"TEAM_ID": TEAM_ID},
+                {'_id': 0}
+                )
 
-            # Check if a team was found
-            if not team_info:
-            raise HTTPException(status_code=404, detail=f"Team with ID {TEAM_ID} not found")
+                # Check if a team was found
+                if not team_info:
+                    raise HTTPException(status_code=404, detail=f"Team with ID {TEAM_ID} not found")
 
             # Return the team information
-            return {"TEAM_INFO": team_info}
+                return {"TEAM_INFO": team_info}
             
 
     # Milestones
