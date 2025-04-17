@@ -744,6 +744,222 @@ class Service():
                 print(f"Error creating milestone document for {PERSONA}/{ID}: {str(e)}")
                 raise HTTPException(status_code=500, detail=f"Internal server error creating milestone document: {str(e)}")
 
+        @self.httpServer.app.get("/Milestone/GetMilestoneInfo")
+        async def get_milestone_info(
+            PERSONA: str,
+            ID: str,
+            MILESTONE_ID: str,
+            request: Request
+        ):
+            # 1. Validate input parameters
+            if not PERSONA:
+                raise HTTPException(status_code=400, detail="PERSONA query parameter is required")
+            if not ID:
+                raise HTTPException(status_code=400, detail="ID query parameter is required")
+            if not MILESTONE_ID:
+                raise HTTPException(status_code=400, detail="MILESTONE_ID query parameter is required")
+
+            try:
+                # 2. Ensure the milestones collection attribute exists
+                if not hasattr(self, 'milestones_collection'):
+                    self.milestones_collection = self.db["MILESTONES"]
+
+                # 3. Find the document matching PERSONA and ID
+                # We use projection to potentially optimize, but finding the specific milestone requires fetching the array
+                # Using aggregation pipeline is more efficient to directly find the matching milestone element
+                pipeline = [
+                    {
+                    "$match": {
+                        "PERSONA": PERSONA,
+                        "ID": ID
+                    }
+                    },
+                    {
+                    "$unwind": "$MILESTONES" # Deconstruct the MILESTONES array
+                    },
+                    {
+                    "$match": {
+                        "MILESTONES.MILESTONE_ID": MILESTONE_ID # Filter for the specific milestone
+                    }
+                    },
+                    {
+                    "$replaceRoot": { "newRoot": "$MILESTONES" } # Make the milestone object the root document
+                    }
+                ]
+
+                result = list(self.milestones_collection.aggregate(pipeline))
+
+                # 4. Check if the milestone was found
+                if not result:
+                    # Check if the document itself exists to give a more specific error
+                    parent_doc = self.milestones_collection.find_one({"PERSONA": PERSONA, "ID": ID}, {"_id": 1})
+                    if not parent_doc:
+                        raise HTTPException(status_code=404, detail=f"Milestone document for PERSONA '{PERSONA}' and ID '{ID}' not found.")
+                    else:
+                        raise HTTPException(status_code=404, detail=f"Milestone with ID '{MILESTONE_ID}' not found within the document for PERSONA '{PERSONA}' and ID '{ID}'.")
+
+                # 5. Return the found milestone (it's the first element in the result list)
+                milestone_info = result[0]
+                # Convert datetime back to ISO string for JSON response if needed
+                if isinstance(milestone_info.get("DEADLINE"), datetime):
+                    milestone_info["DEADLINE"] = milestone_info["DEADLINE"].isoformat() + "Z"
+
+                return {"MILESTONE_INFO": milestone_info}
+
+            except HTTPException as e:
+            # Re-raise HTTPExceptions
+                raise e
+            except Exception as e:
+            # Catch any other unexpected errors
+                print(f"Error retrieving milestone info for {PERSONA}/{ID}/{MILESTONE_ID}: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"Internal server error retrieving milestone info: {str(e)}")
+
+        @self.httpServer.app.put("/Milestone/UpdateMilestone")
+        async def update_milestone(
+            PERSONA: str,
+            ID: str,
+            MILESTONE_ID: str,
+            request: Request
+        ):
+            # 1. Validate query parameters
+            if not PERSONA:
+                raise HTTPException(status_code=400, detail="PERSONA query parameter is required")
+            if not ID:
+                raise HTTPException(status_code=400, detail="ID query parameter is required")
+            if not MILESTONE_ID:
+                raise HTTPException(status_code=400, detail="MILESTONE_ID query parameter is required")
+
+            try:
+            # 2. Get update data from request body
+                update_data = await request.json()
+                print(f"Received update data for milestone {PERSONA}/{ID}/{MILESTONE_ID}:", update_data)
+
+                # 3. Ensure the milestones collection attribute exists
+                if not hasattr(self, 'milestones_collection'):
+                    self.milestones_collection = self.db["MILESTONES"]
+
+                # 4. Prepare the update fields, parsing dates if necessary
+                update_fields = {}
+                for key, value in update_data.items():
+                    # Don't allow updating MILESTONE_ID, PERSONA, or ID via this endpoint
+                    if key in ["MILESTONE_ID", "PERSONA", "ID"]:
+                        continue
+                        if key == "DEADLINE":
+                            try:
+                                deadline = self.parse_date_time(value)
+                                if not isinstance(deadline, datetime):
+                                    if isinstance(value, str):
+                                        deadline = datetime.fromisoformat(value.replace('Z', '+00:00'))
+                                else:
+                                    raise ValueError("DEADLINE must be a valid ISO date string or $date object")
+                                update_fields[f"MILESTONES.$.{key}"] = deadline # Use positional operator $
+                            except (ValueError, TypeError) as e:
+                                raise HTTPException(status_code=400, detail=f"Invalid DEADLINE format. Use ISO format. Error: {e}")
+                            else:
+                            # Add other fields to be updated, prefixed for array update
+                                update_fields[f"MILESTONES.$.{key}"] = value
+
+                if not update_fields:
+                    raise HTTPException(status_code=400, detail="No valid fields provided for update.")
+
+                # 5. Perform the update using the positional operator $
+                result = self.milestones_collection.update_one(
+                    {
+                    "PERSONA": PERSONA,
+                    "ID": ID,
+                    "MILESTONES.MILESTONE_ID": MILESTONE_ID # Match the document and the specific milestone in the array
+                    },
+                    {
+                    "$set": update_fields # Set the new values for the matched array element
+                    }
+                )
+
+                # 6. Check the result
+                if result.matched_count == 0:
+                    # Check if the document exists but the milestone doesn't, or if the doc doesn't exist
+                    parent_doc = self.milestones_collection.find_one({"PERSONA": PERSONA, "ID": ID}, {"_id": 1})
+                    if not parent_doc:
+                        raise HTTPException(status_code=404, detail=f"Milestone document for PERSONA '{PERSONA}' and ID '{ID}' not found.")
+                    else:
+                        raise HTTPException(status_code=404, detail=f"Milestone with ID '{MILESTONE_ID}' not found within the document for PERSONA '{PERSONA}' and ID '{ID}'.")
+                elif result.modified_count == 0:
+                    return {"message": "No changes were made to the milestone (data might be the same)."}
+                else:
+                    print(f"Milestone {MILESTONE_ID} updated successfully for {PERSONA}/{ID}")
+                    return {"message": "Milestone updated successfully"}
+
+            except HTTPException as e:
+                raise e
+            except Exception as e:
+                print(f"Error updating milestone {PERSONA}/{ID}/{MILESTONE_ID}: {str(e)}")
+                raise HTTPException(status_code=500, detail=f"Internal server error updating milestone: {str(e)}")
+
+        @self.httpServer.app.delete("/Milestone/DeleteMilestone")
+        async def delete_milestone(
+            PERSONA: str,
+            ID: str,
+            MILESTONE_ID: str,
+            request: Request
+        ):
+            # 1. Validate query parameters
+            if not PERSONA:
+                raise HTTPException(status_code=400, detail="PERSONA query parameter is required")
+            if not ID:
+                raise HTTPException(status_code=400, detail="ID query parameter is required")
+            if not MILESTONE_ID:
+                raise HTTPException(status_code=400, detail="MILESTONE_ID query parameter is required")
+
+            try:
+                # 2. Ensure the milestones collection attribute exists
+                if not hasattr(self, 'milestones_collection'):
+                    self.milestones_collection = self.db["MILESTONES"]
+
+                # 3. Perform the update using $pull to remove the milestone from the array
+                result = self.milestones_collection.update_one(
+                    {
+                    "PERSONA": PERSONA,
+                    "ID": ID,
+                    # Ensure the milestone actually exists before trying to pull
+                    "MILESTONES.MILESTONE_ID": MILESTONE_ID
+                    },
+                    {
+                    "$pull": { # Use $pull to remove an item from an array
+                        "MILESTONES": { "MILESTONE_ID": MILESTONE_ID } # Specify the element to remove
+                    }
+                    }
+                )
+
+                # 4. Check the result
+                if result.matched_count == 0:
+                    # If matched_count is 0, it means the document or the specific milestone wasn't found
+                    parent_doc = self.milestones_collection.find_one({"PERSONA": PERSONA, "ID": ID}, {"_id": 1})
+                    if not parent_doc:
+                        raise HTTPException(status_code=404, detail=f"Milestone document for PERSONA '{PERSONA}' and ID '{ID}' not found.")
+                    else:
+                    # This case means the document was found, but the milestone ID wasn't in its array
+                        raise HTTPException(status_code=404, detail=f"Milestone with ID '{MILESTONE_ID}' not found within the document for PERSONA '{PERSONA}' and ID '{ID}'.")
+                elif result.modified_count == 0:
+                    # This case should ideally not happen if matched_count > 0 and the pull condition is met,
+                    # but could occur in race conditions or if the element was already removed.
+                    # We can treat it as "not found" or "already deleted".
+                    raise HTTPException(status_code=404, detail=f"Milestone with ID '{MILESTONE_ID}' could not be removed (might already be deleted or document structure issue).")
+                else:
+                    print(f"Milestone {MILESTONE_ID} deleted successfully for {PERSONA}/{ID}")
+                    # Optional: Check if the MILESTONES array is now empty and delete the document if desired
+                    # updated_doc = self.milestones_collection.find_one({"PERSONA": PERSONA, "ID": ID})
+                    # if updated_doc and not updated_doc.get("MILESTONES"):
+                    #     self.milestones_collection.delete_one({"PERSONA": PERSONA, "ID": ID})
+                    #     print(f"Milestone document for {PERSONA}/{ID} deleted as it became empty.")
+                    #     return {"message": "Milestone deleted successfully and empty document removed."}
+
+                    return {"message": "Milestone deleted successfully"}
+
+            except HTTPException as e:
+                raise e
+            except Exception as e:
+                print(f"Error deleting milestone {PERSONA}/{ID}/{MILESTONE_ID}: {str(e)}")
+                raise HTTPException(status_code=500, detail=f"Internal server error deleting milestone: {str(e)}")
+                pass
 
 
     async def startService(self):
